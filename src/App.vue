@@ -1,8 +1,8 @@
 <template>
 	<div id="app">
-		<keep-alive exclude="News">
 			<router-view class="router-view"></router-view>
-		</keep-alive>
+		<!-- <keep-alive exclude="News,Coach"> -->
+		<!-- </keep-alive> -->
 		<div v-show="!isShow" class="isShow" @click="clickShow">
 			<img src="~assets/img/app/ShowMore.png"/>
 		</div>
@@ -49,6 +49,7 @@
 
 <style scoped>
 	@import "assets/css/base.css";
+
 	#app{
 	
 	}

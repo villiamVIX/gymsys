@@ -1,19 +1,22 @@
 <template>
 	<div id="Coach">
-		<div class="ad-box">
-			<div class="ad-cont">
-				<img src="http://192.168.1.104:3008/images/coach/AD-01.png" />
+		<div v-if="!isShowConfirm">
+			<div class="ad-box">
+				<div class="ad-cont">
+					<img src="http://192.168.1.104:3008/images/coach/AD-01.png" />
+				</div>
 			</div>
+			<SlotHome>
+				<span slot='title-left' class="title-left">私教课程</span>
+				<div slot='slot-content'>
+					<CoachType :coachTypes='coachTypes' @clickType='clickType'></CoachType>
+					<van-action-sheet v-model="isShowList" :title="currentType+'教练'">
+						<CoachList :coachDetail='coachDetail' :isShowList='isShowList' @ShowConfirm='ShowConfirm'></CoachList>
+					</van-action-sheet>
+				</div>
+			</SlotHome>
 		</div>
-		<SlotHome>
-			<span slot='title-left' class="title-left">私教课程</span>
-			<div slot='slot-content'>
-				<CoachType :coachTypes='coachTypes' @clickType='clickType'></CoachType>
-				<van-action-sheet v-model="isShowList" title="私人教练">
-					<CoachList :coachDetail='coachDetail' :isShowList='isShowList'></CoachList>
-				</van-action-sheet>
-			</div>
-		</SlotHome>
+		<Confirm v-if='isShowConfirm' :selectCoh='selectCoh'></Confirm>
 	</div>
 </template>
 
@@ -21,12 +24,13 @@
 	import SlotHome from 'components/common/Slot/SlotHome.vue'
 	import CoachType from './childCpn/CoachType.vue'
 	import CoachList from './childCpn/CoachList.vue'
+	import Confirm from 'components/content/Confirm/Confirm.vue'
 	import Vue from 'vue';
 	import {
-		ActionSheet
+		ActionSheet,Toast
 	} from 'vant';
 
-	Vue.use(ActionSheet);
+	Vue.use(ActionSheet).use(Toast);
 
 	import {
 		getCoachList
@@ -36,10 +40,13 @@
 			SlotHome,
 			CoachType,
 			CoachList,
+			Confirm
 		},
 		data() {
 			return {
 				isShowList: false,
+				isShowConfirm: false,
+				selectCoh: {},
 				coachTypes: [{
 						'imgUrl': require('assets/img/train/coach/defat.png'),
 					},
@@ -58,12 +65,20 @@
 		created() {
 			this.getCoachList()
 		},
+		mounted() {
+			this.$bus.$on('clickBtn', this.changeCoh) //接收确认页面发来的车子 且调用changeCoh 关闭确认页面
+		},
+		destroyed() {
+			this.$bus.$off('clickBtn', this.changeCoh)
+		},
 		methods: {
+			changeCoh() {
+				this.isShowConfirm = false
+			},
 			getCoachList() {
 				getCoachList().then(res => {
 					this.coachList = res.data
-					console.log(res.data)
-
+					// console.log(res.data)
 				})
 			},
 			filterCoach() {
@@ -89,9 +104,17 @@
 						this.currentType = '瑜伽'
 						break;
 				}
-				console.log(this.currentType)
 				this.filterCoach()
 				this.isShowList = true
+			},
+			ShowConfirm(info) {
+				console.log(info)
+				this.selectCoh = info //接收子组件装好的教练资料  
+				if (info == undefined) {
+					this.$toast("请先选择教练o")
+				} else {
+					this.isShowConfirm = true //再把确认页面打开 -------确认页面中包含另一车事件总线点击事件
+				}
 			}
 		}
 	}
@@ -111,6 +134,10 @@
 		height: 100%;
 		width: 100%;
 		padding: 0.9375rem;
+	}
+
+	.content {
+		padding: 16px 16px 80vh;
 	}
 
 	.title-left {

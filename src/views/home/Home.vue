@@ -18,10 +18,7 @@
 <script>
 	import Vue from 'vue';
 	import {
-		Dialog
-	} from 'vant';
-	import {
-		Toast
+		Dialog,Toast
 	} from 'vant';
 
 	import HomeTopBar from './childCpn/HomeTopBar'
@@ -51,7 +48,8 @@
 				recommend: {},
 				isShow: false,
 				// accountData:{}
-				reKey: 1
+				reKey: 1,
+				username:""
 			}
 		},
 		methods: {
@@ -79,8 +77,10 @@
 								console.log('res=>', res);
 								let data = res
 								if (data.code === 10000) {
-									sessionStorage.setItem("authorization", data.sessionId)
-									localStorage.setItem("nickname", data.nickname)
+									sessionStorage.setItem("authorization", data.data.sessionId)
+									localStorage.setItem("nickname", data.data.nickname)
+									localStorage.setItem("Role",data.data.role[0])
+									this.username=data.data.nickname
 									this.$toast("登录成功!")
 									window.location.href = '/' //成功滚回主页
 								} else {
