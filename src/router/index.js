@@ -6,6 +6,7 @@ const News = () => import('views/news/News.vue')
 const Train = () => import('views/train/Train.vue')
 const Lesson = () => import('views/train/Cpn/lesson/Lesson.vue')
 const Coach = () => import('views/train/Cpn/coach/Coach.vue')
+const Login = () => import('views/profile/login/Login.vue')
 Vue.use(VueRouter)
 
 const routes = [{
@@ -41,6 +42,10 @@ const routes = [{
 			},
 		]
 	},
+	{
+		path: '/profile/login',
+		component: Login
+	}
 ]
 
 const router = new VueRouter({

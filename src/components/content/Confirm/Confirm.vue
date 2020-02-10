@@ -22,7 +22,7 @@
 	
 	import {
 		bookCoach
-	} from 'network/NetCoach.js'
+	} from 'network/NetTrain.js'
 	Vue.use(Toast);
 	export default {
 		props: {

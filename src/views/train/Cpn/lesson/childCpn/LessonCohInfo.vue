@@ -1,19 +1,21 @@
 <template>
 	<div id="LessonCohInfo">
 		<div class="coach-img">
-			<img :src="selectCoh.cohPic" />
+			<img :src="teacherInfo.cohPic" />
 		</div>
 		<div class="coach-info">
-			<h3 class="coach-name">{{selectCoh.name}}</h3>
-			<span class="coach-price">¥{{selectCoh.price}}</span>
-		</div>
+			<h3 class="coach-name">{{teacherInfo.name}}</h3>
+			
+			<div class="coach-level">教练评级{{teacherInfo.level}}</div>
+主攻:<span class="coach-major" v-for='major in teacherInfo.major'>{{major}}.</span>	
+	</div>
 	</div>
 </template>
 
 <script>
 	export default {
 		props: {
-			selectCoh: {
+			teacherInfo: {
 				type: Object,
 				default(){
 					return {}
@@ -33,40 +35,51 @@
 		padding: 0px 15px;
 		height: 82px;
 	}
-	.coach-img{
-		align-self: center;
+	
+	.coach-img {
+		flex: 1;
+		padding-top: 3px;
 	}
+	
 	.coach-img img {
-		border-radius: 65px;
-		flex: 2;
+		border-radius: 55px;
 		height: 70px;
 		width: 70px;
-		/* padding-top: 5px; */
 	}
-
+	
 	.coach-info {
-		flex: 1;
-		margin-left: 13px;
-		align-self: center;
+		flex: 4;
+		font-size: 15px;
+		margin-left: 5px
 	}
-	.coach-name{
-		margin-bottom: 4%;
+	
+	.coach-name {
+		font-size: 1rem;
+		font-weight: bold;
+	}
+	
+	.coach-level {
+		border: 1px solid #FDF6D3;
+		background-color: #FDF6D3;
+		width: 80px;
+		color: #645D2E;
+		float: right;
+	
+		margin: 2px 35% 0 0;
+	}
+	
+	.coach-freq {
+		padding: 8px 0;
+		color: #A3A2A3;
+	}
+	
+	.coach-major {}
+	
+	.coach-price {
+		color: #E57464;
 		font-size: 18px;
 	}
-	.coach-price{
-		padding-top: 20px;
-		color: #E57464;
-		font-size: 15px;
-		font-weight: bolder;
-	}
-
-	.btn-change {
-		width: 80px;
-		height: 40px;
-		background-color: transparent;
-		border: 1px solid;
-		color: #60cd5c;
-		float: right;
-		align-self: center;
+	.btn-bottom{
+		position: fixed;
 	}
 </style>

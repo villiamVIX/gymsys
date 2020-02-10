@@ -34,7 +34,7 @@
 	import {
 		getHomeNews
 	} from 'network/NetHome.js'
-	import {NetLogin} from 'network/NetLogin.js'
+	// import {NetLogin} from 'network/NetLogin.js'
 	
 	Vue.use(Dialog).use(Toast);
 	export default {
@@ -73,21 +73,21 @@
 						this.$toast("请输入用户名和密码")
 						done(false) //不关闭弹框
 					} else {
-						NetLogin(AccData).then(res => {
-								console.log('res=>', res);
-								let data = res
-								if (data.code === 10000) {
-									sessionStorage.setItem("authorization", data.data.sessionId)
-									localStorage.setItem("nickname", data.data.nickname)
-									localStorage.setItem("Role",data.data.role[0])
-									this.username=data.data.nickname
-									this.$toast("登录成功!")
-									window.location.href = '/' //成功滚回主页
-								} else {
-									this.$toast(data.message) //没成跳错误信息
-									setTimeout(()=>{done()},1500)
-								}
-							})
+						// NetLogin(AccData).then(res => {
+						// 		console.log('res=>', res);
+					// 			let data = res
+					// 			if (data.code === 10000) {
+					// 				sessionStorage.setItem("authorization", data.data.sessionId)
+					// 				localStorage.setItem("nickname", data.data.nickname)
+					// 				localStorage.setItem("Role",data.data.role[0])
+					// 				this.username=data.data.nickname
+					// 				this.$toast("登录成功!")
+					// 				window.location.href = '/' //成功滚回主页
+					// 			} else {
+					// 				this.$toast(data.message) //没成跳错误信息
+					// 				setTimeout(()=>{done()},1500)
+					// 			}
+					// 		})
 					}
 				} else if (action === 'cancel') {
 					done() //关闭
@@ -111,5 +111,6 @@
 <style scoped>
 	.home {
 		height: 100vh;
+		
 	}
 </style>

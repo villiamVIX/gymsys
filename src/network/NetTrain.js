@@ -5,7 +5,8 @@ import {
 // 请新闻数据
 export function getCoachList() {
 	return VIX({
-		url: '/coach'
+		url: '/coach',
+		timeout: 3000
 	})
 }
 
@@ -18,3 +19,18 @@ export function bookCoach(bookInfo) {
 	})
 	}
 
+export function getLesson(){
+	return VIX({
+		url:'/lesson',
+		timeout:5000
+	})
+}
+
+export function getLsTeacher(_id){
+	return VIX({
+		url:'/lesson/teacher',
+		params:{
+			_id
+		}
+	})
+}

@@ -34,7 +34,7 @@
 
 	import {
 		getCoachList
-	} from 'network/NetCoach.js' //数据请求
+	} from 'network/NetTrain.js' //数据请求
 	export default {
 		components: {
 			SlotHome,

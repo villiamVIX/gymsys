@@ -1,8 +1,6 @@
 <template>
 	<div id="app">
 			<router-view class="router-view"></router-view>
-		<!-- <keep-alive exclude="News,Coach"> -->
-		<!-- </keep-alive> -->
 		<div v-show="!isShow" class="isShow" @click="clickShow">
 			<img src="~assets/img/app/ShowMore.png"/>
 		</div>
@@ -24,6 +22,12 @@
 					<router-link to='/train'>
 						<i class="icon select"></i>
 						<span class="text">课程</span>
+					</router-link>
+				</div>
+				<div>
+					<router-link to='/profile/login'>
+						<i class="icon select"></i>
+						<span class="text">我的</span>
 					</router-link>
 				</div>
 			</div>

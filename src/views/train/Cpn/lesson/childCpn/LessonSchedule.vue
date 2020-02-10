@@ -1,9 +1,7 @@
 <template>
 	<div id="LessonSchedule">
-
 		<div class="Appointment">
 			<div class="lesson-info">
-				<span >上课<br/>时间</span>
 				<div class="lesson-time">
 					<div class="Lt1">18.-19.</div>
 					<div class="Lt2">19.-20.</div>
@@ -13,9 +11,10 @@
 				<div v-for="(i,indexW) in week" :key="indexW" class="week-box" :class="'wb'+indexW" @click="showSegment(i,indexW)">
 					<div class="week-show" :class="currentShow==indexW? 'week-hover':''">周{{i}}</div>
 
-					<div v-for="(s,indexS) in Segment" :key='indexS' @click="clickDay(s,indexW,indexS)" class="Segment-box" >
-						<div class="Segment-item" :id="'s'+indexW+indexS">{{s}}
-							<br />可预约</div>
+					<div v-for="(s,indexS) in Segment" :key='indexS' class="Segment-box">
+						<div class="Segment-item" :id="'s'+indexW+indexS" @click="clickDay($event)">
+							{{s}}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -34,51 +33,63 @@
 			this.currentWeek = days
 			this.LoadCalendar()
 		},
-		updated() {
-			this.filterBooked()
-		},
-		data() {
-			return {
-				week: [],
-				Segment: [],
-				currentDay: '',
-				currentWeek: '',
-				currentShow: null,
-				BookInfo: {
-					Sid: '',
-					username: '',
-					_id: ''
-				}
-			}
+		mounted() {
+			this.$nextTick(() => {
+				let timer = setTimeout(() => {
+					//被迫等待DOM刷新
+					if (timer) {
+						clearTimeout(timer)
+						this.filterLesson()
+					}
+				}, 200)
+			})
 		},
 		methods: {
-			filterBooked() {
-				let k = this.booked
-				let kL = k.length
-				for (let i = 0; i < kL; i++) {
-					console.log(k[i])
-					let segmentDom = document.getElementById(k[i])
-					// 将原有/HOver样式取消
-					segmentDom.style.backgroundColor = "gray";
-					segmentDom.style.textDecoration = 'line-through';
-					segmentDom.onmouseover = cancelHover
+			filterLesson() {
+				this.$nextTick(() => {
+					let k = this.Lessons
+					let kL = k.length
 
-					function cancelHover() {
-						segmentDom.style.color = 'black'
+					for (let i = 0; i < kL; i++) {
+						console.log('"' + k[i].Sid + '"')
+						let Lname = k[i].lessonName
+						let Tid = k[i].Tid
+						let Lteacher = k[i].teachers[Tid].name
+						console.log('Lteacher' + Lteacher)
+						let segmentDom = document.getElementById(k[i].Sid)
+
+						// 将原有/HOver样式取消
+						segmentDom.style.backgroundColor = "#e0f5de69";
+						segmentDom.innerText = Lname + '\n\n' + '教练：' + '\n' + Lteacher
+
+						// segmentDom.innerText=Lteacher
+						segmentDom.onmouseover = cancelHover
+
+						function cancelHover() {
+							segmentDom.style.color = '#029fdd'
+						}
 					}
-				}
+				})
+
 			},
 			showSegment(i, indexW) {
 				this.currentShow = indexW
 				// console.log(i)
 			},
-			clickDay(s, inw, ins) {
-				let username = localStorage.getItem('nickname')
-				this.BookInfo.username = username
-				this.BookInfo.Sid = 's' + inw.toString() + ins.toString() //把占位ID存起来
-				console.log(this.BookInfo)
-				this.$emit('bookCoach', this.BookInfo)
-				console.log(inw, ins)
+			clickDay(e) {
+				let Sid = e.currentTarget.id
+				let t = this.Lessons
+				let tL = t.length
+				let TeacherId = ''
+
+				for (let p = 0; p < tL; p++) {
+					let Tid = t[p].Tid // 教师位次
+					if (Sid == t[p].Sid) {
+						TeacherId = t[p].teachers[Tid].id
+						console.log(TeacherId)
+					}
+				}
+				this.$emit('clickTeacher', TeacherId)
 			},
 			LoadCalendar() {
 				for (let i = 0; i < 7; i++) {
@@ -89,26 +100,27 @@
 					}
 				}
 				for (let u = 0; u < 2; u++) {
-					const Sgm = ''
-					switch (u) {
-						case 1:
-							Sgm = '8:00';
-							break;
-						case 2:
-							Sgm = '10:00'
-							break;
-					}
+					const Sgm = '暂无课程'
 					this.Segment.push(Sgm)
 					// console.log("日" + this.Segment)
 				}
 			}
 		},
 		props: {
-			booked: {
+			Lessons: {
 				type: Array,
 				default () {
 					return []
 				}
+			}
+		},
+		data() {
+			return {
+				week: [],
+				Segment: [],
+				currentDay: '',
+				currentWeek: '',
+				currentShow: null,
 			}
 		},
 
@@ -118,6 +130,7 @@
 <style scoped>
 	#LessonSchedule {
 		padding: 10px 10px;
+		font: 15px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
 	}
 
 	.Appointment {
@@ -125,19 +138,38 @@
 
 	}
 
-	.lesson-info span {
-		width: 30px;
+	.lesson-info {
 		/* text-wrap: ; */
-		flex: 1;
+		/* flex: 1; */
+		margin: 32px 0px;
+		padding: 8px 5px;
+		height: 216px;
+		width: 70px;
+		color: #323332;
+		border: 1px solid gray;
+		background-color: white;
+		border-top-right-radius: 20px;
+		font-size: 18px/1.5
 	}
-	.lesson-detail{
+
+	.lesson-time div {
+		font-weight: border;
+		font-size: 18px
+	}
+
+	.Lt1 {
+		margin: 3px 0 95px 0;
+	}
+
+	.lesson-detail {
 		flex: 1;
 		display: flex;
 		width: 80vw;
 	}
+
 	.week-box {
-		 flex: 1; 
-		
+		flex: 1;
+
 	}
 
 	.week-show {
@@ -160,33 +192,33 @@
 
 	.Segment-box {
 		position: relative;
-		margin-top: 5px;
-		width: 70px;
+		margin: 5px 4px;
+		width: 80px;
+
 	}
-	.Segment-box:nth-child(3){
-		margin-top: 175px;
+
+	.Segment-box:nth-child(3) {
+		margin-top: 120px;
 	}
 
 	.Segment-item {
-		width: 70px;
+		width: 80px;
 		position: absolute;
 		padding: 8px 5px;
+		height: 100px;
 		color: #323332;
-		border: 1px solid #7bec75a1;
-		background-color: #e0f5de69;
-		height: 150px;
-		width: 60px;
+		border: 1px solid gray;
+		background-color: #767d7512;
 		border-bottom-right-radius: 20px;
+	}
+
+	#nameSpan {
+		color: #60CD5C;
+		margin: 55px;
 	}
 
 	.Segment-item:hover {
 		color: #00B7FF;
 		font-weight: bold;
-	}
-
-	.SegmentShow {
-		display: block;
-		height: 55px;
-
 	}
 </style>
