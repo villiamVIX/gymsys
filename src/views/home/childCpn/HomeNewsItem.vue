@@ -15,6 +15,8 @@
 
 <script>
 	import BScroll from 'better-scroll'
+		import {mapState} from 'vuex'
+	
 	export default {
 		
 		data() {
@@ -60,14 +62,9 @@
 		components:{
 			BScroll
 		},
-		props: {
-			newsDetail: {
-				type: Array,
-				default () {
-					[]
-				}
+		computed:{
+				...mapState(["newsDetail"])
 			}
-		}
 	}
 </script>
 

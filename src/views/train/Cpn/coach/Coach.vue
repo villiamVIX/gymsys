@@ -3,7 +3,7 @@
 		<div v-if="!isShowConfirm">
 			<div class="ad-box">
 				<div class="ad-cont">
-					<img src="http://192.168.1.104:3008/images/coach/AD-01.png" />
+					<img src="http://106.53.7.24:3008/images/coach/AD-01.png" />
 				</div>
 			</div>
 			<SlotHome>
@@ -16,31 +16,41 @@
 				</div>
 			</SlotHome>
 		</div>
-		<Confirm v-if='isShowConfirm' :selectCoh='selectCoh'></Confirm>
+		<Confirm v-else-if='isShowConfirm&&isLogin' :selectCoh='selectCoh'></Confirm>
+			<Shade v-else> </Shade>
 	</div>
 </template>
 
 <script>
-	import SlotHome from 'components/common/Slot/SlotHome.vue'
+	import Vue from 'vue';
 	import CoachType from './childCpn/CoachType.vue'
 	import CoachList from './childCpn/CoachList.vue'
+
 	import Confirm from 'components/content/Confirm/Confirm.vue'
-	import Vue from 'vue';
+	import SlotHome from 'components/common/Slot/SlotHome.vue'
+	import Shade from 'components/common/ShadeLogin/Shade.vue'
+
 	import {
-		ActionSheet,Toast
+		ActionSheet,
+		Toast
 	} from 'vant';
+	import {
+		mapState
+	} from 'vuex';
+	import {
+		checkLoginMixin
+	} from 'common/mixin.js';
 
 	Vue.use(ActionSheet).use(Toast);
 
-	import {
-		getCoachList
-	} from 'network/NetTrain.js' //数据请求
 	export default {
+		mixins: [checkLoginMixin],
 		components: {
 			SlotHome,
 			CoachType,
 			CoachList,
-			Confirm
+			Confirm,
+			Shade
 		},
 		data() {
 			return {
@@ -58,12 +68,11 @@
 					},
 				],
 				currentType: '',
-				coachList: [],
 				coachDetail: []
 			}
 		},
 		created() {
-			this.getCoachList()
+			this.$store.dispatch('reqCoachList')
 		},
 		mounted() {
 			this.$bus.$on('clickBtn', this.changeCoh) //接收确认页面发来的车子 且调用changeCoh 关闭确认页面
@@ -75,12 +84,7 @@
 			changeCoh() {
 				this.isShowConfirm = false
 			},
-			getCoachList() {
-				getCoachList().then(res => {
-					this.coachList = res.data
-					// console.log(res.data)
-				})
-			},
+
 			filterCoach() {
 				// 先清空教练栏目 防止重复PUSH
 				this.coachDetail = []
@@ -116,6 +120,9 @@
 					this.isShowConfirm = true //再把确认页面打开 -------确认页面中包含另一车事件总线点击事件
 				}
 			}
+		},
+		computed: {
+			...mapState(['coachList'])
 		}
 	}
 </script>
@@ -145,5 +152,10 @@
 		padding: 3px 10px;
 		font-family: serif;
 		font-size: 18px;
+	}
+
+	.shade {
+		background: #008B8B;
+		height: 100vh;
 	}
 </style>

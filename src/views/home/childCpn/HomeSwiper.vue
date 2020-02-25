@@ -6,7 +6,7 @@
 		  </van-swipe-item>
 		</van-swipe>
 	</div>
-	
+	 
 </template>
 
 <script>

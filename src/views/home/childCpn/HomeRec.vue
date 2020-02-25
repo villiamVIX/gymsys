@@ -13,19 +13,14 @@
 </template>
 
 <script>
-	// "../../../assets/img/home/recommendBanner.jpg"
 	import SlotHome from 'components/common/Slot/SlotHome.vue'
+	import {mapState} from 'vuex'
 	export default {
 		components: {
 			SlotHome
 		},
-		props:{
-			recommend:{
-				type:Object,
-				default(){
-					return {}
-				}
-			}
+		computed:{
+			...mapState(['recommend'])
 		},
 		data() {
 			return {

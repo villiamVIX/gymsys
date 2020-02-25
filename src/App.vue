@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
-			<router-view class="router-view"></router-view>
+			<router-view class="router-view" v-if="isRouterAlive"></router-view>
+
 		<div v-show="!isShow" class="isShow" @click="clickShow">
 			<img src="~assets/img/app/ShowMore.png"/>
 		</div>
@@ -8,26 +9,40 @@
 			<div class="bar-item bar-left" >
 				<div>
 					<router-link to="/home">
-						<i class="icon server"></i>
-						<span class="text">主页</span>
+						<i :class="Rname=='home'?'icon gymIcon-home2':'icon gymIcon-home1'"></i>
+						<!-- <span class="text">主页</span> -->
 					</router-link>
 				</div>
-				<div  to="/cart">
-					<router-link to='/news'>
-						<i class="icon shop"></i>
-						<span class="text">信息</span>
+				<div>
+					<router-link to='/news/001'>
+						<i :class="Rname=='news'?'gymIcon-news2':'gymIcon-news1'"></i>
+						<!-- <span class="text">信息</span> -->
+					</router-link>
+				</div>
+				<div>
+					<router-link to='/entrance'>
+						<i  :class="Rname=='entrance'?'icon gymIcon-scan2':'icon gymIcon-scan1'">
+							<span class="path1"></span>
+							<span class="path2"></span>
+							<span class="path3"></span>
+						</i>
+						<!-- <span class="text">入场码</span> -->
 					</router-link>
 				</div>
 				<div>
 					<router-link to='/train'>
-						<i class="icon select"></i>
-						<span class="text">课程</span>
+						<i :class="Rname=='train'?'gymIcon-train2':'gymIcon-train1'"></i>
+						<!-- <span class="text">课程</span> -->
 					</router-link>
 				</div>
 				<div>
 					<router-link to='/profile/login'>
-						<i class="icon select"></i>
-						<span class="text">我的</span>
+						<i :class="Rname=='profile'?'icon gymIcon-my2':'icon gymIcon-my1'">
+							<span class="path1"></span>
+							<span class="path2"></span>
+							<span class="path3"></span>
+						</i>
+						<!-- <span class="text">我的</span> -->
 					</router-link>
 				</div>
 			</div>
@@ -38,14 +53,30 @@
 <script>
 	const Home = () => import('views/home/Home')
 	export default{
+		created() {
+			this.$store.dispatch('reqIsLogin')
+		},
 		data() {
 			return {
-				isShow: false
+				isShow: false,
+				isRouterAlive:true,
+				Rname:undefined
 			}
+		},
+		updated(){
+			this.Rname=this.$route.name
+		},
+		mounted(){
 		},
 		methods:{
 			clickShow(){
 				this.isShow=!this.isShow
+			},
+			reload(){
+				this.isRouterAlive=false;
+				this.$nextTick(function(){
+					this.isRouterAlive=true
+				})
 			}
 		}
 	}
@@ -116,17 +147,20 @@
 
 	.bar-left .icon {
 		display: block;
-		width: 22px;
-		height: 22px;
-		background: url("assets/img/detail/detail_bottom.png") 0 0/100%;
-		margin: 6px auto 0px;
+		/* width: 22px; */
+		/* height: 22px; */
+		margin: 9px auto 0px;
+		font-size: 30px;
 	}
-
-	.bar-left .server {
-		background-position: 0 -53px;
+	
+	.gymIcon-news1,.gymIcon-news2{
+		display: block;
+		margin: 4px auto 0px;
+		font-size: 38px;
 	}
-
-	.bar-left .shop {
-		background-position: 0 -98px;
+	.gymIcon-train1,.gymIcon-train2{
+		display: block;
+		margin: 4px auto 0px;
+		font-size: 38px;
 	}
 </style>

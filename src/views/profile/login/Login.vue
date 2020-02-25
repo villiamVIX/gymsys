@@ -1,7 +1,7 @@
 <template>
 	<div class="loginForm" :model='loginForm'>
 		<div class="Login-icon">
-			<img src="~assets/logo.png" />
+			<img src="~assets/img/logo.png" />
 		</div>
 		<section class="switch-type">
 			<span :class="{activeType:loginMode}" @click="changeMode(true)">验证码登录</span>
@@ -20,7 +20,7 @@
 		</div>
 		<div v-show='!loginMode' class="mod">
 			<section class="login-form">
-				<input contenteditable="true" type="text" class="username" placeholder="手机号/邮箱" v-model="loginForm.username"
+				<input contenteditable="true" type="text" class="username" placeholder="用户名" v-model="loginForm.username"
 				 autofocus>
 				<div class="psw-switch">
 					<input v-show="pswShow" type="password" class="password" autocomplete='password' v-model="loginForm.password"
@@ -31,21 +31,20 @@
 					<img @click.prevent="PswMode" v-show="pswShow" src="~assets/img/profile/login/hide.png" />
 				</div>
 				<div id="captcheCode">
-					<input type="text" style="width: 46vw;" class="checkCode" v-model="checkCode" placeholder="验证码">
+					<input type="text" style="width: 46vw;" class="checkCode" v-model="loginForm.checkCode" placeholder="验证码">
 					<img ref='captcheImg' style="width: 30vw;" src="" @click.prevent="flashCaptche" />
 				</div>
 
 			</section>
 		</div>
 		<van-button class='btn' type="primary" size="large" @click='Login'>登录</van-button>
-		<van-button class='btn' type="default" size="large">返回</van-button>
+		<van-button class='btn' type="default" size="large" @click='back'>返回</van-button>
 
 	</div>
 </template>
 
 <script>
 	import Vue from 'vue';
-	import {mapActions} from 'vuex'
 	import {
 		Button,
 		Toast
@@ -53,21 +52,26 @@
 	import {
 		LoginCaptche,
 		phoneCode,
-		phoneLogin
+		phoneLogin,
+		pwdLogin
 	} from 'network/NetLogin.js'
+import {
+		checkLoginMixin
+	} from 'common/mixin.js'
 
 	Vue.use(Button).use(Toast);
 	export default {
+		mixins: [checkLoginMixin],
 		data() {
 			return {
 				countDown: 0,
 				loginMode: true,
 				pswShow: true,
 				catpcheImg: '',
-				checkCode: '',
 				loginForm: {
 					username: '',
 					password: '',
+					checkCode: ''
 				},
 				phoneForm: {
 					phone: '',
@@ -95,14 +99,14 @@
 				return /^[1][3,4,5,6,7,8][0-9]{9}$/.test(this.phoneForm.phone)
 			},
 			randomCodeRight() {
-				return /^\d{6}$/.test(this.phoneForm.randomCode)
+				return /^\d{5}$/.test(this.phoneForm.randomCode)
 			}
 		},
 		methods: {
-			flashCaptche() { //发动态图片验证码
-				this.$refs.captcheImg.src = "http://192.168.1.104:3008/users/login/captche?time=" + new Date()
+			flashCaptche() { //发动态图片验证码106.53.7.24
+				this.$refs.captcheImg.src = "http://192.168.1.104:3008/users/api/login/captche?time=" + new Date()
 			},
-			PswMode() { //切换密码是否隐藏
+			PswMode() { //切换密码是否隐藏 
 				this.pswShow = !this.pswShow
 			},
 			changeMode(flag) { //切换登录模式
@@ -112,6 +116,7 @@
 				phoneCode(this.phoneForm.phone).then(res => {
 					console.log(res)
 					alert('验证码：' + res.randomCode || "")
+					this.phoneForm.randomCode=res.randomCode
 				})
 				this.countDown = 5
 				let timer = setInterval(() => {
@@ -120,6 +125,9 @@
 						clearInterval(timer)
 					}
 				}, 1000)
+			},
+			back(){
+					this.$router.back()
 			},
 			Login() { //登录按钮点击后
 				if (this.loginMode === true) {
@@ -133,7 +141,7 @@
 					if (!this.phoneForm.randomCode) {
 						this.$toast('输入完整验证码')
 						return;
-					} else if (!(/^\d{5}$/ig.test(this.phoneForm.randomCode))) {
+					} else if (!this.randomCodeRight) {
 						console.log(this.phoneForm.randomCode)
 						this.$toast('输入正确验证码')
 						return;
@@ -143,14 +151,67 @@
 						phone,
 						randomCode
 					} = this.phoneForm //按需拨取出
-					phoneLogin(phone, randomCode).then(res => {  // 网络请求
-						console.log(res)
-						this.$toast(res.message)
+					
+					phoneLogin(phone, randomCode).then(res => { // 网络请求
+						console.log(res.data)
+						// this.$toast(res.data.message)
+						let {
+							phone,
+							username,
+							_id,
+							remain,
+							deadline,
+							avatar
+						} = res.data
+						this.$store.dispatch('rewriteUserInfo', {
+							phone: phone || '',
+							_id:_id,
+							username: username,
+							remain:remain,
+							deadline:deadline,
+							avatar:avatar
+						})
+						this.refresh()
 					})
 					console.log(phone, randomCode)
+				}else{
+					// 账号登陆
+					if(!this.loginForm.username ||!this.loginForm.password ||!this.loginForm.checkCode){
+						this.$toast('输入完整登陆信息')
+						return;
+					}
+					let {
+						username,
+						password,
+						checkCode
+					} = this.loginForm //按需拨取出
+					
+					pwdLogin(username, password,checkCode).then(res => { 
+						console.log(res)
+						// this.$toast(res.data.message)
+						let {
+							phone,
+							username,
+							_id,
+							remain,
+							deadline,
+							avatar
+						} = res.data
+						this.$store.dispatch('rewriteUserInfo', {
+							phone: phone || '',
+							_id:_id,
+							username: username,
+							remain:remain,
+							deadline:deadline,
+							avatar:avatar
+						})
+						this.refresh()
+					})
 				}
+			},
+			refresh(){
+				this.$router.replace('/home')
 			}
-
 		},
 
 	}

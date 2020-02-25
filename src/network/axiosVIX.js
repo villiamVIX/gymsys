@@ -1,4 +1,5 @@
 import axios from 'axios'
+axios.defaults.withCredentials=true; //开启携带session
 
 // export function VIXLogin(config){
 // 	const VIX2 =axios.create({
@@ -21,10 +22,12 @@ import axios from 'axios'
 // 	// 3.发送真正的网络请求
 // 	return VIX2(config)
 // }
+const url1='http://192.168.1.104:3008'
+const url2='http://106.53.7.24:3008'
 
 export function VIX(config) {
   const VIX1 = axios.create({
-    baseURL: 'http://192.168.1.104:3008/gymdata',
+    baseURL: url1+'/gymdata',
     timeout: 5000
   })
 
@@ -48,7 +51,7 @@ export function VIX(config) {
 
 export function VIXLogin(config) {
   const VIX1 = axios.create({
-    baseURL: 'http://192.168.1.104:3008/users',
+    baseURL: url1+'/users',
     timeout: 5000
   })
 

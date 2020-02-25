@@ -2,13 +2,15 @@
 	<div id="NewsNav">
 		<NavBarVIX>
 			<div id="nav-icon" slot='left' @click="backClick" >
-				<img class="back" src="@/assets/img/common/back.svg" />
+				<i class="back gymIcon-back" ></i>
 			</div>
 			<div slot='center' class="title">
 				<h3 class="title">{{title}}</h3>
 			</div>
-			<div id="nav-icon" slot='right' style="height: 44px;">
-				<img class="share" src="@/assets/img/common/share2.png" />
+			<div id="nav-icon" slot='right'>
+				<i class="share gymIcon-share">
+					<span v-for="i in 7" :class="'path'+i"></span>
+				</i>
 			</div>
 		</NavBarVIX>
 	</div>
@@ -48,8 +50,14 @@
 		white-space: nowrap;
 	}
 	.share < div{
-		height: 30px;
-		width: 40px;
+		
+		margin-top: 5px;
+	}
+	.share {
+		font-size: 22px;
+	}
+	.back{
+		font-size: 18px;
 	}
 	#nav-icon{
 		margin-top: 6px;

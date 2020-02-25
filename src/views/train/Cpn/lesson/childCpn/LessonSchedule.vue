@@ -23,6 +23,7 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex';
 	export default {
 		name: 'LessonSchedule',
 		created() {
@@ -106,14 +107,6 @@
 				}
 			}
 		},
-		props: {
-			Lessons: {
-				type: Array,
-				default () {
-					return []
-				}
-			}
-		},
 		data() {
 			return {
 				week: [],
@@ -123,7 +116,9 @@
 				currentShow: null,
 			}
 		},
-
+		computed:{
+			...mapState(['Lessons'])
+		}
 	}
 </script>
 

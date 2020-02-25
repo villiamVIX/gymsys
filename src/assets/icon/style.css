@@ -1,0 +1,143 @@
+@font-face {
+  font-family: 'gymIcon-';
+  src:  url('fonts/gymIcon-.eot?tmw4un');
+  src:  url('fonts/gymIcon-.eot?tmw4un#iefix') format('embedded-opentype'),
+    url('fonts/gymIcon-.ttf?tmw4un') format('truetype'),
+    url('fonts/gymIcon-.woff?tmw4un') format('woff'),
+    url('fonts/gymIcon-.svg?tmw4un#gymIcon-') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="gymIcon-"], [class*=" gymIcon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'gymIcon-' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.gymIcon-share .path1:before {
+  content: "\e902";
+  color: rgb(9, 205, 138);
+}
+.gymIcon-share .path2:before {
+  content: "\e903";
+  margin-left: -1em;
+  color: rgb(33, 56, 71);
+}
+.gymIcon-share .path3:before {
+  content: "\e904";
+  margin-left: -1em;
+  color: rgb(9, 205, 138);
+}
+.gymIcon-share .path4:before {
+  content: "\e905";
+  margin-left: -1em;
+  color: rgb(33, 56, 71);
+}
+.gymIcon-share .path5:before {
+  content: "\e906";
+  margin-left: -1em;
+  color: rgb(9, 205, 138);
+}
+.gymIcon-share .path6:before {
+  content: "\e907";
+  margin-left: -1em;
+  color: rgb(33, 56, 71);
+}
+.gymIcon-share .path7:before {
+  content: "\e908";
+  margin-left: -1em;
+  color: rgb(33, 56, 71);
+}
+.gymIcon-back:before {
+  content: "\e901";
+  color: #515151;
+}
+.gymIcon-more:before {
+  content: "\e900";
+  color: #9b9b9b;
+}
+.gymIcon-fresh:before {
+  content: "\e960";
+  color: #9b9ba0;
+}
+.gymIcon-scan2:before {
+  content: "\e961";
+  color: #09cd8a;
+}
+.gymIcon-scan1 .path1:before {
+  content: "\e962";
+  color: rgb(155, 155, 155);
+}
+.gymIcon-scan1 .path2:before {
+  content: "\e963";
+  margin-left: -1em;
+  color: rgb(99, 247, 222);
+}
+.gymIcon-scan1 .path3:before {
+  content: "\e964";
+  margin-left: -1em;
+  color: rgb(67, 125, 255);
+}
+.gymIcon-my2 .path1:before {
+  content: "\e965";
+  color: rgb(9, 205, 138);
+}
+.gymIcon-my2 .path2:before {
+  content: "\e966";
+  margin-left: -1em;
+  color: rgb(9, 205, 138);
+}
+.gymIcon-my2 .path3:before {
+  content: "\e967";
+  margin-left: -1em;
+  color: rgb(0, 239, 239);
+}
+.gymIcon-my1 .path1:before {
+  content: "\e968";
+  color: rgb(155, 155, 155);
+}
+.gymIcon-my1 .path2:before {
+  content: "\e969";
+  margin-left: -1em;
+  color: rgb(155, 155, 155);
+}
+.gymIcon-my1 .path3:before {
+  content: "\e96a";
+  margin-left: -1em;
+  color: rgb(0, 239, 239);
+}
+.gymIcon-news2:before {
+  content: "\e96b";
+  color: #09cd8a;
+}
+.gymIcon-news1:before {
+  content: "\e96c";
+  color: #9b9b9b;
+}
+.gymIcon-train1:before {
+  content: "\e96d";
+  color: #9b9b9b;
+}
+.gymIcon-train2:before {
+  content: "\e96e";
+  color: #09cd8a;
+}
+.gymIcon-home1:before {
+  content: "\e96f";
+  color: #9b9b9b;
+}
+.gymIcon-home2:before {
+  content: "\e970";
+  color: #09cd8a;
+}

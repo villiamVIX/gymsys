@@ -15,12 +15,14 @@
 	import Vue from 'vue';
 	import Button from 'vant/lib/button';
 	import 'vant/lib/button/style';
+	import {mapState} from 'vuex'
 	Vue.use(Button);
 	export default {
 		name: 'HomeTopBar',
 		data() {
 			return {
-				Username: ''
+				Username: '',
+				getName:false
 			}
 		},
 		mounted() {
@@ -28,33 +30,23 @@
 		},
 		methods: {
 			showName() {
-				let Username = localStorage.getItem("nickname")
-				let role=localStorage.getItem('Role')
-				var Role=''
-				switch (role){
-					case "admin":
-					Role='管理员'
-						break;
-						case "user":
-						Role='会员'
-							break;
-				}
-				if (Username == '') {
+				
+				let Username=this.User.username
+				console.log(this.Username)
+
+				if (Username == undefined) {
 					this.Username = '请登录'
 				} else {
-					this.Username = Role +'-'+ Username
+					this.Username =  Username
 				}
 			},
 			ClickLogin() {
-				let Username = localStorage.getItem("nickname")
-				console.log(Username)
-				if (Username == null) {
-					this.$emit('isShowLogin')
-				}else{
-					window.location.href = '/'
-				}
+				
 			},
 		},
+		computed:{
+			...mapState(['User'])
+		}
 
 	}
 </script>

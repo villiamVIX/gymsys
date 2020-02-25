@@ -6,8 +6,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-	  User:{}
+	  User:{},
+	  newsDetail: [],
+	  recommend: {},
+	  coachList: [],
+	  Lessons: [],
+	  teacherInfo:{},
+	  Entrance:undefined
   },
+  actions: actions,
+  mutations: mutations,
   modules: {
   }
 })
