@@ -159,17 +159,17 @@ import {
 							phone,
 							username,
 							_id,
-							remain,
-							deadline,
-							avatar
+							deadLine,
+							avatar,
+							role
 						} = res.data
 						this.$store.dispatch('rewriteUserInfo', {
 							phone: phone || '',
 							_id:_id,
 							username: username,
-							remain:remain,
-							deadline:deadline,
-							avatar:avatar
+							deadline:deadLine,
+							avatar:avatar,
+							role:role
 						})
 						this.refresh()
 					})
@@ -193,16 +193,16 @@ import {
 							phone,
 							username,
 							_id,
-							remain,
-							deadline,
+							
+							deadLine,
 							avatar
 						} = res.data
 						this.$store.dispatch('rewriteUserInfo', {
 							phone: phone || '',
 							_id:_id,
 							username: username,
-							remain:remain,
-							deadline:deadline,
+							
+							deadline:deadLine,
 							avatar:avatar
 						})
 						this.refresh()

@@ -1,14 +1,19 @@
 <template>
-	<div id="News">
-		<NewsNav :title='title'></NewsNav>
-		<div id="NewsBar">
-			<van-skeleton title avatar :row="28" :loading="loading" title-width='40%' avatar-size='40' row-width=''>
-				<div class="LoadCont">
-					<NewsInfoBar :loadInfo='loadInfo'></NewsInfoBar>
-					<NewsArticle :article='article' @ArtcileFinish='ArtcileFinish'></NewsArticle>
-				</div>
-			</van-skeleton>
+	<div>
+	<transition name="van-slide-right">
+		<div id="News" v-show="showNews">
+			<NewsNav :title='title'></NewsNav>
+			<div id="NewsBar">
+				<van-skeleton title avatar :row="28" :loading="loading" title-width='40%' avatar-size='40' row-width=''>
+					<div class="LoadCont">
+						<NewsInfoBar :loadInfo='loadInfo'></NewsInfoBar>
+						<NewsArticle :article='article' @ArtcileFinish='ArtcileFinish'></NewsArticle>
+						<NewsImg :imgs='img'></NewsImg>
+					</div>
+				</van-skeleton>
+			</div>
 		</div>
+	</transition>
 	</div>
 </template>
 
@@ -16,6 +21,8 @@
 	import NewsNav from './childCpn/NewsNav.vue'
 	import NewsInfoBar from './childCpn/NewsInfoBar.vue'
 	import NewsArticle from './childCpn/NewsArticle.vue'
+	import NewsImg from './childCpn/NewsImg.vue'
+	
 	import Vue from 'vue';
 	import {
 		Skeleton
@@ -35,13 +42,18 @@
 				title: '',
 				loadInfo: {},
 				article: '',
-				loading: true
+				img:undefined,
+				loading: true,
+				showNews:false
 			}
 		},
 		created() {
 			this.loading = true;
 			this.getNews() // 同名本地的getnews
 			// this.contLoad()
+		},
+		beforeUpdate(){
+			this.showNews=true
 		},
 		methods: {
 			infoFinish() {
@@ -59,6 +71,7 @@
 					this.loadInfo = new LoadInfo(data) //构造器取出的数据
 					this.title = data.desc
 					this.article = data.article
+					this.img =data.img
 					console.log(this.loadInfo)
 				})
 			}
@@ -66,13 +79,14 @@
 		components: {
 			NewsNav,
 			NewsInfoBar,
-			NewsArticle
+			NewsArticle,
+			NewsImg
 		},
 		mounted() {
 			setTimeout(() => {
 				this.loading = false;
 
-			}, 1500)
+			}, 650)
 		}
 	}
 </script>

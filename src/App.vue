@@ -14,7 +14,7 @@
 					</router-link>
 				</div>
 				<div>
-					<router-link to='/news/001'>
+					<router-link to='newslist'>
 						<i :class="Rname=='news'?'gymIcon-news2':'gymIcon-news1'"></i>
 						<!-- <span class="text">信息</span> -->
 					</router-link>

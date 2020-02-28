@@ -28,7 +28,7 @@
 
 <style scoped>
 	#NewsArticle{
-		padding: 7px 0 0 55px;
+		padding: 7px 0.9rem ;
 	}
 	#article{
 		font-size: 18px;
