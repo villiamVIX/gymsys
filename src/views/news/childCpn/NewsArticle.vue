@@ -1,6 +1,6 @@
 <template>
 	<div id="NewsArticle">
-		<p id="article" @onload="oklo">{{article}}</p>
+		<p id="article" >{{article}}</p>
 	</div>
 </template>
 
@@ -15,14 +15,6 @@
 				}
 			}
 		},
-		mounted(){
-			this.$emit('ArtcileFinish')
-		},
-		methods:{
-			oklo(){
-				console.log(12323)
-			}
-		}
 	}
 </script>
 

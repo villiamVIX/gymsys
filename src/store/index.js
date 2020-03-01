@@ -12,7 +12,10 @@ export default new Vuex.Store({
 	  coachList: [],
 	  Lessons: [],
 	  teacherInfo:{},
-	  Entrance:undefined
+	  Entrance:undefined,
+	  news:{
+		  comment:[]
+	  }
   },
   actions: actions,
   mutations: mutations,

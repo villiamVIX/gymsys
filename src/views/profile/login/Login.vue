@@ -115,7 +115,7 @@ import {
 			countLoad() { //发送短信之后倒计时 和check模块
 				phoneCode(this.phoneForm.phone).then(res => {
 					console.log(res)
-					alert('验证码：' + res.randomCode || "")
+					// alert('验证码：' + res.randomCode || "")
 					this.phoneForm.randomCode=res.randomCode
 				})
 				this.countDown = 5
@@ -193,7 +193,6 @@ import {
 							phone,
 							username,
 							_id,
-							
 							deadLine,
 							avatar
 						} = res.data
@@ -201,7 +200,6 @@ import {
 							phone: phone || '',
 							_id:_id,
 							username: username,
-							
 							deadline:deadLine,
 							avatar:avatar
 						})

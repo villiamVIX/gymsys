@@ -1,19 +1,21 @@
 <template>
 	<div>
-	<transition name="van-slide-right">
-		<div id="News" v-show="showNews">
-			<NewsNav :title='title'></NewsNav>
-			<div id="NewsBar">
-				<van-skeleton title avatar :row="28" :loading="loading" title-width='40%' avatar-size='40' row-width=''>
-					<div class="LoadCont">
-						<NewsInfoBar :loadInfo='loadInfo'></NewsInfoBar>
-						<NewsArticle :article='article' @ArtcileFinish='ArtcileFinish'></NewsArticle>
-						<NewsImg :imgs='img'></NewsImg>
-					</div>
-				</van-skeleton>
+		<transition name="van-slide-right">
+			<div id="News" v-show="showNews">
+				<NewsNav :title='title'></NewsNav>
+				<div id="NewsBar">
+					<van-skeleton title avatar :row="28" :loading="loading" title-width='40%' avatar-size='40' row-width=''>
+						<div class="LoadCont">
+							<NewsInfoBar :loadInfo='loadInfo'></NewsInfoBar>
+							<NewsArticle :article='article'></NewsArticle>
+							<NewsImg :imgs='img'></NewsImg>
+						</div>
+					</van-skeleton>
+				</div>
+				<FatHr></FatHr>
+				<NewsComment :reply='reply'></NewsComment>
 			</div>
-		</div>
-	</transition>
+		</transition>
 	</div>
 </template>
 
@@ -22,7 +24,9 @@
 	import NewsInfoBar from './childCpn/NewsInfoBar.vue'
 	import NewsArticle from './childCpn/NewsArticle.vue'
 	import NewsImg from './childCpn/NewsImg.vue'
-	
+	import NewsComment from './childCpn/NewsComment.vue'
+	import FatHr from 'components/common/FatHr/FatHr.vue'
+
 	import Vue from 'vue';
 	import {
 		Skeleton
@@ -31,9 +35,8 @@
 	Vue.use(Skeleton);
 	// 网络请求
 	import {
-		getNews,
-		LoadInfo
-	} from 'network/NetNews.js'
+		mapState
+	} from 'vuex'
 	export default {
 		name: 'News',
 		data() {
@@ -42,50 +45,43 @@
 				title: '',
 				loadInfo: {},
 				article: '',
-				img:undefined,
+				reply: {},
+				img: undefined,
 				loading: true,
-				showNews:false
+				showNews: false,
+				news:{}
 			}
 		},
-		created() {
-			this.loading = true;
-			this.getNews() // 同名本地的getnews
-			// this.contLoad()
+		watch:{
+			'$store.state.news': function () {
+			  this.distributeNews()
+			  //监听VUex数据变化后重新渲染  
+			},
 		},
-		beforeUpdate(){
-			this.showNews=true
+		beforeUpdate() {
+			this.showNews = true
 		},
 		methods: {
-			infoFinish() {
-				console.log("infoFinish")
-			},
-			ArtcileFinish() {
-				console.log('ArtcileFinish')
-			},
-			getNews() {
-				this.newsId = this.$route.params.newsId
-				console.log(this.newsId)
-				getNews(this.newsId).then(res => {
-					let data = res.data
-					console.log(data)
-					this.loadInfo = new LoadInfo(data) //构造器取出的数据
-					this.title = data.desc
-					this.article = data.article
-					this.img =data.img
-					console.log(this.loadInfo)
-				})
+			distributeNews() {
+				let data =this.$store.state.news
+				// console.log(data)
+				this.img = data.img
+				this.title = data.desc
+				this.reply = data.reply
+				this.article = data.article
 			}
 		},
 		components: {
 			NewsNav,
 			NewsInfoBar,
 			NewsArticle,
-			NewsImg
+			NewsImg,
+			NewsComment,
+			FatHr
 		},
 		mounted() {
 			setTimeout(() => {
 				this.loading = false;
-
 			}, 650)
 		}
 	}

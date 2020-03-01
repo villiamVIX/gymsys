@@ -6,7 +6,9 @@ import {
 	AUTOLOGIN,
 	ENTRANCE,
 	LOGOUT,
-	CHANGEAVATAR
+	CHANGEAVATAR,
+	NEWS,
+	COMMENT
 } from './mutations-type'
 
 export default {
@@ -35,5 +37,9 @@ export default {
 	},
 	[CHANGEAVATAR](state,data){
 		state.User.avatar=data
-	}
+	},
+	[NEWS](state,data){
+		// console.log(data)
+		state.news=data
+	},
 }

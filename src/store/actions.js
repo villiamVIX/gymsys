@@ -6,7 +6,9 @@ import {
 	AUTOLOGIN,
 	ENTRANCE,
 	LOGOUT,
-	CHANGEAVATAR
+	CHANGEAVATAR,
+	NEWS,
+	COMMENT
 } from './mutations-type'
 
 import {
@@ -22,8 +24,15 @@ import {
 	getIsLogin,
 	getEntrance,
 	getLogout,
-	ChangeAvatar
+	ChangeAvatar,
 }from 'network/NetLogin.js'
+
+
+import {
+	getNews,
+	postComment,
+	deleteComment
+}from 'network/NetNews.js'
 
 export default{
 	rewriteUserInfo({commit},info){  //注册时用户信息插入
@@ -100,7 +109,6 @@ export default{
 					 //提示操作状态
 					resolve(res.data.message)
 					let data=res.data.avatar
-					console.log()
 					commit(CHANGEAVATAR,data)
 				}else{
 					reject('更换失败')
@@ -108,7 +116,38 @@ export default{
 				
 			})
 		})
-		
-	}
+	},
+	
+	reqNews({commit},newsId){ // 获取详细新闻
+	    getNews(newsId).then(res=>{
+	    	if(res.status==200){
+	    		let data=res.data
+	    		commit(NEWS,data)
+	    	}
+	    })
+	},
+	
+	reqSendComment({commit},data){ // 获取详细新闻
+	    return new Promise((resolve,reject)=>{
+			postComment(data).then(res=>{
+				console.log(res)
+				if(res.status==200){
+					return resolve('发送成功')
+				}else{
+					return reject('发送失败请重新发送')
+				}
+			})
+		})
+	},
+	
+	reqDeleteComment({commit},data){ // 删除自己发的评论
+	    deleteComment(data).then(res=>{
+	    	// if(res.status==200){
+	    	// 	let data=res.data
+	    	// 	commit(NEWS,data)
+	    	// }
+			console.log(res)
+	    })
+	},
 	
 }
