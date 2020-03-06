@@ -12,7 +12,7 @@ import {
 } from './mutations-type'
 
 import {
-	getHomeNews,
+	
 }from 'network/NetHome.js'
 
 import {
@@ -29,9 +29,11 @@ import {
 
 
 import {
+	getNewsList,
 	getNews,
 	postComment,
-	deleteComment
+	deleteComment,
+	publishNews
 }from 'network/NetNews.js'
 
 export default{
@@ -40,7 +42,7 @@ export default{
 	},
 	
 	reqHomeNews({commit}){ //主页信息
-		getHomeNews().then(res=>{
+		getNewsList().then(res=>{
 		if (res.status==200){
 			let data=res.data;
 			commit(HOMENEWS,data)
@@ -127,7 +129,7 @@ export default{
 	    })
 	},
 	
-	reqSendComment({commit},data){ // 获取详细新闻
+	reqSendComment({commit},data){ // 
 	    return new Promise((resolve,reject)=>{
 			postComment(data).then(res=>{
 				console.log(res)
@@ -141,7 +143,19 @@ export default{
 	},
 	
 	reqDeleteComment({commit},data){ // 删除自己发的评论
-	    deleteComment(data).then(res=>{
+		return new Promise((resolve,reject)=>{
+			deleteComment(data).then(res=>{
+				if(res.status==200){
+					return resolve(res.msg)
+				}else{
+					return reject(res.msg)
+				}
+			})
+		})
+	},
+	
+	reqPublishNews({commit},data){ // 发布讯息
+	    publishNews(data).then(res=>{
 	    	// if(res.status==200){
 	    	// 	let data=res.data
 	    	// 	commit(NEWS,data)

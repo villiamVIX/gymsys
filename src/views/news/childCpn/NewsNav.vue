@@ -7,7 +7,7 @@
 			<div slot='center' class="title">
 				<h3 class="title">{{title}}</h3>
 			</div>
-			<div id="nav-icon" slot='right'>
+			<div id="nav-icon" slot='right' v-show="right">
 				<i class="share gymIcon-share">
 					<span v-for="i in 7" :class="'path'+i"></span>
 				</i>
@@ -34,32 +34,50 @@
 				default () {
 					return '标题'
 				}
+			},
+			right:{
+				type:Boolean,
+				default(){
+					return true
+				}
 			}
 		}
 	}
 </script>
 
 <style scoped>
+	#NewsNav{
+		position: fixed;
+		left: 0;
+		top: 0;
+		right: 0;
+		background-color: white;
+		z-index: 14;
+		}
 	.title {
 		overflow: hidden;
 		width: 250px;
 		height: 44px;
 		text-align: center;
-		margin-left: 10px;
+		/* margin-left: 10px; */
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
-	.share < div{
-		
-		margin-top: 5px;
+	.title h3{
+		font-weight: bold;
+		font-size: 1.0625rem;
 	}
+	
 	.share {
 		font-size: 22px;
 	}
-	.back{
-		font-size: 18px;
-	}
 	#nav-icon{
-		margin-top: 6px;
+		margin-top: 4px;
+	}
+	.gymIcon-back{
+		font-size: 21px;
+	}
+	.share < div{
+		margin-top: 8px;
 	}
 </style>

@@ -2,11 +2,14 @@
 	<div ref="wrapper" class="wrapper">
 		<ul class="cont" ref="cont">
 			<li class="cont-item" v-for="(item,index) in newsDetail" :key="index">
-				<div @click="ToNews(index)">
+				<div @click="ToNews(item._id)">
 					<div class="cont-img">
-						<img :src="item.img" @load="itemImgLoad">
+						<van-image class="van-image" width="6.8rem" height="4.6rem"
+						 :src="baseUrl+item.img[0]"
+						 fit='cover' Lazyload @load="itemImgLoad">
+						</van-image>
 					</div>
-					<div class="cont-dest">{{item.desc}}</div>
+					<div class="cont-dest">{{item.title}}</div>
 				</div>
 			</li>
 		</ul>
@@ -15,13 +18,17 @@
 
 <script>
 	import BScroll from 'better-scroll'
-		import {mapState} from 'vuex'
-	
+	import {mapState} from 'vuex'
+	import Vue from 'vue'
+	import {
+		Lazyload,
+	} from 'vant';
+	Vue.use(Lazyload)
 	export default {
 		
 		data() {
 			return {
-				
+				baseUrl:this.GLOBAL.baseUrl
 			}
 		},
 		methods:{
@@ -36,8 +43,7 @@
 					}, 0)
 				})
 			},
-			ToNews(index) {
-				const newsId=this.newsDetail[index].newsId
+			ToNews(newsId) {
 				this.$router.push('/news/'+newsId) 
 			},
 			verScroll() {
@@ -83,13 +89,12 @@
 		display: inline-block;
 		flex: 1;
 		margin: 0.3125rem 5px;
-
 	}
 
-	.cont-item img {
-		height: 75px;
-		width: 110px;
-	}
+	/* .cont-item img {
+		height: 4.6875rem;
+		width: 6.875rem;
+	} */
 
 	.cont-dest {
 		margin-top: 3px;

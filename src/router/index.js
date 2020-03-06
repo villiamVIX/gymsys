@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 const Home = () => import('views/home/Home.vue')
 const News = () => import('views/news/News.vue')
 const NewsList =()=> import('views/news/NewsList.vue')
+const NewsPublish =()=> import('views/news/NewsPublish.vue')
+
 const Train = () => import('views/train/Train.vue')
 const Lesson = () => import('views/train/Cpn/lesson/Lesson.vue')
 const Coach = () => import('views/train/Cpn/coach/Coach.vue')
@@ -24,12 +26,18 @@ const routes = [{
 	{
 		name:'news',
 		path:'/newslist',
-		component:NewsList
+		component:NewsList,
+	},
+	{
+		name:'publish',
+		path:"/newslist/publish",
+		component:NewsPublish
 	},
 	{
 		name:'news',
 		path: '/news/:newsId',
 		component: News
+		
 	},
 	{
 		

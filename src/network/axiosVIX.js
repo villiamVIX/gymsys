@@ -72,3 +72,28 @@ export function VIXLogin(config) {
   // 3.发送真正的网络请求
   return VIX1(config)
 }
+
+export function VIXNews(config) {
+  const VIX1 = axios.create({
+    baseURL: url1+'/news',
+    timeout: 5000,
+	 headers:{"Content-Type":"multipart/form-data"}
+  })
+
+  // 拦截器转换返回值的data
+  VIX1.interceptors.request.use(config => {
+    return config
+  }, err => {
+    // console.log(err)
+  })
+
+  // 2.2.响应拦截
+  VIX1.interceptors.response.use(res => {
+    return res.data
+  }, err => {
+    console.log(err);
+  })
+
+  // 3.发送真正的网络请求
+  return VIX1(config)
+}

@@ -13,7 +13,8 @@
 		<span class="Info-name">{{User.username}}
 			<div class="changeAva">
 				<label for="my_file">修改头像</label>
-				<input type="file" name="avatar" style="display:none;" id='my_file' accept="image/x-png, image/jpeg" @change="changeAvatar">
+				<input type="file" name="avatar" style="display:none;"
+				 id='my_file' accept="image/x-png, image/jpeg" @change="changeAvatar">
 			</div>
 		</span>
 		
@@ -41,6 +42,7 @@
 		methods: {
 			changeAvatar(event) {
 				let img = event.target.files[0]
+				console.log(event.target.files)
 				let size = img.size
 				if (size > 3145728) {
 					this.$toast('3m以内图片被允许')

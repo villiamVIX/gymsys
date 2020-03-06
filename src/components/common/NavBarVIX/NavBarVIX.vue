@@ -13,10 +13,9 @@
 </script>
 
 <style scoped>
+	/* fixed让引用方决定 */
   #nav-bar{
-  	position: fixed;
   	display: flex;
-  	z-index: 10;
   	height: 44px;
   	background: white;
   	line-height: 44px;

@@ -3,7 +3,7 @@
 		<HomeTopBar></HomeTopBar>
 		<HomeSwiper></HomeSwiper>
 		<HomeGrid></HomeGrid>
-		<HomeTip></HomeTip>
+		<!-- <HomeTip></HomeTip> -->
 		<FatHr></FatHr>
 		<HomeNews></HomeNews>
 		<FatHr></FatHr>
@@ -20,7 +20,7 @@
 	import HomeTopBar from './childCpn/HomeTopBar'
 	import HomeSwiper from './childCpn/HomeSwiper'
 	import HomeGrid from './childCpn/HomeGrid'
-	import HomeTip from './childCpn/HomeTip'
+	// import HomeTip from './childCpn/HomeTip'
 	import HomeNews from './childCpn/HomeNews'
 	import HomeRec from './childCpn/HomeRec'
 
@@ -44,7 +44,7 @@
 			HomeTopBar,
 			HomeSwiper,
 			HomeGrid,
-			HomeTip,
+			// HomeTip,
 			HomeNews,
 			FatHr,
 			HomeRec,

@@ -1,6 +1,8 @@
 <template>
 	<div id="app">
+		<keep-alive exclude="News">
 			<router-view class="router-view" v-if="isRouterAlive"></router-view>
+		</keep-alive>
 
 		<div v-show="!isShow" class="isShow" @click="clickShow">
 			<img src="~assets/img/app/ShowMore.png"/>
@@ -14,7 +16,7 @@
 					</router-link>
 				</div>
 				<div>
-					<router-link to='newslist'>
+					<router-link to='/newslist'>
 						<i :class="Rname=='news'?'gymIcon-news2':'gymIcon-news1'"></i>
 						<!-- <span class="text">信息</span> -->
 					</router-link>
@@ -84,9 +86,7 @@
 
 <style scoped>
 	@import "assets/css/base.css";
-
 	#app{
-	
 	}
 	.isShow{
 		height: 50px;

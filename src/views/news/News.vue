@@ -4,11 +4,12 @@
 			<div id="News" v-show="showNews">
 				<NewsNav :title='title'></NewsNav>
 				<div id="NewsBar">
+					<!-- g骨架屏 -->
 					<van-skeleton title avatar :row="28" :loading="loading" title-width='40%' avatar-size='40' row-width=''>
 						<div class="LoadCont">
 							<NewsInfoBar :loadInfo='loadInfo'></NewsInfoBar>
 							<NewsArticle :article='article'></NewsArticle>
-							<NewsImg :imgs='img'></NewsImg>
+							<NewsImg :imgs='imgs'></NewsImg>
 						</div>
 					</van-skeleton>
 				</div>
@@ -46,7 +47,7 @@
 				loadInfo: {},
 				article: '',
 				reply: {},
-				img: undefined,
+				imgs: undefined,
 				loading: true,
 				showNews: false,
 				news:{}
@@ -65,8 +66,8 @@
 			distributeNews() {
 				let data =this.$store.state.news
 				// console.log(data)
-				this.img = data.img
-				this.title = data.desc
+				this.imgs = data.imgs
+				this.title = data.title
 				this.reply = data.reply
 				this.article = data.article
 			}

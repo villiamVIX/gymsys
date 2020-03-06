@@ -1,6 +1,6 @@
 <template>
 	<div id="homeTopBar">
-		<div class="left profile" @click="ClickLogin">
+		<div class="left profile" >
 			<img src="~assets/img/home/profile.png" />
 			<span>{{Username}}</span>
 		</div>
@@ -25,23 +25,23 @@
 				getName:false
 			}
 		},
+		watch:{
+			'$store.state.User.username':function(){
+				this.showName
+			}
+		},
 		mounted() {
 			this.showName()
 		},
 		methods: {
 			showName() {
-				
 				let Username=this.User.username
 				console.log(this.Username)
-
 				if (Username == undefined) {
 					this.Username = '请登录'
 				} else {
-					this.Username =  Username
+					this.Username = Username
 				}
-			},
-			ClickLogin() {
-				
 			},
 		},
 		computed:{

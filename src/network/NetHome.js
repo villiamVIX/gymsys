@@ -1,11 +1,6 @@
 import {VIX} from './axiosVIX'
 
-// 请新闻数据
-export function getHomeNews(){
-	return VIX ({
-		url:'/newsDetail'
-	})
-}
+
 
 
 // 请商品数据

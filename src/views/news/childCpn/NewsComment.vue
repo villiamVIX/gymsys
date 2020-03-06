@@ -49,6 +49,7 @@
 		checkLoginMixin
 	} from 'common/mixin.js'
 	Vue.use(Toast).use(SwipeCell).use(Button)
+	
 	export default {
 		mixins: [checkLoginMixin],
 		data() {
@@ -68,21 +69,22 @@
 		},
 		filters: {
 			caldate: function(date) {
-				let d = (+new Date() - date) / 1000
+				// let d = (+new Date() - date) / 1000
+				let d=155440
 				let Day = parseInt(d / 3600 / 24)
 				let Hour = parseInt((d - (Day * 3600 * 24)) / 3600)
 				let Min = parseInt((d - (Day * 3600 * 24) - (Hour * 3600)) / 60)
 				let Second= parseInt((d-((Day * 3600 * 24)+(Hour*3600)+(Min*60))))
-				console.log(Number(Second) >0)
-				// console.log('小时'+Hour+'***分钟'+Min+'***秒'+Second)
 				
-				if (Day === 0 && Hour === 0 && Min===0 && Number(Second)>0){
+				console.log('天'+Day+'小时'+Hour+'***分钟'+Min+'***秒'+Second)
+				
+				if (Number(d)<60 && Number(Second)>0){
 					return Second+'秒'
-				}else if (Day === 0 && Hour === 0 && Number(Second)>0)  {
+				}else if (Number(d)<3600 && Number(Second)>0)  {
 						return Min + '分钟'
-				}else if(Hour!==0 && Number(Second)>0){
+				}else if(Number(d)<86400 && Number(Second)>0){
 					return Hour +'小时'
-				}else if(Day!==0 && Number(Second)>0){
+				}else if(Number(d)>=86400 && Number(Second)>0){
 					return Day +'天'
 				}else{
 					return 0+'秒'
@@ -132,13 +134,18 @@
 
 				}
 			},
-			clickDelete(a){
-				console.log(123)
+			clickDelete(floor){//删除评论
+				console.log(floor)
 				let data={
-					floor:a,
+					floor:floor,
 					_id:this.newsId
 					}
-				this.$store.dispatch('reqDeleteComment',data)
+				this.$store.dispatch('reqDeleteComment',data).then(res => {
+						Toast(res)
+						this.$store.dispatch('reqNews', this.newsId) //重新获取数据，数据驱动dom重新弄加载
+					}).catch((reject) => {
+						Toast(reject)
+					}); 
 			}
 		},
 		props: {
