@@ -30,7 +30,7 @@
 
 	export default {
 		created() {
-			this.$store.dispatch('reqHomeNews')
+			this.$store.dispatch('reqNewsList')
 		},
 		data() {
 			return {

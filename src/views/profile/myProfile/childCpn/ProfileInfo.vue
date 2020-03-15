@@ -4,7 +4,7 @@
 			<van-image
 				round
 			  height="5.375rem"
-			   :src="User.avatar" 
+			   :src="baseUrl+User.avatar" 
 			    fit="contain"
 			/>
 			
@@ -57,7 +57,12 @@
 					console.log(res)
 				})
 			}
-		}
+		},
+		data() {
+			return {
+				baseUrl: this.GLOBAL.baseUrl,
+			}
+		},
 	}
 </script>
 

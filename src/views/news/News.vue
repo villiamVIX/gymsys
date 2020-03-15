@@ -34,10 +34,7 @@
 	} from 'vant';
 
 	Vue.use(Skeleton);
-	// 网络请求
-	import {
-		mapState
-	} from 'vuex'
+
 	export default {
 		name: 'News',
 		data() {
@@ -66,6 +63,11 @@
 			distributeNews() {
 				let data =this.$store.state.news
 				// console.log(data)
+				this.loadInfo={
+					avatar:data.avatar,
+					date:data.date,
+					author:data.author
+				}
 				this.imgs = data.imgs
 				this.title = data.title
 				this.reply = data.reply

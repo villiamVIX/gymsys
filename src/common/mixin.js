@@ -7,10 +7,12 @@ import {mapState} from 'vuex'
 	 },
 	 created() {
 	 	this.checkIsUser()
+		this.checkRole()
 	 },
 	 data(){
 	 	return {
-	 		isLogin: false
+	 		isLogin: false,
+			isAdmin:false
 	 	}
 	 },
 	 methods:{
@@ -18,6 +20,11 @@ import {mapState} from 'vuex'
 	 		if(this.User._id){
 	 			this.isLogin=true
 	 		}
-	 	}
+	 	},
+		checkRole(){
+			if(this.User.role=='admin'){
+				this.isAdmin=true
+			}
+		}
 	 },
  }

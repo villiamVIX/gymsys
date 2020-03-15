@@ -1,15 +1,18 @@
-import {VIXNews} from './axiosVIX'
+import {VIX} from './axiosVIX'
 
 
-export function getNewsList(){// 请新闻列表
-	return VIXNews({
-		url:'/newslist'
+export function getNewsList(page){// 请新闻列表
+	return VIX({
+		url:'/news/newslist',
+		params:{
+			page
+		}
 	})
 }
 
 export function getNews(newsId){ //详细新闻
-	return VIXNews({
-		url:'/newsDetail',
+	return VIX({
+		url:'/news/newsDetail',
 		params:{
 			newsId
 		}
@@ -17,17 +20,19 @@ export function getNews(newsId){ //详细新闻
 }
 
 export function postComment(data){//发布评论
-	return VIXNews({
-		url:'/comment',
+console.log(data)
+	return VIX({
+		url:'/news/comment',
 		method:'post',
 		data:data,
 		timeout:3000,
+
 	})
 }
 
 export function deleteComment(data){ //删除评论
-	return VIXNews({
-		url:'/delete',
+	return VIX({
+		url:'/news/commentdelete',
 		method:'delete',
 		data:{data:data},
 		timeout:3000,
@@ -36,8 +41,8 @@ export function deleteComment(data){ //删除评论
 
 
 export function publishNews(data){//发布新闻
-	return VIXNews({
-		url:'/publish',
+	return VIX({
+		url:'/news/publish',
 		method:'post',
 		timeout:3000,
 		contentType:false,
@@ -46,6 +51,14 @@ export function publishNews(data){//发布新闻
 	})
 }
 
+export function deleteNews(data){ //删除评论
+	return VIX({
+		url:'/news/newsdelete',
+		method:'delete',
+		data:{data:data},
+		timeout:3000,
+	})
+}
 
 
 export class LoadInfo {

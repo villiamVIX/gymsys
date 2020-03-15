@@ -1,6 +1,6 @@
 import {
 	REWRITE,
-	HOMENEWS,
+	NEWSLIST,
 	COACHLIST,
 	LESSON,
 	AUTOLOGIN,
@@ -8,7 +8,7 @@ import {
 	LOGOUT,
 	CHANGEAVATAR,
 	NEWS,
-	COMMENT
+	COMMENT,
 } from './mutations-type'
 
 export default {
@@ -16,9 +16,9 @@ export default {
 		console.log(info)
 		state.User = info;
 	},
-	[HOMENEWS](state,data){
-		state.newsDetail=data
-		state.recommend=data[0].recommend
+	[NEWSLIST](state,data){
+		state.newsList.push(...data)
+		// state.recommend=data[0].recommend
 	},
 	[COACHLIST](state,data){
 		state.coachList=data

@@ -1,8 +1,8 @@
 <template>
 	<div>
 		
-	<Login v-show='!isLogin' ></Login>
-	<MyProfile v-show='isLogin' class='MyProfile'  ></MyProfile>
+	<Login v-if='!isLogin' ></Login>
+	<MyProfile v-else class='MyProfile'  ></MyProfile>
 	</div>
 </template>
 

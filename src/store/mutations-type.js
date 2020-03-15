@@ -1,5 +1,5 @@
 export const REWRITE= 'rewriteUserInfo'
-export const HOMENEWS='getHomeNews'
+export const NEWSLIST='getNewsList'
 export const COACHLIST='getCoachList'
 export const LESSON='getLesson'
 export const AUTOLOGIN='getIsLogin'
@@ -8,3 +8,4 @@ export const LOGOUT='getLogout'
 export const CHANGEAVATAR='changeAvatar'
 export const NEWS='getNews'
 export const COMMENT='postComment'
+

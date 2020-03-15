@@ -1,6 +1,6 @@
 import {
 	REWRITE,
-	HOMENEWS,
+	NEWSLIST,
 	COACHLIST,
 	LESSON,
 	AUTOLOGIN,
@@ -8,7 +8,8 @@ import {
 	LOGOUT,
 	CHANGEAVATAR,
 	NEWS,
-	COMMENT
+	COMMENT,
+	NEWSDELETE
 } from './mutations-type'
 
 import {
@@ -33,7 +34,8 @@ import {
 	getNews,
 	postComment,
 	deleteComment,
-	publishNews
+	publishNews,
+	deleteNews
 }from 'network/NetNews.js'
 
 export default{
@@ -41,16 +43,13 @@ export default{
 			commit(REWRITE,info)
 	},
 	
-	reqHomeNews({commit}){ //主页信息
-		getNewsList().then(res=>{
-		if (res.status==200){
-			let data=res.data;
-			commit(HOMENEWS,data)
+	async reqNewsList({commit},data){ //新闻列表
+		const res= await getNewsList(data)
+		let resData=res.data;
+		if(resData.length<3){
+		   Promise.resolve(resData.length);
 		}
-		else{
-			Toast('拉取信息失败')
-		}
-		})
+		commit(NEWSLIST,resData)
 	},
 	
 	reqCoachList({commit}){ //教练列表
@@ -58,9 +57,6 @@ export default{
 			if(res.status==200){
 				let data=res.data
 				commit(COACHLIST,data)
-			}
-			else{
-				Toast('拉取教练信息失败')
 			}
 		})
 	},
@@ -76,6 +72,7 @@ export default{
 	
 	reqIsLogin({commit}){ //自动登录
 		getIsLogin().then(res=>{
+			console.log(res)
 			if(res.status==200){
 				let data=res.data
 				commit(AUTOLOGIN,data)
@@ -103,22 +100,18 @@ export default{
 		})
 	},
 	
-	reqChangeAvatar({commit},img){//换头像
+	 async reqChangeAvatar({commit},img){//换头像
 		//把这个action改为promises 在接收处链式then就可收到要吐出去的信息
 	    return new Promise( (resolve,reject)=>{
 			ChangeAvatar(img).then(res=>{
-				if(res.status==200){
-					 //提示操作状态
-					resolve(res.data.message)
-					let data=res.data.avatar
-					commit(CHANGEAVATAR,data)
-				}else{
-					reject('更换失败')
-				}
-				
+				resolve(res.data.message)
+				let data=res.data.avatar
+				commit(CHANGEAVATAR,data)
 			})
 		})
-	},
+	
+	    },
+		
 	
 	reqNews({commit},newsId){ // 获取详细新闻
 	    getNews(newsId).then(res=>{
@@ -129,17 +122,12 @@ export default{
 	    })
 	},
 	
-	reqSendComment({commit},data){ // 
-	    return new Promise((resolve,reject)=>{
-			postComment(data).then(res=>{
-				console.log(res)
-				if(res.status==200){
-					return resolve('发送成功')
-				}else{
-					return reject('发送失败请重新发送')
-				}
-			})
-		})
+	reqSendComment({commit},data){
+	      return new Promise((resolve,reject)=>{
+	    	postComment(data).then(res=>{
+	    			return resolve('发送成功')
+	    	})
+	    })
 	},
 	
 	reqDeleteComment({commit},data){ // 删除自己发的评论
@@ -163,5 +151,14 @@ export default{
 			console.log(res)
 	    })
 	},
+	
+	reqDeleteNews({commit},data){ // 删除帖子
+		return new Promise((resolve,reject)=>{		
+	        deleteNews(data).then(res=>{
+				console.log(reject)
+				 return resolve(res.msg)
+		    })
+		})
+	}
 	
 }

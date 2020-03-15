@@ -208,7 +208,8 @@ import {
 				}
 			},
 			refresh(){
-				this.$router.replace('/home')
+				this.$router.replace('/')
+				location.reload()
 			}
 		},
 

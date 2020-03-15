@@ -24,6 +24,9 @@
 	import Vue from 'vue';
 	import NewsNav from './childCpn/NewsNav.vue'
 	import {
+		checkLoginMixin
+	} from 'common/mixin.js'
+	import {
 		Form,
 		Uploader,
 		Field,
@@ -31,7 +34,9 @@
 	} from 'vant';
 	import { Toast } from 'vant';
 	Vue.use(Form).use(Uploader).use(Field).use(Button);
+	
 	export default {
+		mixins: [checkLoginMixin],
 		data() {
 			return {
 				publish: {
@@ -48,6 +53,9 @@
 		},
 		methods: {
 			ClickPublish() {
+				if(!this.isLogin){
+					return Toast('请先登录');
+				}
 				let files=this.publish.img
 				var Form =new FormData()
 				for(let p=0;p<files.length;p++){ //循环放入Form中 不然数组塞不进FORM  

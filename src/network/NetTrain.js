@@ -2,17 +2,17 @@ import {
 	VIX
 } from './axiosVIX'
 
-// 请新闻数据
+
 export function getCoachList() {
 	return VIX({
-		url: '/coach',
+		url: '/gymdata/coach',
 		timeout: 3000
 	})
 }
 
 export function bookCoach(bookInfo) {
 	return VIX({
-			url: '/coach/booking',
+			url: '/gymdata/coach/booking',
 			method: "post",
 			data: bookInfo,
 			timeout: 3000
@@ -21,14 +21,14 @@ export function bookCoach(bookInfo) {
 
 export function getLesson(){
 	return VIX({
-		url:'/lesson',
+		url:'/gymdata/lesson',
 		timeout:5000
 	})
 }
 
 export function getLsTeacher(_id){
 	return VIX({
-		url:'/lesson/teacher',
+		url:'/gymdata/lesson/teacher',
 		params:{
 			_id
 		}

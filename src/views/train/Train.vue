@@ -3,12 +3,10 @@
 		<NavBarVIX>
 			<div slot='center' class="nav-title">
 				<div v-for="(item,index) in routeData"
-				     :key='index'
-					 @click="clickTitle(index)"
+				     :key='item.title'
+					 @click="clickTitle(index,item.route)"
 					 >
-					<router-link :to="item.route">
 						<span :class="currentIndex==index? 'actRouter':''">{{item.title}}</span>
-					</router-link>
 				</div>
 			</div>
 		</NavBarVIX>
@@ -24,15 +22,15 @@
 			NavBarVIX
 		},
 		methods:{
-			clickTitle(index){
+			clickTitle(index,route){
 				this.currentIndex=index
+				console.log(route)
+				this.$router.replace(route)
 				// console.log(this.currentIndex)
 			}
 		},
 		data() {
 			return {
-				isAct: 0,
-				coach:'/coach',
 				currentIndex:1,
 				routeData:[
 					{
@@ -43,10 +41,6 @@
 						route:'/train/coach',
 						title:"私教"
 					},
-					{
-						route:'/train/bodydata',
-						title:"数据",
-						}
 					]
 			}
 		},

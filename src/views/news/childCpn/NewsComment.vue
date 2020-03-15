@@ -69,8 +69,7 @@
 		},
 		filters: {
 			caldate: function(date) {
-				// let d = (+new Date() - date) / 1000
-				let d=155440
+				let d = (+new Date() - date) / 1000
 				let Day = parseInt(d / 3600 / 24)
 				let Hour = parseInt((d - (Day * 3600 * 24)) / 3600)
 				let Min = parseInt((d - (Day * 3600 * 24) - (Hour * 3600)) / 60)
@@ -124,6 +123,7 @@
 						},
 						newsId: newsId,
 					}
+					// console.log(data)
 					this.$store.dispatch('reqSendComment', data).then(res => {
 						Toast(res)
 						this.$store.dispatch('reqNews', newsId) //重新获取数据，数据驱动dom重新弄加载

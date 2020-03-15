@@ -4,7 +4,7 @@
 			<img :src="loadInfo.avatar" />
 		</div>
 		<div class="info-box">
-			<span class="info-author">{{loadInfo.author}}</span>
+			<span class="info-author">楼主:{{loadInfo.author}}</span>
 			<p class="info-date">发布时间:{{loadInfo.date}}</p>
 		</div>
 	</div>

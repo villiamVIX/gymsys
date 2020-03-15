@@ -25,7 +25,7 @@
 	} from 'network/NetTrain.js'
 	Vue.use(Toast);
 	export default {
-		inject: ['reload'],
+		
 		props: {
 			selectCoh: {
 				type: Object,
@@ -71,7 +71,7 @@
 				bookCoach(this.bookInfo).then(res => {
 					console.log('res=>', res);
 					this.$toast(res.message)
-					this.reload()
+					
 				})
 				}
 			}

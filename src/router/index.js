@@ -5,12 +5,14 @@ const Home = () => import('views/home/Home.vue')
 const News = () => import('views/news/News.vue')
 const NewsList =()=> import('views/news/NewsList.vue')
 const NewsPublish =()=> import('views/news/NewsPublish.vue')
+const testPull =()=> import('views/news/testPull.vue')
 
 const Train = () => import('views/train/Train.vue')
 const Lesson = () => import('views/train/Cpn/lesson/Lesson.vue')
 const Coach = () => import('views/train/Cpn/coach/Coach.vue')
 const Login = () => import('views/profile/Login.vue')
 const Entrance = () => import('views/entrance/Entrance.vue')
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -37,7 +39,11 @@ const routes = [{
 		name:'news',
 		path: '/news/:newsId',
 		component: News
-		
+	},
+	{
+		name:'pull',
+		path: '/pull',
+		component: testPull
 	},
 	{
 		
