@@ -8,4 +8,11 @@ export const LOGOUT='getLogout'
 export const CHANGEAVATAR='changeAvatar'
 export const NEWS='getNews'
 export const COMMENT='postComment'
+export const COACHDETAIL='getCoachDetail'
 
+
+
+//管理员
+export const ADMINNEWSLIST='getAdminNewsList'
+export const ADMINNEWSCHART='getAdminNewsChart'
+export const ADMINENTRANCECHART='getAdminEntranceChart'

@@ -11,7 +11,8 @@
 		</div>
 		<van-field name="uploader">
 			<template #input>
-				<van-uploader v-model="publish.img" :before-read="beforeRead" multiple :max-count="2"
+				<van-uploader  v-model="publish.img" :before-read="beforeRead" 
+				multiple :max-count="2"
 				 accept="image/png, image/jpeg" />
 			</template>
 		</van-field>
@@ -21,26 +22,18 @@
 </template>
 
 <script>
-	import Vue from 'vue';
+
 	import NewsNav from './childCpn/NewsNav.vue'
 	import {
 		checkLoginMixin
 	} from 'common/mixin.js'
-	import {
-		Form,
-		Uploader,
-		Field,
-		Button
-	} from 'vant';
-	import { Toast } from 'vant';
-	Vue.use(Form).use(Uploader).use(Field).use(Button);
-	
+
 	export default {
 		mixins: [checkLoginMixin],
 		data() {
 			return {
 				publish: {
-					img: [],
+					img: [{url:'https://img.yzcdn.cn/vant/leaf.jpg'}],
 					title: undefined,
 					article: undefined,
 				},
@@ -54,7 +47,7 @@
 		methods: {
 			ClickPublish() {
 				if(!this.isLogin){
-					return Toast('请先登录');
+					return vant.Toast('请先登录');
 				}
 				let files=this.publish.img
 				var Form =new FormData()
@@ -80,7 +73,7 @@
 		
 			beforeRead(file) {
 				if (file.type !== 'image/jpeg'&'image/png' ) {
-					Toast('请上传 jpg/png 格式图片');
+					vant.Toast('请上传 jpg/png 格式图片');
 					return false;
 				}
 				return true;

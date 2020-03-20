@@ -1,68 +1,61 @@
 <template>
 	<div>
-		<van-pull-refresh v-model="LoadMore" @refresh="onRefresh">
-			<div class="news-publish" @click="publish">
-				<i class="gymIcon-write"></i>
-			</div>
-			<PullLoadVIX ref='pull' @loadMore='loadMore'>
-				<div id="newslist">
-					<div class="news-box" v-for="(item,index) in newsList" :key="item._id" @click.stop="ToNews(item._id)">
-
-						<div class="news-avatar">
-							<van-image width="  2rem" height=" 2rem" :src="baseUrl+item.avatar" round lazy-load />
+		<div class="news-publish" @click="publish">
+			<i class="gymIcon-write"></i>
+		</div>
+		<PullLoadVIX ref='pull' @loadMore='loadMore'>
+			<div id="newslist">
+				<div class="news-box" v-for="(item,index) in newsList" :key="item._id" @click.stop="ToNews(item._id)">
+					<div class="news-avatar">
+						<van-image width="2rem" height=" 2rem" :src="baseUrl+item.avatar" round v-lazy='item.avatar' />
+					</div>
+					<div class="news-content">
+						<span class="gymIcon-delete" v-if="isAdmin" @click.stop="deleteNews(item._id,item.title)"></span>
+						<div class="news-auther">
+							<span>{{item.author}}</span>
 						</div>
-						<div class="news-content">
-							<span class="gymIcon-delete" @click.stop="deleteNews(item._id,item.title)"></span>
-							<div class="news-auther">
-								<span>{{item.author}}</span>
-							</div>
-							<div class="news-title">
-								<h2 class="van-ellipsis">{{item.title}}</h2>
-							</div>
+						<div class="news-title">
+							<h2 class="van-ellipsis">{{item.title}}</h2>
+						</div>
 
-							<div class="news-img">
-								<van-image class="van-image" width=" 10rem" height=" 10rem" v-for="(i,k) in item.imgs" :key='k' :src="baseUrl+i"
-								 fit='cover' lazy-load @click.stop='showImg(i)'>
+						<div class="news-img">
+							<div>
+								<van-image class="van-image" width="8.9rem" height="8.9rem"
+								v-for="(i,k) in item.imgs" :key='k' :src="baseUrl+i"
+								 fit='cover'  v-lazy="baseUrl+i" @click.stop='showImg(i)'>
 								</van-image>
-								<!-- 套一层DIV为了防止冒泡  先阻止了组件的点击遮罩关闭 -->
-								<div @click.stop='clickHover'>
-									<van-popup v-model="isShowImg" safe-area-inset-bottom :overlay-style="{ backgroundColor: 'white' }" :style="{ height: '30rem'} ,{width: '104%'}"
-									 :close-on-click-overlay=false>
-										<van-image class="van-image" :src="baseUrl+popImg" >
-										</van-image>
-									</van-popup>
-								</div>
 							</div>
-							<div class="news-bottom">
-								<span class="news-date">{{item.date}}</span>
-								<div class="news-reply right">
-									<i class="gymIcon-reply">
-										<span v-for="i in 4" :class="'path'+i"></span>
-									</i>
-									{{item.floor}}
-									<i class="gymIcon-praise">
-										<span v-for="i in 2" :class="'path'+i"></span>
-									</i>
-								</div>
+							
+							<!-- 套一层DIV为了防止冒泡  先阻止了组件的点击遮罩关闭 -->
+							<div @click.stop='clickHover'>
+								<van-popup v-model="isShowImg" safe-area-inset-bottom :overlay-style="{ backgroundColor: 'white' }" :style="{ height: '30rem'} ,{width: '104%'}"
+								 :close-on-click-overlay=false>
+									<van-image class="van-image" :src="baseUrl+popImg">
+									</van-image>
+								</van-popup>
+							</div>
+						</div>
+						<div class="news-bottom">
+							<span class="news-date">{{item.date}}</span>
+							<div class="news-reply right">
+								<i class="gymIcon-reply">
+									<span v-for="i in 4" :class="'path'+i"></span>
+								</i>
+								{{item.floor}}
+								<i class="gymIcon-praise">
+									<span v-for="i in 2" :class="'path'+i"></span>
+								</i>
 							</div>
 						</div>
 					</div>
 				</div>
-			</PullLoadVIX>
-		</van-pull-refresh>
+			</div>
+		</PullLoadVIX>
 	</div>
 </template>
 
 <script>
-	import Vue from 'vue';
-	import {
-		Lazyload,
-		Image,
-		Popup,
-		Toast,
-		PullRefresh,
-		Dialog
-	} from 'vant';
+
 	import {
 		mapState
 	} from 'vuex'
@@ -70,33 +63,38 @@
 		checkLoginMixin
 	} from 'common/mixin.js'
 	import PullLoadVIX from 'components/common/PullLoadVIX/PullLoadVIX.vue'
-
-	Vue.use(Lazyload).use(Image).use(Popup).use(Toast).use(PullRefresh)
-
-
+	
+	// import Vue from 'vue';
+	// 	import {
+	// 		Lazyload,
+			
+	// 	} from 'vant';
+	// Vue.use(Lazyload)
+	
 	export default {
 		mixins: [checkLoginMixin],
 		created() {
-			let page = this.page
-			this.$store.dispatch('reqNewsList', page)
+			this.$store.dispatch('reqNewsList', this.reqData)
 		},
 		data() {
 			return {
 				baseUrl: this.GLOBAL.baseUrl,
 				isShowImg: false,
 				popImg: "",
-				LoadMore: false,
-				page: 1,
-				deleteId: undefined
+				deleteId: undefined,
+				reqData: {
+					pageSize: 3,
+					page: 1,
+				}
 			}
 		},
 		methods: {
-			onRefresh() {
-				this.page = 1
-				this.$store.state.newsList = []
-				this.$store.dispatch('reqNewsList', this.page).then(res => {
+			onRefresh() { // 上拉刷新
+				this.reqData.page = 1
+				this.$store.state.newsList = [] //清空 不然乱插
+				this.$store.dispatch('reqNewsList', this.reqData).then(res => {
 					this.LoadMore = false
-					this.$refs.pull.$emit('reLoad') // 到底了
+					this.$refs.pull.$emit('reLoad')
 				})
 			},
 			deleteNews(id, title) {
@@ -108,9 +106,7 @@
 					this.$store.dispatch('reqDeleteNews', this.deleteId).then(res => {
 						this.onRefresh()
 					})
-				}).catch(() => {
-					// on cancel
-				});
+				}).catch(() => {});
 			},
 			showImg(img) {
 				this.isShowImg = true
@@ -131,17 +127,20 @@
 				// return false
 			},
 			publish() {
-				if (!this.isLogin) {
-					return Toast('登录后即可发文')
-				}
-				this.$router.replace("/newslist/publish")
+				// if (!this.isLogin) {
+				// 	return vant.Toast('登录后即可发文')
+				// }
+				
+
+				this.$router.replace("publish")
 			},
 			// 上拉加载更多
 			loadMore() {
-				this.page = this.page + 1
-				this.$store.dispatch('reqNewsList', this.page).then(res => {
+				this.reqData.page++
+				this.$store.dispatch('reqNewsList', this.reqData).then(res => {
+					console.log(res)
 					this.$refs.pull.$emit('loadEnd') //加载完毕
-					if (res < 3) {
+					if (res.pageCount == this.reqData.page) {
 						return this.$refs.pull.$emit('loadOver') // 到底了
 					}
 				})
@@ -171,6 +170,7 @@
 
 	.gymIcon-delete {
 		float: right;
+		font-size: 1.45rem;
 	}
 
 	.news-content {
@@ -178,7 +178,7 @@
 	}
 
 	.news-title {
-		width: 21rem;
+		/* width: 21rem; */
 		margin-bottom: 0.55rem;
 	}
 

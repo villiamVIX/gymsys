@@ -9,7 +9,10 @@ import {
 	CHANGEAVATAR,
 	NEWS,
 	COMMENT,
-	NEWSDELETE
+	COACHDETAIL,
+	ADMINNEWSLIST,
+	ADMINNEWSCHART,
+	ADMINENTRANCECHART
 } from './mutations-type'
 
 import {
@@ -18,7 +21,9 @@ import {
 
 import {
 	getCoachList,
-	getLesson
+	getLesson,
+	getCoachDetail,
+	bookCoach
 }from 'network/NetTrain.js'
 
 import {
@@ -35,8 +40,13 @@ import {
 	postComment,
 	deleteComment,
 	publishNews,
-	deleteNews
+	deleteNews,
 }from 'network/NetNews.js'
+
+import {
+	getAdminNewsChart,
+	getAdminEntranceChart
+}from 'network/NetAdmin.js'
 
 export default{
 	rewriteUserInfo({commit},info){  //注册时用户信息插入
@@ -45,12 +55,11 @@ export default{
 	
 	async reqNewsList({commit},data){ //新闻列表
 		const res= await getNewsList(data)
-		let resData=res.data;
-		if(resData.length<3){
-		   Promise.resolve(resData.length);
-		}
-		commit(NEWSLIST,resData)
+		let {newslist,pageInfo}=res;
+		commit(NEWSLIST,newslist)
+		  return Promise.resolve(pageInfo);
 	},
+	
 	
 	reqCoachList({commit}){ //教练列表
 		getCoachList().then(res=>{
@@ -59,6 +68,16 @@ export default{
 				commit(COACHLIST,data)
 			}
 		})
+	},
+	
+	async reqCoachDetail({commit},data){ //被预约情况
+	      const res= await getCoachDetail(data)
+		  commit(COACHDETAIL,res)
+	},
+	
+	async reqBookCoach({commit},data){ //预约教练
+	      const res= await bookCoach(data)
+		  return Promise.resolve(res.message) 
 	},
 	
 	reqLesson({commit}){ //团课信息
@@ -159,6 +178,30 @@ export default{
 				 return resolve(res.msg)
 		    })
 		})
-	}
+	},
+	
+/*
+管理员
+*/	
+
+    async reqAdminNews({commit},data){ //管理员新闻列表
+    	const res= await getNewsList(data)
+    	let {newslist,pageInfo}=res;
+    	commit(ADMINNEWSLIST,newslist)
+    	  return Promise.resolve(pageInfo);
+    },
+	
+	async reqAdminNewsChart({commit},data){ //管理员新闻列表
+		const res= await getAdminNewsChart(data)
+		// console.log(res)
+		commit(ADMINNEWSCHART,res.data)
+	},
+	
+    
+	async reqAdminEntranceChart({commit},data){ //管理员新闻列表
+		const res= await getAdminEntranceChart(data)
+		// console.log(res)
+		commit(ADMINENTRANCECHART,res.data)
+	},
 	
 }

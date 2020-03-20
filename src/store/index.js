@@ -10,11 +10,16 @@ export default new Vuex.Store({
 	  newsList: [],
 	  recommend: {},
 	  coachList: [],
+	  coachDetail:[],
 	  Lessons: [],
 	  teacherInfo:{},
 	  Entrance:undefined,
 	  news:{
 		  comment:[]
+	  },
+	  Admin:{
+		  NewsChart:{},
+		  EntranceChart:{}
 	  }
   },
   actions: actions,

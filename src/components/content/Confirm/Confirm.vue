@@ -9,21 +9,18 @@
 </template>
 
 <script>
-	import Vue from 'vue'
+
 	import ConfirmCohInfo from './childCpn/ConfirmCohInfo.vue'
 	import ConfirmSchedule from './childCpn/ConfirmSchedule.vue'
+	// import comfirmPRO from './childCpn/comfirmPRO.vue'
+	
 	import BtnConfirm from 'components/common/BtnConfirm/BtnConfirm.vue'
 	import NavBarVIX from 'components/common/NavBarVIX/NavBarVIX.vue'
 	import FatHr from 'components/common/FatHr/FatHr.vue'
-	
-	import {
-		Toast
-	} from 'vant';
-	
+
 	import {
 		bookCoach
 	} from 'network/NetTrain.js'
-	Vue.use(Toast);
 	export default {
 		
 		props: {
@@ -81,7 +78,8 @@
 			FatHr,
 			ConfirmCohInfo,
 			ConfirmSchedule,
-			BtnConfirm
+			BtnConfirm,
+			// comfirmPRO
 		},
 	}
 </script>

@@ -1,20 +1,15 @@
 <template>
 	<van-grid :border="false" :column-num="4">
 	  <van-grid-item class='grids' v-for="item in gridInfo">
-	    <van-image :src="item.image" width="38" height="38" />
+	    <van-image :src="item.image" width="38" height="38">
+			
+		</van-image>
 		<span>{{item.title}}</span>
 	  </van-grid-item>
 	</van-grid>
 </template>
 
 <script>
-	import Vue from 'vue';
-	import { Grid, GridItem } from 'vant';
-	import { Image } from 'vant';
-	
-	Vue.use(Image);
-	Vue.use(Grid);
-	Vue.use(GridItem);
 	export default{
 		data(){
 			return{

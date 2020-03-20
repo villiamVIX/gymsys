@@ -19,11 +19,7 @@
 <script>
 	import BScroll from 'better-scroll'
 	import {mapState} from 'vuex'
-	import Vue from 'vue'
-	import {
-		Lazyload,
-	} from 'vant';
-	Vue.use(Lazyload)
+
 	export default {
 		
 		data() {

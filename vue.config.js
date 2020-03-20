@@ -1,21 +1,21 @@
-module.exports={
-	
-	// assetsDir: "static",
-	// 指定这个子路径
-	// publicPath: '',
-	configureWebpack:{
-		resolve:{
-			alias:{
-				'assets':'@/assets',
-				'common':'@/common',
-				'components':'@/components',
-				'network':'@/network',
-				'views':'@/views',
-				'tools':'@/tools',
-				
+module.exports = {
+	configureWebpack: {
+		resolve: {
+			alias: {
+				'assets': '@/assets',
+				'common': '@/common',
+				'components': '@/components',
+				'network': '@/network',
+				'views': '@/views',
+				'tools': '@/tools',
+
 			}
+		},
+		externals: {
+			'echarts': 'echarts', // 配置使用CDN
 		}
 	},
+
 	// devServer: {
 	//     proxy: {
 	//       // proxy all requests starting with /api to jsonplaceholder
@@ -28,5 +28,5 @@ module.exports={
 	//       }
 	//     }
 	//   },
-	 
+
 }

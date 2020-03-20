@@ -9,13 +9,7 @@
 </template>
 
 <script>
-	import Vue from 'vue'
-	import {
-		Image,
-		Lazyload
-	} from 'vant';
 
-	Vue.use(Image).use(Lazyload)
 	export default {
 		data() {
 			return {

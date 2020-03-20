@@ -12,10 +12,6 @@
 </template>
 
 <script>
-	import Vue from 'vue';
-	import {
-		Toast
-	} from 'vant';
 
 	import HomeTopBar from './childCpn/HomeTopBar'
 	import HomeSwiper from './childCpn/HomeSwiper'

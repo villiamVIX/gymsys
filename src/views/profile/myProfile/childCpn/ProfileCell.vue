@@ -1,9 +1,9 @@
 <template>
-	<div class="ProfileCell" @click="clickCell(LeftTitle)">
+	<div class="ProfileCell" @click="clickCell">
 		<van-divider />
 		<div class="cell-left">
-			<i :class="LeftIcon"></i>
-			<span class="cell-text">{{LeftTitle}}</span>
+			<!-- <i :class="LeftIcon"></i> -->
+			<span class="cell-text">{{CellInfo.LeftTitle}}</span>
 		</div>
 		<div class="cell-right ">
 			<!-- <span>{{RightTitle}}</span> -->
@@ -13,18 +13,19 @@
 </template>
 
 <script>
-	import Vue from 'vue'
-	import {Divider} from 'vant'
-	
-	Vue.use(Divider);
 	export default{
 		props:{
-			LeftTitle:{type:String,default:""},
-			LeftIcon:{type:String,default:''},
+			CellInfo:{
+				type:Object,
+				default () {
+					return {}
+				} ,
+			// LeftIcon:{type:String,default:''},
+			}
 		},
 		methods:{
 			clickCell(){
-				this.$emit('clickCell',this.LeftTitle)
+				this.$emit('clickCell',this.CellInfo.route)
 			}
 		}
 	}

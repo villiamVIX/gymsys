@@ -9,14 +9,6 @@
 </template>
 
 <script>
-	import Vue from 'vue';
-	import {
-		Icon,
-		Button
-	} from 'vant';
-
-	Vue.use(Button);
-	Vue.use(Icon);
 	export default {
 	}
 </script>

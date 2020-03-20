@@ -2,31 +2,32 @@
 	<div id="profile">
 		<!-- <Calendar></Calendar> -->
 		<ProfileInfo></ProfileInfo>
-		<ProfileCell LeftTitle='我的数据' @clickCell='DealClickCell'></ProfileCell>
-		<ProfileCell LeftTitle='个人中心' @clickCell='DealClickCell'></ProfileCell>
-		<ProfileCell LeftTitle='打卡日历' @clickCell='DealClickCell'></ProfileCell>
-		<ProfileCell LeftTitle='我的私教课程' @clickCell='DealClickCell'></ProfileCell>
-		<img src="~assets/img/profile/login/hide.png" />
-		
-				<button @click="logout">登出</button>
+		<ProfileCell v-for='item in titleInfo' :CellInfo='item' :key='item.route'
+		 @clickCell='DealClickCell'></ProfileCell>
+		<button @click="logout">登出</button>
 	</div>
 
 </template>
 
 <script>
-	import Vue from 'vue'
-	import {Toast,Divider} from 'vant'
+
 	import Calendar from 'components/content/Calendar/Calendar.vue';
 	import ProfileCell from './childCpn/ProfileCell.vue'
 	import ProfileInfo from './childCpn/ProfileInfo.vue'
-	
-	Vue.use(Toast).use(Divider);
 	export default {
-		// inject: ['reload'], //不会闪白的刷新方法 ==》在app.js中先定义好
-		components: {
-			Calendar,
-			ProfileInfo,
-			ProfileCell,
+		data() {
+			return {
+				titleInfo: [
+					{
+						LeftTitle:'我的数据',
+						route:'/profile/data'
+					},
+					{
+						LeftTitle:'场馆管理',
+						route:'/admin'
+					}
+				]
+			}
 		},
 		methods: {
 			logout() {
@@ -36,11 +37,15 @@
 			refresh(){
 				location.reload()
 			},
-			DealClickCell(prop){
-				this.$toast(prop)
+			DealClickCell(route){
+				this.$router.replace(route)
 			}
 		},
-		
+		components: {
+			Calendar,
+			ProfileInfo,
+			ProfileCell,
+		},
 	}
 </script>
 

@@ -1,11 +1,12 @@
 import {VIX} from './axiosVIX'
 
 
-export function getNewsList(page){// 请新闻列表
+export function getNewsList(data){// 请新闻列表
 	return VIX({
 		url:'/news/newslist',
 		params:{
-			page
+			page:data.page,
+			pageSize:data.pageSize
 		}
 	})
 }
@@ -59,6 +60,8 @@ export function deleteNews(data){ //删除评论
 		timeout:3000,
 	})
 }
+
+
 
 
 export class LoadInfo {

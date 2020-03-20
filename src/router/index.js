@@ -7,11 +7,20 @@ const NewsList =()=> import('views/news/NewsList.vue')
 const NewsPublish =()=> import('views/news/NewsPublish.vue')
 const testPull =()=> import('views/news/testPull.vue')
 
+const LoginShade =()=> import('components/common/ShadeLogin/Shade.vue')
+
 const Train = () => import('views/train/Train.vue')
 const Lesson = () => import('views/train/Cpn/lesson/Lesson.vue')
 const Coach = () => import('views/train/Cpn/coach/Coach.vue')
+const Confirm = () => import('views/train/Cpn/confirm/Confirm.vue')
+
 const Login = () => import('views/profile/Login.vue')
 const Entrance = () => import('views/entrance/Entrance.vue')
+
+const Admin = () => import('views/admin/Admin.vue')
+const AdminNews = () => import('views/admin/newsAdmin/NewsAdmin.vue')
+
+const AdminEntrance = () => import('views/admin/entranceAdmin/EntranceAdmin.vue')
 
 Vue.use(VueRouter)
 
@@ -31,9 +40,12 @@ const routes = [{
 		component:NewsList,
 	},
 	{
-		name:'publish',
-		path:"/newslist/publish",
+		path:"/publish",
 		component:NewsPublish
+	},
+	{
+		path:"/login/shade",
+		component:LoginShade
 	},
 	{
 		name:'news',
@@ -46,11 +58,15 @@ const routes = [{
 		component: testPull
 	},
 	{
-		
+		name:'confirm',
+		path:'/confirm/:coachId',
+		component:Confirm,
+	},
+	{	
 		path: '/train',
 		component: Train,
 		children: [{
-			name:'train',
+			    name:'train',
 				path: '/train',
 				redirect: '/train/coach'
 			},
@@ -74,7 +90,24 @@ const routes = [{
 	{
 		name:'profile',
 		path: '/profile/login',
-		component: Login
+		component: Login,
+	},
+	{
+		name:'profileAdmin',
+		path: '/admin',
+		component: Admin,
+		children:[
+			{
+				name:'adminNews',
+				path: 'news',
+				component: AdminNews,
+			},
+			{
+				name:'adminEntrance',
+				path: 'entrance',
+				component: AdminEntrance,
+			}
+		]
 	},
 	{
 		name:'entrance',

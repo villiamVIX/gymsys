@@ -14,7 +14,7 @@
 		},
 		methods:{
 			clickBtn(){
-				this.$bus.$emit('clickBtn') //用发车事件发到事件总线
+				this.$emit('clickBtn')
 			}
 		}
 	}

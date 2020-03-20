@@ -12,11 +12,7 @@
 </template>
 
 <script>
-	import Vue from 'vue';
-	import Button from 'vant/lib/button';
-	import 'vant/lib/button/style';
 	import {mapState} from 'vuex'
-	Vue.use(Button);
 	export default {
 		name: 'HomeTopBar',
 		data() {

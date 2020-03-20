@@ -28,13 +28,6 @@
 	import NewsComment from './childCpn/NewsComment.vue'
 	import FatHr from 'components/common/FatHr/FatHr.vue'
 
-	import Vue from 'vue';
-	import {
-		Skeleton
-	} from 'vant';
-
-	Vue.use(Skeleton);
-
 	export default {
 		name: 'News',
 		data() {

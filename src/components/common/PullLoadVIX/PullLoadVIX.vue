@@ -50,7 +50,7 @@
 			end() {
 				if (this.isLoading || this.isDone) return;
 				// console.log('touchend', this.moveY);
-				if (this.moveY > -40) { //没超过40px就不触发
+				if (this.moveY > -20) { //没超过20px就不触发
 					this.isMoving = false;
 				} else { //超出就触发加载
 					let flag = this.scrollToTheEnd();

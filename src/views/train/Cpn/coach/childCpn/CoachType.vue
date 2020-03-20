@@ -2,7 +2,7 @@
 	<div id="CoachType">
 		<div class="coachType">
 			<div class="TypeItem" v-for="(item,index) in coachTypes" :key='index' @click="clickType(index)">
-					<img class="type-img" :src="item.imgUrl" />
+				<img class="type-img" :src="item.imgUrl" />
 			</div>
 		</div>
 	</div>

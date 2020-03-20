@@ -44,11 +44,7 @@
 </template>
 
 <script>
-	import Vue from 'vue';
-	import {
-		Button,
-		Toast
-	} from 'vant';
+
 	import {
 		LoginCaptche,
 		phoneCode,
@@ -59,7 +55,7 @@ import {
 		checkLoginMixin
 	} from 'common/mixin.js'
 
-	Vue.use(Button).use(Toast);
+
 	export default {
 		mixins: [checkLoginMixin],
 		data() {
@@ -132,18 +128,18 @@ import {
 			Login() { //登录按钮点击后
 				if (this.loginMode === true) {
 					if (this.phoneForm.phone.length < 11) {
-						this.$toast('输入完整手机号码')
+						vant.Toast('输入完整手机号码')
 						return;
 					} else if (!this.phoneRight) {
-						this.$toast('输入正确手机号码')
+						vant.Toast('输入正确手机号码')
 						return;
 					}
 					if (!this.phoneForm.randomCode) {
-						this.$toast('输入完整验证码')
+						vant.Toast('输入完整验证码')
 						return;
 					} else if (!this.randomCodeRight) {
 						console.log(this.phoneForm.randomCode)
-						this.$toast('输入正确验证码')
+						vant.Toast('输入正确验证码')
 						return;
 					}
 
@@ -154,7 +150,7 @@ import {
 					
 					phoneLogin(phone, randomCode).then(res => { // 网络请求
 						console.log(res.data)
-						// this.$toast(res.data.message)
+						// vant.Toast(res.data.message)
 						let {
 							phone,
 							username,
@@ -177,7 +173,7 @@ import {
 				}else{
 					// 账号登陆
 					if(!this.loginForm.username ||!this.loginForm.password ||!this.loginForm.checkCode){
-						this.$toast('输入完整登陆信息')
+						vant.Toast('输入完整登陆信息')
 						return;
 					}
 					let {
@@ -188,7 +184,7 @@ import {
 					
 					pwdLogin(username, password,checkCode).then(res => { 
 						console.log(res)
-						// this.$toast(res.data.message)
+						// vant.Toast(res.data.message)
 						let {
 							phone,
 							username,

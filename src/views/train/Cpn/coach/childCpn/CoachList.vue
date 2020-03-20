@@ -1,6 +1,7 @@
 <template>
 	<div class="CoachList">
-		<div class="CoachItems activeCoh" v-for="(item,index) in coachDetail" :key='index' @click="clickCoach(index)">
+		<div class="CoachItems activeCoh" v-for="(item,index) in coachDetail" :key='index'
+		 @click="clickCoach(item._id)">
 			<div class="coach-img">
 				<img :src="item.cohPic" />
 			</div>
@@ -12,34 +13,33 @@
 				主攻:<span class="coach-major" v-for='major in item.major'>{{major}}.</span>
 			</div>
 		</div>
-		<BtnConfirm class='btn-bottom' :btnTitle="'确认选择'"></BtnConfirm>
+		<BtnConfirm class='btn-bottom' @clickBtn='clickBtn' :btnTitle="'确认选择'"></BtnConfirm>
 	</div>
 </template>
 
 <script>
+	import {checkLoginMixin	} from 'common/mixin.js';
 	import BtnConfirm from 'components/common/BtnConfirm/BtnConfirm.vue'
 	export default {
 		name: "CoachList",
+		mixins: [checkLoginMixin],
 		data() {
 			return {
-				isShow: false,
-				coachIndex: null,
-				// selectCoh: {}
+				coachId: null,
 			}
 		},
-		mounted() {
-			this.$bus.$on('clickBtn',this.confirmCoh)//接收调用的BTN的按钮点击事件，调用confirmCoh
-		},
-		destroyed() {
-			this.$bus.$off('clickBtn',this.confirmCoh)//用完自己处理掉，因外部用的是V-if所以 在销毁前off即可
-		},
 		methods: {
-			clickCoach(i) {
-				this.coachIndex = i
+			clickCoach(coachId) {
+				this.coachId = coachId
 			},
-			confirmCoh() {
-				let selectCoh=this.coachDetail[this.coachIndex] //把被选的教练的资料装好
-				this.$emit('ShowConfirm',selectCoh)  //把装好的教练资料发给调用者-coach没用BUS
+			clickBtn(){
+				if(!this.isLogin){
+				 return	this.$router.push('/login/shade')
+				}
+				if (this.coachId==null) {
+				   return this.$toast("请先选择教练o")
+				}
+				this.$router.push('/confirm/' + this.coachId)
 			}
 		},
 		props: {
@@ -54,7 +54,7 @@
 				default () {
 					return []
 				}
-			}
+			},
 		},
 		components:{
 			BtnConfirm

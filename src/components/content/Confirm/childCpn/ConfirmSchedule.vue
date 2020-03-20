@@ -1,16 +1,18 @@
 <template>
-	<div id="ConfirmSchedule">
-		<div class="Appointment">
-			<div v-for="(i,indexW) in dateList" :key="indexW"  class="week-box" :class="{'passday':i.limit}" @click="!i.limit?showSegment(i,indexW):''">
-				<div class="week-show" :class="currentShow==indexW? 'week-hover':''">周{{i.week}}{{i.date}}</div>
+<div id="ConfirmSchedule">
+	<div class="Appointment">
+		<div v-for="(i,indexW) in dateList" :key="indexW"  class="week-box" :class="{'passday':i.limit}" @click="!i.limit?showSegment(i,indexW):''">
+			<div class="week-show" :class="currentShow==indexW? 'week-hover':''">周{{i.week}}{{i.date}}</div>
 
-				<div v-for="(s,indexS) in Segment" :key='indexS' @click="clickDay(s,indexW,indexS)" class="noDisplay" :class="indexW== currentShow? 'SegmentShow':''">
-					<div class="Segment-item" :id="'s'+indexW+indexS">{{s}}
-						<br />可预约</div>
-				</div>
+			<div v-for="(s,indexS) in Segment" :key='indexS' @click="clickDay(s,indexW,indexS,i)"
+			 class="noDisplay" :id="i.configDate+s" :class="[indexW== currentShow? 'SegmentShow':'',]"
+			 >
+				<div class="Segment-item" :id="'s'+indexW+indexS">{{s}}:00
+					<br />可预约</div>
 			</div>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
@@ -71,12 +73,12 @@
 				this.currentShow = indexW
 				// console.log(i)
 			},
-			clickDay(s, inw, ins) {
+			clickDay(s, inw, ins,week) {
 				let username = this.User.username
 				this.BookInfo.username = username
 				this.BookInfo.Sid = 's' + inw.toString() + ins.toString() //把占位ID存起来
-
-				// console.log(this.BookInfo)
+				this.BookInfo.date=week.configDate+'-'+s
+				console.log(this.BookInfo)
 				this.$emit('bookCoach', this.BookInfo)
 				// console.log(inw, ins)
 			},
@@ -85,19 +87,19 @@
 					const Sgm = ''
 					switch (u) {
 						case 1:
-							Sgm = '8:00';
+							Sgm = '8';
 							break;
 						case 2:
-							Sgm = '10:00'
+							Sgm = '10'
 							break;
 						case 3:
-							Sgm = '14:00'
+							Sgm = '14'
 							break;
 						case 4:
-							Sgm = '16:00'
+							Sgm = '16'
 							break;
 						case 5:
-							Sgm = '19:30'
+							Sgm = '19'
 							break;
 					}
 					this.Segment.push(Sgm)
@@ -192,7 +194,7 @@
 		padding: 8px 5px;
 		color: #323332;
 		border: 1px solid #7bec75a1;
-		background-color: #e0f5de69;
+		/* background-color: #e0f5de69; */
 		height: 55px;
 		width: 60px;
 		border-radius: 7px;

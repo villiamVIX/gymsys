@@ -27,14 +27,11 @@
 </template>
 
 <script>
-	import Vue from 'vue'
+
 	import {
 		mapState
 	} from 'vuex'
-	import {
-		Toast,Image 
-	} from 'vant'
-	Vue.use(Toast).use(Image )
+
 	export default {
 		computed: {
 			...mapState(['User'])
@@ -45,7 +42,7 @@
 				console.log(event.target.files)
 				let size = img.size
 				if (size > 3145728) {
-					this.$toast('3m以内图片被允许')
+					vant.Toast('3m以内图片被允许')
 					return false
 				}
 				let Form = new FormData() //star!!!!!!!!!!!!!!!!
@@ -53,7 +50,7 @@
 				// 可加上D3参数-文件名 --haiweidingyi
 				// console.log(Form.get('avatar'))
 				this.$store.dispatch('reqChangeAvatar', Form).then(res=>{
-					this.$toast(res)
+					vant.Toast(res)
 					console.log(res)
 				})
 			}

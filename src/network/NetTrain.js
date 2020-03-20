@@ -34,3 +34,12 @@ export function getLsTeacher(_id){
 		}
 	})
 }
+
+export function getCoachDetail(id){
+	return VIX({
+		url:'/gymdata/coach/detail',
+		params:{
+			id
+		}
+	})
+}

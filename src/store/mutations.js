@@ -9,8 +9,11 @@ import {
 	CHANGEAVATAR,
 	NEWS,
 	COMMENT,
+	COACHDETAIL,
+	ADMINNEWSLIST,
+	ADMINNEWSCHART,
+	ADMINENTRANCECHART
 } from './mutations-type'
-
 export default {
 	[REWRITE](state, info) {
 		console.log(info)
@@ -20,8 +23,12 @@ export default {
 		state.newsList.push(...data)
 		// state.recommend=data[0].recommend
 	},
+//教练部分
 	[COACHLIST](state,data){
 		state.coachList=data
+	},
+	[COACHDETAIL](state,data){ //预订情况
+		state.coachDetail=data.data
 	},
 	[LESSON](state,data){
 		state.Lessons=data
@@ -41,5 +48,23 @@ export default {
 	[NEWS](state,data){
 		// console.log(data)
 		state.news=data
+	},
+	
+/*
+管理员部分
+*/	
+
+    [ADMINNEWSLIST](state,data){
+		state.newsList=data
+	},
+	
+	[ADMINNEWSCHART](state,data){
+		// console.log(data)
+		state.Admin.NewsChart=data
+	},
+	
+	[ADMINENTRANCECHART](state,data){
+		// console.log(data)
+		state.Admin.EntranceChart=data
 	},
 }

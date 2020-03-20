@@ -1,9 +1,9 @@
 <template>
 	<div id="Coach">
-		<div v-if="!isShowConfirm">
+		<div>
 			<div class="ad-box">
 				<div class="ad-cont">
-					<img src="http://106.53.7.24:3008/images/coach/AD-01.png" />
+					<img :src="baseUrl+'/images/coach/AD-01.png'" />
 				</div>
 			</div>
 			<SlotHome>
@@ -11,58 +11,31 @@
 				<div slot='slot-content'>
 					<CoachType :coachTypes='coachTypes' @clickType='clickType'></CoachType>
 					<van-action-sheet v-model="isShowList" :title="currentType+'教练'">
-						<CoachList :coachDetail='coachDetail' :isShowList='isShowList' @ShowConfirm='ShowConfirm'></CoachList>
+						<CoachList :coachDetail='coachDetail' :isShowList='isShowList' ></CoachList>
 					</van-action-sheet>
 				</div>
 			</SlotHome>
 		</div>
-		<Confirm v-else-if='isShowConfirm&&isLogin' :selectCoh='selectCoh'></Confirm>
-			<Shade v-else> </Shade>
 	</div>
 </template>
 
 <script>
-	import Vue from 'vue';
+
 	import CoachType from './childCpn/CoachType.vue'
 	import CoachList from './childCpn/CoachList.vue'
-
-	import Confirm from 'components/content/Confirm/Confirm.vue'
 	import SlotHome from 'components/common/Slot/SlotHome.vue'
-	import Shade from 'components/common/ShadeLogin/Shade.vue'
-
-	import {
-		ActionSheet,
-		Toast
-	} from 'vant';
+	
 	import {
 		mapState
 	} from 'vuex';
-	import {
-		checkLoginMixin
-	} from 'common/mixin.js';
-
-	Vue.use(ActionSheet).use(Toast);
-
+	
 	export default {
-		mixins: [checkLoginMixin],
-		components: {
-			SlotHome,
-			CoachType,
-			CoachList,
-			Confirm,
-			Shade
-		},
 		data() {
 			return {
+				baseUrl:this.GLOBAL.baseUrl,
 				isShowList: false,
-				isShowConfirm: false,
-				selectCoh: {},
-				coachTypes: [{
-						'imgUrl': require('assets/img/train/coach/defat.png'),
-					},
-					{
-						'imgUrl': require('assets/img/train/coach/muscle.png'),
-					},
+				coachTypes: [{	'imgUrl': require('assets/img/train/coach/defat.png'),},
+					{'imgUrl': require('assets/img/train/coach/muscle.png'),},
 					{
 						'imgUrl': require('assets/img/train/coach/yoga.png'),
 					},
@@ -74,17 +47,7 @@
 		created() {
 			this.$store.dispatch('reqCoachList')
 		},
-		mounted() {
-			this.$bus.$on('clickBtn', this.changeCoh) //接收确认页面发来的车子 且调用changeCoh 关闭确认页面
-		},
-		destroyed() {
-			this.$bus.$off('clickBtn', this.changeCoh)
-		},
 		methods: {
-			changeCoh() {
-				this.isShowConfirm = false
-			},
-
 			filterCoach() {
 				// 先清空教练栏目 防止重复PUSH
 				this.coachDetail = []
@@ -94,7 +57,7 @@
 						this.coachDetail.push(CoachList[i])
 					}
 				}
-				console.log(this.coachDetail)
+				// console.log(this.coachDetail)
 			},
 			clickType(index) {
 				switch (index) {
@@ -111,15 +74,11 @@
 				this.filterCoach()
 				this.isShowList = true
 			},
-			ShowConfirm(info) {
-				console.log(info)
-				this.selectCoh = info //接收子组件装好的教练资料  
-				if (info == undefined) {
-					this.$toast("请先选择教练o")
-				} else {
-					this.isShowConfirm = true //再把确认页面打开 -------确认页面中包含另一车事件总线点击事件
-				}
-			}
+		},
+		components: {
+			SlotHome,
+			CoachType,
+			CoachList,
 		},
 		computed: {
 			...mapState(['coachList'])

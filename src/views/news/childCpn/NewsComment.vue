@@ -39,16 +39,10 @@
 </template>
 
 <script>
-	import Vue from 'vue'
-	import {
-		Toast,
-		SwipeCell,
-		Button
-	} from 'vant'
+
 	import {
 		checkLoginMixin
 	} from 'common/mixin.js'
-	Vue.use(Toast).use(SwipeCell).use(Button)
 	
 	export default {
 		mixins: [checkLoginMixin],
@@ -100,7 +94,7 @@
 			},
 			SendComment() {
 				if (this.content === '') {
-					return Toast('先写点什么吧')
+					return vant.Toast('先写点什么吧')
 				} else {
 					let {
 						username,
@@ -125,10 +119,10 @@
 					}
 					// console.log(data)
 					this.$store.dispatch('reqSendComment', data).then(res => {
-						Toast(res)
+						vant.Toast(res)
 						this.$store.dispatch('reqNews', newsId) //重新获取数据，数据驱动dom重新弄加载
 					}).catch((reject) => {
-						Toast(reject)
+						vant.Toast(reject)
 					}); //提交评论请求
 					this.content = '' // 清除输入
 
@@ -141,10 +135,10 @@
 					_id:this.newsId
 					}
 				this.$store.dispatch('reqDeleteComment',data).then(res => {
-						Toast(res)
+						vant.Toast(res)
 						this.$store.dispatch('reqNews', this.newsId) //重新获取数据，数据驱动dom重新弄加载
 					}).catch((reject) => {
-						Toast(reject)
+						vant.Toast(reject)
 					}); 
 			}
 		},
