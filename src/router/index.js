@@ -21,6 +21,14 @@ const Admin = () => import('views/admin/Admin.vue')
 const AdminNews = () => import('views/admin/newsAdmin/NewsAdmin.vue')
 
 const AdminEntrance = () => import('views/admin/entranceAdmin/EntranceAdmin.vue')
+const AdminUser = () => import('views/admin/userAdmin/UserAdmin.vue')
+
+const AdminCoach = () => import('views/admin/coachAdmin/CoachAdmin.vue')
+const CoachCreate = () => import('views/admin/coachAdmin/CoachCreate.vue')
+
+const AdminSwiper = () => import('views/admin/swiperAdmin/SwiperAdmin.vue')
+
+const Analysis = () => import('views/admin/analysis/Analysis.vue')
 
 Vue.use(VueRouter)
 
@@ -98,15 +106,50 @@ const routes = [{
 		component: Admin,
 		children:[
 			{
-				name:'adminNews',
-				path: 'news',
-				component: AdminNews,
+				name:'Analysis',
+				path: 'analysis',
+				meta:{title:'流量监控'},
+				component: Analysis,
+				children:[
+					{
+						name:'analysisNews',
+						path: 'news',
+						meta:{title:'新闻流量监控'},
+						component: AdminNews,
+					},
+					{
+						name:'adminEntrance',
+						path: 'entrance',
+						meta:{title:'教练管理'},
+						component: AdminEntrance,
+					},
+				]
 			},
 			{
-				name:'adminEntrance',
-				path: 'entrance',
-				component: AdminEntrance,
-			}
+				name:'coachAdd',
+				path: 'addcoach',
+				meta:{title:'新增教练'},
+				component: CoachCreate,
+			},
+			
+			{
+				name:'adminUser',
+				path: 'user',
+				meta:{title:'人员管理'},
+				component: AdminUser,
+			},
+			{
+				name:'coachUser',
+				path: 'coach',
+				meta:{title:'教练管理'},
+				component: AdminCoach,
+			},
+			{
+				name:'adminSwiper',
+				path: 'swiper',
+				meta:{title:'轮播图'},
+				component: AdminSwiper,
+			},
 		]
 	},
 	{

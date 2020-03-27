@@ -33,7 +33,7 @@
 		data() {
 			return {
 				publish: {
-					img: [{url:'https://img.yzcdn.cn/vant/leaf.jpg'}],
+					img: [],
 					title: undefined,
 					article: undefined,
 				},
@@ -47,7 +47,7 @@
 		methods: {
 			ClickPublish() {
 				if(!this.isLogin){
-					return vant.Toast('请先登录');
+					return this.$toast('请先登录');
 				}
 				let files=this.publish.img
 				var Form =new FormData()
@@ -73,7 +73,7 @@
 		
 			beforeRead(file) {
 				if (file.type !== 'image/jpeg'&'image/png' ) {
-					vant.Toast('请上传 jpg/png 格式图片');
+					this.$toast('请上传 jpg/png 格式图片');
 					return false;
 				}
 				return true;

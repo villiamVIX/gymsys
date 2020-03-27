@@ -9,7 +9,7 @@
 				<span class="coach-name">{{item.name}}-教练</span>
 				<div class="coach-level">教练评级{{item.level}}</div>
 				<span class="coach-price right">¥{{item.price}}</span>
-				<p class="coach-freq">累计上课{{item.freq}}节</p>
+				<p class="coach-freq">累计上课{{item.totalCount}}节</p>
 				主攻:<span class="coach-major" v-for='major in item.major'>{{major}}.</span>
 			</div>
 		</div>

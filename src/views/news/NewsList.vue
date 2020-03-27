@@ -1,5 +1,8 @@
 <template>
 	<div>
+		<el-backtop :right='15' :bottom="140">
+		   <i class="gymIcon-Lmore"></i>
+		  </el-backtop>
 		<div class="news-publish" @click="publish">
 			<i class="gymIcon-write"></i>
 		</div>
@@ -20,12 +23,11 @@
 
 						<div class="news-img">
 							<div>
-								<van-image class="van-image" width="8.9rem" height="8.9rem"
-								v-for="(i,k) in item.imgs" :key='k' :src="baseUrl+i"
-								 fit='cover'  v-lazy="baseUrl+i" @click.stop='showImg(i)'>
+								<van-image class="van-image" width="8.9rem" height="8.9rem" v-for="(i,k) in item.imgs" :key='k' :src="baseUrl+i"
+								 fit='cover' v-lazy="baseUrl+i" @click.stop='showImg(i)'>
 								</van-image>
 							</div>
-							
+
 							<!-- 套一层DIV为了防止冒泡  先阻止了组件的点击遮罩关闭 -->
 							<div @click.stop='clickHover'>
 								<van-popup v-model="isShowImg" safe-area-inset-bottom :overlay-style="{ backgroundColor: 'white' }" :style="{ height: '30rem'} ,{width: '104%'}"
@@ -51,11 +53,12 @@
 				</div>
 			</div>
 		</PullLoadVIX>
+		
 	</div>
+	
 </template>
 
 <script>
-
 	import {
 		mapState
 	} from 'vuex'
@@ -63,14 +66,14 @@
 		checkLoginMixin
 	} from 'common/mixin.js'
 	import PullLoadVIX from 'components/common/PullLoadVIX/PullLoadVIX.vue'
-	
+
 	// import Vue from 'vue';
 	// 	import {
 	// 		Lazyload,
-			
+
 	// 	} from 'vant';
 	// Vue.use(Lazyload)
-	
+
 	export default {
 		mixins: [checkLoginMixin],
 		created() {
@@ -130,7 +133,7 @@
 				// if (!this.isLogin) {
 				// 	return vant.Toast('登录后即可发文')
 				// }
-				
+
 
 				this.$router.replace("publish")
 			},

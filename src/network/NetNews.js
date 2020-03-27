@@ -21,7 +21,7 @@ export function getNews(newsId){ //详细新闻
 }
 
 export function postComment(data){//发布评论
-console.log(data)
+
 	return VIX({
 		url:'/news/comment',
 		method:'post',

@@ -20,8 +20,7 @@
 		</div>
 		<div v-show='!loginMode' class="mod">
 			<section class="login-form">
-				<input contenteditable="true" type="text" class="username" placeholder="用户名" v-model="loginForm.username"
-				 autofocus>
+				<input contenteditable="true" type="text" class="username" placeholder="用户名" v-model="loginForm.username" autofocus>
 				<div class="psw-switch">
 					<input v-show="pswShow" type="password" class="password" autocomplete='password' v-model="loginForm.password"
 					 placeholder="密码">
@@ -34,24 +33,22 @@
 					<input type="text" style="width: 46vw;" class="checkCode" v-model="loginForm.checkCode" placeholder="验证码">
 					<img ref='captcheImg' style="width: 30vw;" src="" @click.prevent="flashCaptche" />
 				</div>
-
 			</section>
 		</div>
-		<van-button class='btn' type="primary" size="large" @click='Login'>登录</van-button>
-		<van-button class='btn' type="default" size="large" @click='back'>返回</van-button>
+		<el-button type="success" class='btn' size="large" @click='Login'>登录</el-button>
+		<el-button type="primary" class='btn' size="large" @click='back' plain>返回</el-button>
 
 	</div>
 </template>
 
 <script>
-
 	import {
 		LoginCaptche,
 		phoneCode,
 		phoneLogin,
 		pwdLogin
 	} from 'network/NetLogin.js'
-import {
+	import {
 		checkLoginMixin
 	} from 'common/mixin.js'
 
@@ -60,6 +57,7 @@ import {
 		mixins: [checkLoginMixin],
 		data() {
 			return {
+				baseUrl:this.GLOBAL.baseUrl,
 				countDown: 0,
 				loginMode: true,
 				pswShow: true,
@@ -99,8 +97,8 @@ import {
 			}
 		},
 		methods: {
-			flashCaptche() { //发动态图片验证码106.53.7.24
-				this.$refs.captcheImg.src = "http://192.168.1.104:3008/users/api/login/captche?time=" + new Date()
+			flashCaptche() { //发动态图片验证码1
+				this.$refs.captcheImg.src = this.baseUrl+"/users/api/login/captche?time=" + new Date()
 			},
 			PswMode() { //切换密码是否隐藏 
 				this.pswShow = !this.pswShow
@@ -112,7 +110,7 @@ import {
 				phoneCode(this.phoneForm.phone).then(res => {
 					console.log(res)
 					// alert('验证码：' + res.randomCode || "")
-					this.phoneForm.randomCode=res.randomCode
+					this.phoneForm.randomCode = res.randomCode
 				})
 				this.countDown = 5
 				let timer = setInterval(() => {
@@ -122,8 +120,8 @@ import {
 					}
 				}, 1000)
 			},
-			back(){
-					this.$router.back()
+			back() {
+				this.$router.back()
 			},
 			Login() { //登录按钮点击后
 				if (this.loginMode === true) {
@@ -147,7 +145,7 @@ import {
 						phone,
 						randomCode
 					} = this.phoneForm //按需拨取出
-					
+
 					phoneLogin(phone, randomCode).then(res => { // 网络请求
 						console.log(res.data)
 						// vant.Toast(res.data.message)
@@ -161,18 +159,18 @@ import {
 						} = res.data
 						this.$store.dispatch('rewriteUserInfo', {
 							phone: phone || '',
-							_id:_id,
+							_id: _id,
 							username: username,
-							deadline:deadLine,
-							avatar:avatar,
-							role:role
+							deadline: deadLine,
+							avatar: avatar,
+							role: role
 						})
 						this.refresh()
 					})
 					console.log(phone, randomCode)
-				}else{
+				} else {
 					// 账号登陆
-					if(!this.loginForm.username ||!this.loginForm.password ||!this.loginForm.checkCode){
+					if (!this.loginForm.username || !this.loginForm.password || !this.loginForm.checkCode) {
 						vant.Toast('输入完整登陆信息')
 						return;
 					}
@@ -181,8 +179,8 @@ import {
 						password,
 						checkCode
 					} = this.loginForm //按需拨取出
-					
-					pwdLogin(username, password,checkCode).then(res => { 
+
+					pwdLogin(username, password, checkCode).then(res => {
 						console.log(res)
 						// vant.Toast(res.data.message)
 						let {
@@ -194,16 +192,16 @@ import {
 						} = res.data
 						this.$store.dispatch('rewriteUserInfo', {
 							phone: phone || '',
-							_id:_id,
+							_id: _id,
 							username: username,
-							deadline:deadLine,
-							avatar:avatar
+							deadline: deadLine,
+							avatar: avatar
 						})
 						this.refresh()
 					})
 				}
 			},
-			refresh(){
+			refresh() {
 				this.$router.replace('/')
 				location.reload()
 			}
@@ -326,10 +324,14 @@ import {
 	.password {
 		margin: 20px 0;
 	}
-
-	.btn {
+	
+	.btn{
 		width: 76vw;
 		margin: 15px 0;
-		border-color: #41b88361;
 	}
+	.btn:first-of-type {
+		
+		background-color: #07c160;
+	}
+	
 </style>

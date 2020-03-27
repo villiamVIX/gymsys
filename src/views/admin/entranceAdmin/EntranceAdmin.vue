@@ -1,21 +1,28 @@
 <template>
-	<div id="EntranceAdmin">
-		<div id="main" style="margin: 0 auto;height: 20rem;"></div>
+	<el-card class="box-card">
+	<div id="EntranceAdmin" v-loading="loading">
+		<div id="main" style="margin: 0 auto;height: 23rem;"></div>
+		  <el-select v-model="value"
+		   placeholder="日期" :xs="1" :sm="2" :md="8" :lg="9">
+		    <el-option 
+		      v-for="item in options"
+		      :key="item.value"
+		      :label="item.label"
+		      :value="item.value">
+		    </el-option>
+		  </el-select>
 	</div>
+	</el-card>
 </template>
 
 <script>
+	import {getChartData} from  'common/mixin.js'
 	export default{
-		created() {
-			this.$store.dispatch('reqAdminEntranceChart',7).then(res=>{
-				this.mapData()  //异步 mounted时候不一定拿的到服务器数据
-			}).then(res2=>{
-				this.getChart()
-			})
-		},
+		mixins:[getChartData],
 		data() {
 			return {
-				data: []
+				data: [],
+				actionFun:'reqAdminEntranceChart'
 			}
 		},
 		methods:{
@@ -26,8 +33,8 @@
 				var dataBox=[]
 				// 分别取出 键--值
 				
-				let Xdata=Object.keys(data).reverse()
-				let Ydata=Object.values(data)
+				let Xdata=Object.keys(data).reverse()  //一起倒序 
+				let Ydata=Object.values(data).reverse()
 				for(let i=0;i<Xdata.length;i++){
 					dataBox=[]
 					dataBox.push(Xdata[i],Ydata[i])
@@ -61,7 +68,7 @@
 					    },
 					    visualMap: {
 					        type: 'piecewise',
-					        show: true,
+					        show: false,
 					        dimension: 0,
 					        seriesIndex: 0,
 					        pieces: [{
@@ -87,7 +94,7 @@
 					                symbol: ['none', 'none'],
 					                label: {show: false},
 					                data: [
-					                    {xAxis: 0},
+					                    {xAxis: 1},
 					                    {xAxis: 2},
 					                    {xAxis: 4},
 					                    {xAxis: 6}
@@ -101,23 +108,6 @@
 				
 				// 3.渲染
 				mychart.setOption(option)
-				
-				// 
-				// legend:{
-				// 	bottom:0
-				// },
-				// tooltip:{},
-				// xAxis: {
-				//     type: 'category',
-				//     data: this.data.Xdata
-				// },
-				// yAxis: {
-				//     type: 'value'
-				// },
-				// series: [{
-				//     data: this.data.Ydata,
-				//     type: 'line'
-				// }]
 			}
 		}
 	}

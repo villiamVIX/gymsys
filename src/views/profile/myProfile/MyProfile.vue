@@ -24,7 +24,7 @@
 					},
 					{
 						LeftTitle:'场馆管理',
-						route:'/admin'
+						route:'/admin/user'
 					}
 				]
 			}

@@ -1,7 +1,11 @@
 <template>
 	<div id="admin">
-		<AdminNewsClass></AdminNewsClass>
+		<el-card class="box-card">
 		<AdminNewsChart></AdminNewsChart>
+		</el-card>
+		<el-card class="box-card">
+		<AdminNewsClass></AdminNewsClass>
+		</el-card>
 	</div>
 </template>
 
@@ -20,6 +24,9 @@
 <style scoped>
 	#admin{
 		background-color: #f2f3f5;
-		
+		width: 50rem !important;
+	}
+	.box-card:last-of-type{
+		margin-top: 25rem;
 	}
 </style>

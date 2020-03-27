@@ -4,8 +4,7 @@
 			<div slot='center' class="nav-title">
 				<div v-for="(item,index) in routeData"
 				     :key='item.title'
-					 @click="clickTitle(index,item.route)"
-					 >
+					 @click="clickTitle(index,item.route)">
 						<span :class="currentIndex==index? 'actRouter':''">{{item.title}}</span>
 				</div>
 			</div>
@@ -53,10 +52,6 @@
 	}
 	.nav-title>div{
 		flex: 1;
-	}
-	.Rview{
-		padding-top: 44px;
-		height: 80vh;
 	}
 	.actRouter{
 		color: #333333;

@@ -1,16 +1,14 @@
 <template>
 	<div id="shade">
 		<h2>您还未登录，请先登录获取入场码</h2>
-		<van-button class='btn' type="default" size="large" @click='ToLogin'>请先登录</van-button>
+		<el-button type="primary" class='btn' :xs="4" :sm="6" :md="8" :lg="9" :xl="11" @click='ToLogin' plain>请先登录</el-button>
 	</div>
 </template>
 
 <script>
-
 	export default {
 		data() {
-			return {
-			}
+			return {}
 		},
 		methods: {
 			ToLogin() {
@@ -21,24 +19,24 @@
 </script>
 
 <style scoped>
-	#shade{
+	#shade {
 		height: 100vh;
 		width: 100%;
-	}
-	#shade {
-		height: 100vw;
+		display: flex;
 		flex-direction: column;
-		padding: 35vh 10vw;
+		align-items: center;
 		color: white;
-	} 
-	
+		margin: 0 auto;
+	}
+
 	#shade h2 {
-		flex: 1;
+		/* flex: 1; */
 		font-size: 20px;
 		margin: 15px auto;
 	}
 
-	#shade van-button {
-		flex: 1;
+	.btn {
+		width: 76vw;
+		margin: 15px 0;
 	}
 </style>

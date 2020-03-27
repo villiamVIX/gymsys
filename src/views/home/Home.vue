@@ -3,20 +3,17 @@
 		<HomeTopBar></HomeTopBar>
 		<HomeSwiper></HomeSwiper>
 		<HomeGrid></HomeGrid>
-		<!-- <HomeTip></HomeTip> -->
 		<FatHr></FatHr>
 		<HomeNews></HomeNews>
 		<FatHr></FatHr>
-		<HomeRec></HomeRec>
+		<HomeRec :loading='loading'></HomeRec>
 	</div>
 </template>
 
 <script>
-
 	import HomeTopBar from './childCpn/HomeTopBar'
 	import HomeSwiper from './childCpn/HomeSwiper'
 	import HomeGrid from './childCpn/HomeGrid'
-	// import HomeTip from './childCpn/HomeTip'
 	import HomeNews from './childCpn/HomeNews'
 	import HomeRec from './childCpn/HomeRec'
 
@@ -26,15 +23,24 @@
 
 	export default {
 		created() {
+			this.$store.dispatch('reqHomeCommon').then(res=>{
+				this.loading=false
+			})
 			this.$store.dispatch('reqNewsList')
 		},
 		data() {
 			return {
 				reKey: 1,
-				username: ""
+				username: "",
+				recommend: Object,
+				loading:true
 			}
 		},
 		methods: {
+			// mapData() {
+			// 	console.log(this.$store.state.common.recommend)
+			// 	this.recommend = this.$store.state.common.recommend
+			// }
 		},
 		components: {
 			HomeTopBar,

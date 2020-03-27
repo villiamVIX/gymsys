@@ -1,5 +1,7 @@
 import {
 	REWRITE,
+	HOMECOMMON,
+
 	NEWSLIST,
 	COACHLIST,
 	LESSON,
@@ -10,14 +12,20 @@ import {
 	NEWS,
 	COMMENT,
 	COACHDETAIL,
+	
 	ADMINNEWSLIST,
 	ADMINNEWSCHART,
-	ADMINENTRANCECHART
+	ADMINENTRANCECHART,
+	ADMINUSERTABLE,
+	ADMINCOACHTABLE,
+	ADMINLESSONTABLE,
+	ADMINCOACHPIE,
 } from './mutations-type'
 
-import {
+	import {
+		getHomeCommon
+	}from 'network/NetHome.js'
 	
-}from 'network/NetHome.js'
 
 import {
 	getCoachList,
@@ -45,13 +53,28 @@ import {
 
 import {
 	getAdminNewsChart,
-	getAdminEntranceChart
+	getAdminEntranceChart,
+	getAdminUserTable,
+	getAdminCoachTable,
+	getAdminLessonTable,
+	deleteUser,
+	getAdminCoachPie
 }from 'network/NetAdmin.js'
 
 export default{
 	rewriteUserInfo({commit},info){  //注册时用户信息插入
 			commit(REWRITE,info)
 	},
+	
+	
+	async reqHomeCommon({commit}){ //首页轮播+推荐
+		const res= await getHomeCommon()
+		let {recommend,swipers}=res[0]
+		let data={recommend,swipers}
+		commit(HOMECOMMON,data)
+	},
+	
+	
 	
 	async reqNewsList({commit},data){ //新闻列表
 		const res= await getNewsList(data)
@@ -61,13 +84,9 @@ export default{
 	},
 	
 	
-	reqCoachList({commit}){ //教练列表
-		getCoachList().then(res=>{
-			if(res.status==200){
-				let data=res.data
-				commit(COACHLIST,data)
-			}
-		})
+	async reqCoachList({commit}){ //教练列表
+		let res = await getCoachList()
+		commit(COACHLIST,res)
 	},
 	
 	async reqCoachDetail({commit},data){ //被预约情况
@@ -184,24 +203,51 @@ export default{
 管理员
 */	
 
-    async reqAdminNews({commit},data){ //管理员新闻列表
+    async reqAdminNews({commit},data){ //管理员-新闻列表
     	const res= await getNewsList(data)
     	let {newslist,pageInfo}=res;
     	commit(ADMINNEWSLIST,newslist)
     	  return Promise.resolve(pageInfo);
     },
 	
-	async reqAdminNewsChart({commit},data){ //管理员新闻列表
+	async reqAdminNewsChart({commit},data){ //管理员-新闻图表
 		const res= await getAdminNewsChart(data)
 		// console.log(res)
 		commit(ADMINNEWSCHART,res.data)
 	},
 	
     
-	async reqAdminEntranceChart({commit},data){ //管理员新闻列表
+	async reqAdminEntranceChart({commit},data){ //管理员-人员进场列表
 		const res= await getAdminEntranceChart(data)
 		// console.log(res)
 		commit(ADMINENTRANCECHART,res.data)
 	},
+	
+	async reqAdminUserTable({commit}){ //管理员-人员
+		const res= await getAdminUserTable()
+		commit(ADMINUSERTABLE,res.data)
+	},
+	
+	async reqDeleteUser({commit},data){ //管理员-删人
+		const res= await deleteUser(data)
+	},
+	
+	async reqAdminCoachPie({commit},data){ //管理员-教练业绩
+		const res= await getAdminCoachPie(data)
+		commit(ADMINCOACHPIE,res.data)
+	},
+	
+	
+	// async reqAdminEntranceChart({commit},data){ //管理员人员进场列表
+	// 	const res= await getAdminEntranceChart(data)
+	// 	// console.log(res)
+	// 	commit(ADMINENTRANCECHART,res.data)
+	// },
+	
+	// async reqAdminEntranceChart({commit},data){ //管理员人员进场列表
+	// 	const res= await getAdminEntranceChart(data)
+	// 	// console.log(res)
+	// 	commit(ADMINENTRANCECHART,res.data)
+	// },
 	
 }

@@ -9,6 +9,8 @@ export const CHANGEAVATAR='changeAvatar'
 export const NEWS='getNews'
 export const COMMENT='postComment'
 export const COACHDETAIL='getCoachDetail'
+export const HOMECOMMON='getHomeCommon'
+
 
 
 
@@ -16,3 +18,8 @@ export const COACHDETAIL='getCoachDetail'
 export const ADMINNEWSLIST='getAdminNewsList'
 export const ADMINNEWSCHART='getAdminNewsChart'
 export const ADMINENTRANCECHART='getAdminEntranceChart'
+
+export const ADMINUSERTABLE='getAdminUserTable'
+export const ADMINCOACHTABLE='getAdminCoachTable'
+export const ADMINLESSONTABLE='getAdminLessonTable'
+export const ADMINCOACHPIE='getAdminCoachPie' //教练业绩

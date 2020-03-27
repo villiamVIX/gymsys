@@ -45,7 +45,9 @@
 			}
 		},
 		created() {
-			this.$store.dispatch('reqCoachList')
+			this.$store.dispatch('reqCoachList').then(res=>{
+				console.log(this.$store.state.coachList)
+			})
 		},
 		methods: {
 			filterCoach() {
@@ -92,7 +94,7 @@
 	}
 
 	.ad-cont {
-		height: 18vh;
+		 height: 18vh; 
 	}
 
 	.ad-cont img {
@@ -100,10 +102,6 @@
 		height: 100%;
 		width: 100%;
 		padding: 0.9375rem;
-	}
-
-	.content {
-		padding: 16px 16px 80vh;
 	}
 
 	.title-left {

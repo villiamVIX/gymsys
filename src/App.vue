@@ -1,9 +1,12 @@
 <template>
 	<div id="app">
-		<keep-alive exclude="confirm">
-			<router-view class="router-view" v-if="isRouterAlive"></router-view>
+		<keep-alive exclude="confirm,Admin">
+			<!-- <transition name="fade-transform"> -->
+				<router-view class="router-view" v-if="isRouterAlive"></router-view>
+			<!-- </transition> -->
 		</keep-alive>
-		
+
+
 		<div class="bottom-bar" :style="{width:wid+'%'}">
 			<i class="gymIcon-Lmore" :class="Min==wid?'moreRotate':''" @click="clickBar"></i>
 			<div>
@@ -39,7 +42,7 @@
 					</i>
 				</router-link>
 			</div>
-			<div></div>  <!-- 顶位子 -->
+			<div></div> <!-- 顶位子 -->
 		</div>
 	</div>
 </template>
@@ -101,7 +104,7 @@
 		margin: auto;
 	} */
 
-	
+
 
 	.bottom-bar {
 		height: 49px;
@@ -130,18 +133,21 @@
 		border-radius: 38px;
 	}
 
-	i{
+	i {
 		display: block;
 		margin: 9px auto 0px;
 		font-size: 1.875rem;
 	}
-	.moreRotate{
+
+	.moreRotate {
 		transition: rotateY 7s;
-		transform:rotateY(180deg)
+		transform: rotateY(180deg)
 	}
-	.gymIcon-Lmore{
+
+	.gymIcon-Lmore {
 		flex: 1;
 	}
+
 	.gymIcon-news1,
 	.gymIcon-news2,
 	.gymIcon-train1,
