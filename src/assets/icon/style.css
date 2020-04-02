@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'gymIcon-';
-  src:  url('fonts/gymIcon-.eot?251fjh');
-  src:  url('fonts/gymIcon-.eot?251fjh#iefix') format('embedded-opentype'),
-    url('fonts/gymIcon-.ttf?251fjh') format('truetype'),
-    url('fonts/gymIcon-.woff?251fjh') format('woff'),
-    url('fonts/gymIcon-.svg?251fjh#gymIcon-') format('svg');
+  src:  url('fonts/gymIcon-.eot?2xts2c');
+  src:  url('fonts/gymIcon-.eot?2xts2c#iefix') format('embedded-opentype'),
+    url('fonts/gymIcon-.ttf?2xts2c') format('truetype'),
+    url('fonts/gymIcon-.woff?2xts2c') format('woff'),
+    url('fonts/gymIcon-.svg?2xts2c#gymIcon-') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.gymIcon-mine:before {
+  content: "\e91c";
+  color: #fff;
+}
 .gymIcon-coach .path1:before {
   content: "\e919";
   color: rgb(81, 81, 81);

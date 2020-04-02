@@ -91,6 +91,7 @@ export default {
 				this.BookInfo.date = week.configDate + '-' + s
 				this.BookInfo.userId=this.User._id
 				this.BookInfo.coachId=this.$route.params.coachId
+				this.BookInfo.userName=this.User.username
 				
 				this.$emit('bookCoach', this.BookInfo)
 			}
@@ -125,11 +126,13 @@ export default {
 			let d = new Date(dd);
 			let day = d.getDay(); //3
 			let date = d.getDate(); //12
+		
 			if (day == 1) {
 				return d;
 			}
 			if (day == 0) {
-				d.setDate(date - 6);
+				 d.setDate(date - 6);
+				 return d
 			} else {
 				d.setDate(date - day + 1);
 				return d;
@@ -140,9 +143,10 @@ export default {
 			let wkd = new Date(confg).getDay();
 			this.currentShow = wkd == 0 ? 6 : wkd - 1
 			for (var i = 0; i < 7; i++) {
-				if (i < wkd - 1) {
+				if (i < wkd - 1 || wkd==0) {
 					this.dateList[i].limit = true
 				}
+				
 				this.dateList[i].date = d.getDate();
 				this.dateList[i].configDate = dateFormat(new Date(d), 'YYYY-MM-DD');
 				d.setDate(d.getDate() + 1);

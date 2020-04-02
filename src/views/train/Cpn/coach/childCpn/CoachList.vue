@@ -107,7 +107,6 @@
 		width: 65px;
 		color: #645D2E;
 		float: right;
-
 		margin: 2px 35% 0 0;
 	}
 
@@ -115,8 +114,6 @@
 		padding: 8px 0;
 		color: #A3A2A3;
 	}
-
-	.coach-major {}
 
 	.coach-price {
 		color: #E57464;

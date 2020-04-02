@@ -7,6 +7,12 @@ export const checkLoginMixin = {
 	computed: {
 		...mapState(['User'])
 	},
+	watch:{
+		'$store.state.User':function(){
+			this.checkIsUser()
+			this.checkRole()
+		}
+	},
 	created() {
 		this.checkIsUser()
 		this.checkRole()

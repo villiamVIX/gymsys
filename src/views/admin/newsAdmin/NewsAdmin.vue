@@ -4,29 +4,30 @@
 		<AdminNewsChart></AdminNewsChart>
 		</el-card>
 		<el-card class="box-card">
-		<AdminNewsClass></AdminNewsClass>
-		</el-card>
+		<AdminNewsTable></AdminNewsTable>
+				</el-card>
 	</div>
 </template>
 
 <script>
-	import AdminNewsClass from './childCpn/AdminNewsClass.vue'
+	// import AdminNewsClass from './childCpn/AdminNewsClass.vue'
 	import AdminNewsChart from './childCpn/AdminNewsChart.vue'
+	import AdminNewsTable from './childCpn/AdminNewsTable.vue'
+	
 	export default{
 		name:'NewsAdmin',
 		components:{
-			AdminNewsClass,
-			AdminNewsChart
+			// AdminNewsClass,
+			AdminNewsChart,
+			AdminNewsTable
 		}
 	}
 </script>
 
 <style scoped>
 	#admin{
-		background-color: #f2f3f5;
-		width: 50rem !important;
 	}
 	.box-card:last-of-type{
-		margin-top: 25rem;
+		margin-top: 1.2rem;
 	}
 </style>

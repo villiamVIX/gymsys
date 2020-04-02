@@ -44,7 +44,7 @@
 					this.opCT = Math.abs(this.moveY)
 
 				}
-				console.log(this.opCT)
+				// console.log(this.opCT)
 				// console.log('滑到的'+e.touches[0].clientY );
 			},
 			end() {

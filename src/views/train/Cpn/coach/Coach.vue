@@ -89,6 +89,9 @@
 </script>
 
 <style scoped>
+	.van-popup{
+		max-height: 80%;
+	}
 	.ad-box {
 		background-color: #d1d1d11c;
 	}

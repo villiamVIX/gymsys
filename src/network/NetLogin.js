@@ -1,13 +1,13 @@
 import {VIX} from './axiosVIX'
 
+// 请求随机码
 export function LoginCaptche(){
 	return VIX({
 		url:'/users/api/login/captche'
 	})
 }
 
-
-
+//请求验证码
 export function phoneCode(phone){
 	return VIX({
 		url:'/users/login/phonecode',
@@ -17,6 +17,7 @@ export function phoneCode(phone){
 	})
 }
 
+//电话登录
 export function phoneLogin(phone,randomCode){
 	return VIX({
 		url:'/users/login/phone',
@@ -28,8 +29,8 @@ export function phoneLogin(phone,randomCode){
 	})
 }
 
-
-export function pwdLogin(username, password,checkCode){
+//密码登录
+export function pwdLogin(username, password,checkCode){ 
 	return VIX({
 		url:'/users/api/login/pwd',
 		method:'post',
@@ -40,15 +41,15 @@ export function pwdLogin(username, password,checkCode){
 	})
 }
 
-
-export function getIsLogin(){//自动登录
+//自动登录
+export function getIsLogin(){
 	return VIX({
 		url:'/users/api/islogin',
 			timeout:3000
 	})
 }
-
-export function getLogout(){ //退出登录
+//退出登录
+export function getLogout(){ 
 	return VIX({
 		url:'/users/logout',
 			timeout:3000
@@ -72,5 +73,11 @@ export function ChangeAvatar(img){
 			contentType:false,
 			processData:false,
 			data:img
+	})
+}
+
+export function getMyClass(){
+	return VIX({
+		url:'/users/myclass',
 	})
 }

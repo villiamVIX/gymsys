@@ -4,14 +4,17 @@
 			<img src="~assets/img/logo.png" />
 		</div>
 		<section class="switch-type">
+			<!-- <transition > -->
+				
 			<span :class="{activeType:loginMode}" @click="changeMode(true)">验证码登录</span>
+			<!-- </transition> -->
 			<span :class="{activeType:!loginMode}" @click="changeMode(false)">密码登录</span>
 		</section>
 		<div v-show="loginMode" class="mod">
 			<section class="login-form">
 				<div class="phoneCheck">
 					<input maxlength="11" type="tel" class="username" placeholder="手机号" v-model="phoneForm.phone" autofocus style="width:56vw">
-					<button class="BtnDef" :disabled="!phoneRight" v-if="!countDown" :class="{BtnOk:phoneRight}" @click.prevent="countLoad">发送验证码</button>
+					<button class="BtnDef" :disabled="!phoneRight" v-if="!countDown" :class="{BtnOk:phoneRight}" @click.prevent="countLoad">验证码</button>
 					<button class="BtnDef" v-else="countDown" disabled="disabled">已发送 {{countDown}}s</button>
 				</div>
 				<input type="text" class="password" maxlength="5" autocomplete='password' v-model="phoneForm.randomCode"
@@ -213,7 +216,6 @@
 <style scoped>
 	.loginForm {
 		font: 15px 'Microsoft YaHei', arial, tahoma, \5b8b\4f53, sans-serif;
-		height: 70vh;
 		display: flex;
 		flex-direction: column;
 		display: -webkit-flex;
@@ -222,18 +224,20 @@
 	}
 
 	.Login-icon {
-		margin-top: 50px;
+		margin: 3.3rem 0;
 	}
 
 	.Login-icon img {
-		height: 6.25rem;
-		width: 6.25rem;
+		height: 2.25rem;
+		width: 17.25rem;
 	}
 
 	.loginForm section {
 		flex: 1;
 	}
-
+	.switch-type{
+		margin:  0 0 2.2rem 0;
+	}
 	.switch-type span {
 		padding: 8px 7.5px;
 	}
@@ -278,7 +282,7 @@
 
 	.login-form input {
 		height: 2.8rem;
-		width: 76vw;
+		width: 77vw;
 		border-color: #41b88361;
 		border: none;
 		border-bottom: #41b88361 solid;
@@ -288,6 +292,7 @@
 
 	.psw-switch {
 		float: left;
+		
 	}
 
 	.psw-switch input {
@@ -297,11 +302,11 @@
 
 	.psw-switch img {
 		border: none;
-		/* width: 18px; */
-		border-bottom: #41b88361 solid;
-		padding: 8px 3px;
-		height: 39px;
-		margin-top: 25.8px;
+		/* width: 1.125rem; */
+		/* border-bottom: #41b88361 solid; */
+		padding:   0.5rem 0.187rem;
+		height: 2.2937rem;
+		margin-top: 1.62rem;
 		background-color: white;
 	}
 
@@ -316,8 +321,8 @@
 	#captcheCode img {
 		border: none;
 		border-bottom: #41b88361 solid;
-		height: 44px;
-		margin-top: 0.85px;
+		height: 2.75rem;
+		margin-top: 0.053rem;
 		background-color: white;
 	}
 
@@ -328,6 +333,9 @@
 	.btn{
 		width: 76vw;
 		margin: 15px 0;
+	}
+	.BtnDef{
+		font-size: 10px;
 	}
 	.btn:first-of-type {
 		

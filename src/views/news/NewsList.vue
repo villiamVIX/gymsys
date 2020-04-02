@@ -1,61 +1,65 @@
 <template>
 	<div>
 		<el-backtop :right='15' :bottom="140">
-		   <i class="gymIcon-Lmore"></i>
-		  </el-backtop>
+			<i class="gymIcon-Lmore"></i>
+		</el-backtop>
 		<div class="news-publish" @click="publish">
 			<i class="gymIcon-write"></i>
 		</div>
-		<PullLoadVIX ref='pull' @loadMore='loadMore'>
-			<div id="newslist">
-				<div class="news-box" v-for="(item,index) in newsList" :key="item._id" @click.stop="ToNews(item._id)">
-					<div class="news-avatar">
-						<van-image width="2rem" height=" 2rem" :src="baseUrl+item.avatar" round v-lazy='item.avatar' />
-					</div>
-					<div class="news-content">
-						<span class="gymIcon-delete" v-if="isAdmin" @click.stop="deleteNews(item._id,item.title)"></span>
-						<div class="news-auther">
-							<span>{{item.author}}</span>
-						</div>
-						<div class="news-title">
-							<h2 class="van-ellipsis">{{item.title}}</h2>
-						</div>
+		<PullFreshVIX ref='fresh' @onFresh='onRefresh'>
 
-						<div class="news-img">
-							<div>
-								<van-image class="van-image" width="8.9rem" height="8.9rem" v-for="(i,k) in item.imgs" :key='k' :src="baseUrl+i"
-								 fit='cover' v-lazy="baseUrl+i" @click.stop='showImg(i)'>
-								</van-image>
+			<PullLoadVIX ref='pull' @loadMore='loadMore'>
+				<div id="newslist">
+					<div class="news-box" v-for="(item,index) in newsList" :key="item._id" @click.stop="ToNews(item._id)">
+						<div class="news-avatar">
+							<van-image width="2rem" height=" 2rem" :src="item.avatar" round v-lazy='item.avatar' />
+						</div>
+						<div class="news-content">
+							<span class="gymIcon-delete" v-if="isAdmin" @click.stop="deleteNews(item._id,item.title)"></span>
+							<el-tag type="warning" class='Top' v-if='item.lastUpdate'>置顶</el-tag>
+							<el-tag v-if='item.lastUpdate' class='Top'>店内资讯</el-tag>
+							<div class="news-auther">
+								<span>{{item.author}}</span>
+							</div>
+							<div class="news-title">
+								<h2 class="van-ellipsis">{{item.title}}</h2>
 							</div>
 
-							<!-- 套一层DIV为了防止冒泡  先阻止了组件的点击遮罩关闭 -->
-							<div @click.stop='clickHover'>
-								<van-popup v-model="isShowImg" safe-area-inset-bottom :overlay-style="{ backgroundColor: 'white' }" :style="{ height: '30rem'} ,{width: '104%'}"
-								 :close-on-click-overlay=false>
-									<van-image class="van-image" :src="baseUrl+popImg">
+							<div class="news-img">
+								<div>
+									<van-image class="van-image" width="8.9rem" height="8.9rem" v-for="(i,k) in item.imgs" :key='k' :src="i" fit='cover'
+									 v-lazy="i" @click.stop='showImg(i)'>
 									</van-image>
-								</van-popup>
+								</div>
+								<!-- 套一层DIV为了防止冒泡  先阻止了组件的点击遮罩关闭 -->
+								<div @click.stop='clickHover'>
+									<van-popup v-model="isShowImg" safe-area-inset-bottom
+									 :overlay-style="{ backgroundColor: 'white' }" 
+									 :style="{ height: '30rem'} ,{width: '104%'}"
+									 :close-on-click-overlay='false'>
+										<van-image class="van-image" :src="popImg">
+										</van-image>
+									</van-popup>
+								</div>
 							</div>
-						</div>
-						<div class="news-bottom">
-							<span class="news-date">{{item.date}}</span>
-							<div class="news-reply right">
-								<i class="gymIcon-reply">
-									<span v-for="i in 4" :class="'path'+i"></span>
-								</i>
-								{{item.floor}}
-								<i class="gymIcon-praise">
-									<span v-for="i in 2" :class="'path'+i"></span>
-								</i>
+							<div class="news-bottom">
+								<span class="news-date">{{item.date}}</span>
+								<div class="news-reply right">
+									<i class="gymIcon-reply">
+										<span v-for="i in 4" :class="'path'+i"></span>
+									</i>
+									{{item.floor}}
+									<i class="gymIcon-praise">
+										<span v-for="i in 2" :class="'path'+i"></span>
+									</i>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</PullLoadVIX>
-		
+			</PullLoadVIX>
+		</PullFreshVIX>
 	</div>
-	
 </template>
 
 <script>
@@ -66,13 +70,7 @@
 		checkLoginMixin
 	} from 'common/mixin.js'
 	import PullLoadVIX from 'components/common/PullLoadVIX/PullLoadVIX.vue'
-
-	// import Vue from 'vue';
-	// 	import {
-	// 		Lazyload,
-
-	// 	} from 'vant';
-	// Vue.use(Lazyload)
+	import PullFreshVIX from 'components/common/PullFreshVIX/PullFreshVIX.vue'
 
 	export default {
 		mixins: [checkLoginMixin],
@@ -88,7 +86,8 @@
 				reqData: {
 					pageSize: 3,
 					page: 1,
-				}
+				},
+				loading: false,
 			}
 		},
 		methods: {
@@ -96,8 +95,7 @@
 				this.reqData.page = 1
 				this.$store.state.newsList = [] //清空 不然乱插
 				this.$store.dispatch('reqNewsList', this.reqData).then(res => {
-					this.LoadMore = false
-					this.$refs.pull.$emit('reLoad')
+					this.$refs.fresh.$emit('freshEnd') //刷新完毕
 				})
 			},
 			deleteNews(id, title) {
@@ -130,11 +128,9 @@
 				// return false
 			},
 			publish() {
-				// if (!this.isLogin) {
-				// 	return vant.Toast('登录后即可发文')
-				// }
-
-
+				if (!this.isLogin) {
+					return vant.Toast('登录后即可发文')
+				}
 				this.$router.replace("publish")
 			},
 			// 上拉加载更多
@@ -153,7 +149,8 @@
 			...mapState(['newsList'])
 		},
 		components: {
-			PullLoadVIX
+			PullLoadVIX,
+			PullFreshVIX
 		}
 	}
 </script>
@@ -166,33 +163,34 @@
 		color: #2A313B;
 	}
 
-	.news-avatar img {
-		height: 2rem;
-		width: 2rem;
-	}
-
 	.gymIcon-delete {
 		float: right;
 		font-size: 1.45rem;
 	}
 
 	.news-content {
-		margin-left: 0.9375rem;
+		margin-left: .5rem;
+	}
+
+	.Top {
+		float: right;
+		height: .8rem;
+		line-height: .9rem;
+		font-size: .5rem;
+		margin-right: .5rem;
 	}
 
 	.news-title {
-		/* width: 21rem; */
 		margin-bottom: 0.55rem;
 	}
 
 	.news-img {
-		width: 21rem;
+		width: 19rem;
 		display: flex;
 	}
 
 	.news-img .van-image {
-		/* flex: 1; */
-		margin: 0 0.2rem;
+		margin: 0 .2rem;
 	}
 
 	.news-bottom {

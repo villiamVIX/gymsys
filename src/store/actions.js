@@ -4,11 +4,14 @@ import {
 
 	NEWSLIST,
 	COACHLIST,
+	COACHBOOKED,
 	LESSON,
 	AUTOLOGIN,
 	ENTRANCE,
 	LOGOUT,
 	CHANGEAVATAR,
+	MYCLASS,
+	
 	NEWS,
 	COMMENT,
 	COACHDETAIL,
@@ -31,7 +34,8 @@ import {
 	getCoachList,
 	getLesson,
 	getCoachDetail,
-	bookCoach
+	bookCoach,
+	getCoachBooked
 }from 'network/NetTrain.js'
 
 import {
@@ -39,6 +43,7 @@ import {
 	getEntrance,
 	getLogout,
 	ChangeAvatar,
+	getMyClass
 }from 'network/NetLogin.js'
 
 
@@ -84,6 +89,11 @@ export default{
 	},
 	
 	
+	async reqNews({commit},newsId){ // 获取详细新闻
+	       const res= await getNews(newsId)
+	    		commit(NEWS,res)
+	},
+	
 	async reqCoachList({commit}){ //教练列表
 		let res = await getCoachList()
 		commit(COACHLIST,res)
@@ -99,13 +109,9 @@ export default{
 		  return Promise.resolve(res.message) 
 	},
 	
-	reqLesson({commit}){ //团课信息
-		getLesson().then(res=>{
-			if(res.status==200){
-				let data=res.data
-				commit(LESSON,data)
-			}
-		})
+	async reqLesson({commit}){ //团课信息
+		const res= await getLesson()
+		commit(LESSON,res)
 	},
 	
 	reqIsLogin({commit}){ //自动登录
@@ -147,18 +153,15 @@ export default{
 				commit(CHANGEAVATAR,data)
 			})
 		})
-	
-	    },
+	  },
+	  
+	async reqMyClass({commit}){ //获取我的课程
+		const res= await getMyClass()
+				console.log(res)
+				commit(MYCLASS,res)
+	}, 
 		
 	
-	reqNews({commit},newsId){ // 获取详细新闻
-	    getNews(newsId).then(res=>{
-	    	if(res.status==200){
-	    		let data=res.data
-	    		commit(NEWS,data)
-	    	}
-	    })
-	},
 	
 	reqSendComment({commit},data){
 	      return new Promise((resolve,reject)=>{

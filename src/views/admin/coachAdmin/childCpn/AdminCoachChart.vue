@@ -1,5 +1,5 @@
 <template>
-	<div id="AdminCoachChart">
+	<div id="AdminCoachChart" v-loading='loading'>
 		<van-popup v-model="show" position="top" :style="{ height: '30%' }">
 			<van-datetime-picker v-model="currentDate" type="year-month" :max-date="maxDate" :min-date="minDate" :formatter="formatter" />
 		</van-popup>
@@ -26,7 +26,8 @@
 				currentDate: new Date(),
 				formatData: undefined,
 				data: [],
-				show: false
+				show: false,
+				loading:true
 			};
 		},
 		watch: {
@@ -47,6 +48,7 @@
 				console.log(this.formatData)
 				this.$store.dispatch('reqAdminCoachPie', this.formatData).then(data => {
 					this.mapData()
+					this.loading=false
 				}).then(data2 => {
 					this.getChart()
 				})

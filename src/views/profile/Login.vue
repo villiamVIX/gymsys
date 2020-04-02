@@ -1,8 +1,7 @@
 <template>
-	<div>
-		
-	<Login v-if='!isLogin' ></Login>
-	<MyProfile v-else class='MyProfile'  ></MyProfile>
+	<div id="Login">
+		<Login v-if='!isLogin'></Login>
+		<MyProfile v-else class='MyProfile'></MyProfile>
 	</div>
 </template>
 
@@ -13,18 +12,22 @@
 		checkLoginMixin
 	} from 'common/mixin.js'
 	export default {
+		created() {
+		},
 		components: {
 			Login,
 			MyProfile
 		},
 		mixins: [checkLoginMixin],
-		methods:{
-		}
+		methods: {}
 	}
 </script>
 
 <style scoped>
-	.MyProfile{
+	.MyProfile {
 		background-color: #F9F9F9;
+	}
+	#Login{
+		height: 100vh;
 	}
 </style>

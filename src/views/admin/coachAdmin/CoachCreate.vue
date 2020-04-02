@@ -1,5 +1,6 @@
 <template>
 	<div class="app-container">
+				<el-card class="box-card">	
 		<transition name="fade-transform">
 			<el-form  v-show="show" ref="form" :model="CreateForm" label-width="120px" :rules="rule">
 				<el-form-item label="教练名" prop='name'>
@@ -40,6 +41,7 @@
 			</el-form>
 
 		</transition>
+		</el-card>
 	</div>
 </template>
 

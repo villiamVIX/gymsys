@@ -30,16 +30,17 @@
 		},
 		data() {
 			return {
-				currentIndex:1,
+				currentIndex:0,
 				routeData:[
-					{
-						route:'/train/lesson',
-						title:"团课"
-					},
 					{
 						route:'/train/coach',
 						title:"私教"
 					},
+					{
+						route:'/train/lesson',
+						title:"团课"
+					}
+					
 					]
 			}
 		},

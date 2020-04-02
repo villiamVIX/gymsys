@@ -1,23 +1,20 @@
 <template>
 	<el-container>
 		<div v-if="screem=='mobile'&&sidebar" class="drawer-bg" @click="$store.dispatch('app/closeSideBar')" />
-			<el-header style="height:44px;">
-				<AdminTopBar></AdminTopBar>
-			</el-header>
-		
+		<el-header style="height:44px;">
+			<AdminTopBar></AdminTopBar>
+		</el-header>
 		<el-container>
 			<transition name="fade-transform" mode="out-in">
 				<AdminSideBar></AdminSideBar>
 			</transition>
 			<el-main :xs="4" :sm="6" :md="8" :lg="9">
 				<!-- out-in 先让老元素滚出去 -->
-				<transition name="fade-transform" mode="out-in"> 
+				<transition name="fade-transform" mode="out-in">
 					<router-view></router-view>
 				</transition>
 			</el-main>
-
 		</el-container>
-
 	</el-container>
 </template>
 

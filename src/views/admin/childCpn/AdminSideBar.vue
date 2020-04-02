@@ -63,6 +63,11 @@
 						navItem: '轮播图',
 						class:'el-icon-picture-outline-round'
 					},
+					{
+						name: '/admin/lesson',
+						navItem: '排课区',
+						class:'el-icon-notebook-2'
+					},
 					
 				],
 				slotList: [{
@@ -95,7 +100,7 @@
 
 <style scoped>
 	.sidebar{
-		height: 60vh;
+		height: 68vh;
 		border-top-right-radius: 35px;
 		border-bottom-right-radius: 35px;
 		 box-shadow: 3px 1px 7px 2px #ebeef5;

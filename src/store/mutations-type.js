@@ -6,6 +6,9 @@ export const AUTOLOGIN='getIsLogin'
 export const ENTRANCE='getEntrance'
 export const LOGOUT='getLogout'
 export const CHANGEAVATAR='changeAvatar'
+export const MYCLASS='getMyClass'
+
+
 export const NEWS='getNews'
 export const COMMENT='postComment'
 export const COACHDETAIL='getCoachDetail'

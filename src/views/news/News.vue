@@ -4,14 +4,11 @@
 			<div id="News" v-show="showNews">
 				<NewsNav :title='title'></NewsNav>
 				<div id="NewsBar">
-					<!-- g骨架屏 -->
-					<van-skeleton title avatar :row="28" :loading="loading" title-width='40%' avatar-size='40' row-width=''>
-						<div class="LoadCont">
-							<NewsInfoBar :loadInfo='loadInfo'></NewsInfoBar>
-							<NewsArticle :article='article'></NewsArticle>
-							<NewsImg :imgs='imgs'></NewsImg>
-						</div>
-					</van-skeleton>
+					<div class="LoadCont">
+						<NewsInfoBar :loadInfo='loadInfo'></NewsInfoBar>
+						<NewsArticle :article='article'></NewsArticle>
+						<NewsImg :imgs='imgs'></NewsImg>
+					</div>
 				</div>
 				<FatHr></FatHr>
 				<NewsComment :reply='reply'></NewsComment>
@@ -38,15 +35,14 @@
 				article: '',
 				reply: {},
 				imgs: undefined,
-				loading: true,
 				showNews: false,
-				news:{}
+				news: {}
 			}
 		},
-		watch:{
-			'$store.state.news': function () {
-			  this.distributeNews()
-			  //监听VUex数据变化后重新渲染  
+		watch: {
+			'$store.state.news': function() {
+				this.distributeNews()
+				//监听VUex数据变化后重新渲染  
 			},
 		},
 		beforeUpdate() {
@@ -54,12 +50,12 @@
 		},
 		methods: {
 			distributeNews() {
-				let data =this.$store.state.news
+				let data = this.$store.state.news
 				// console.log(data)
-				this.loadInfo={
-					avatar:data.avatar,
-					date:data.date,
-					author:data.author
+				this.loadInfo = {
+					avatar: data.avatar,
+					date: data.date,
+					author: data.author
 				}
 				this.imgs = data.imgs
 				this.title = data.title
@@ -75,11 +71,7 @@
 			NewsComment,
 			FatHr
 		},
-		mounted() {
-			setTimeout(() => {
-				this.loading = false;
-			}, 650)
-		}
+
 	}
 </script>
 

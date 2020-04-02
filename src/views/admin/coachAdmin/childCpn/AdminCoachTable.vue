@@ -4,7 +4,7 @@
 			<span class="slot-title">月业绩排名</span>
 			<el-button style="float: right; padding: 3px 0" @click='toCreate' type="primary" plain>新增教练</el-button>
 		</div>
-		<el-table :data="Data" style="width: 100%" stripe element-loading-text="拼命加载中">
+		<el-table :data="Data" style="width: 100%"  >
 			<el-table-column fixed prop="name" label="姓名" min-width="77" :show-overflow-tooltip="true">
 			</el-table-column>
 			<el-table-column prop="major" label="主攻" min-width="60">

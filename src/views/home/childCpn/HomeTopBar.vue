@@ -1,13 +1,13 @@
 <template>
 	<div id="homeTopBar">
-		<div class="left profile" >
-			<img src="~assets/img/home/profile.png" />
-			<span>{{Username}}</span>
+		<div class="left profile" @click="toProfile" >
+			<i class="gymIcon-mine"></i>
+			<!-- <span>{{Username}}</span> -->
 		</div>
-		<div class="right location">
+		<!-- <div class="right location">
 			<span id="loaclSpan">闽江学院店</span>
 			<img src="~assets/img/home/local.png" />
-		</div>
+		</div> -->
 	</div>
 </template>
 
@@ -39,6 +39,9 @@
 					this.Username = Username
 				}
 			},
+			toProfile(){
+				this.$router.replace('/profile/login')
+			}
 		},
 		computed:{
 			...mapState(['User'])
@@ -48,12 +51,16 @@
 </script>
 
 <style scoped>
+	.profile{
+		margin: 0 .43rem;
+		font-size: 1.5rem;
+		font-weight: bold;
+	}
 	#homeTopBar {
 		height: 44px;
+		z-index: 11;
+		position: absolute;
+		top: 0;
 	}
 
-	#homeTopBar img {
-		height: 1.75rem;
-		width: 1.75rem;
-	}
 </style>

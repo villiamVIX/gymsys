@@ -2,7 +2,7 @@
 	<div>
 
 		<div class="img" v-for="(i,k) in imgs" :key='k'>
-			<van-image class="van-image" fit='cover' :src="baseUrl+i" Lazyload>
+			<van-image class="van-image" fit='cover' :src="i">
 			</van-image>
 		</div>
 	</div>
@@ -13,7 +13,6 @@
 	export default {
 		data() {
 			return {
-				baseUrl: this.GLOBAL.baseUrl,
 				ss: false
 			}
 		},

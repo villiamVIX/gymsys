@@ -1,31 +1,35 @@
 <template>
-	<div class="cal-bgc">
-		<div class="cal-header">
-			<span class="cal-title1">{{timeTitle}}</span>
-			<span class="cal-title2">{{nowYear}}年</span>
-			<div class="cal-btn">
-				<div class="cal-left left" @click="changeMonth(--nowMonth)">
-					<img src="~assets/img/common/go_left.png" />
-				</div>
-				<span class="cal-today" @click="toToday()">今日</span>
-				<div class="cal-right right" @click="changeMonth(++nowMonth)" ref='calRight'>
-					<img src="~assets/img/common/go_right.png" />
+	<div class="calendar-box">
+
+		<div class="cal-bgc">
+			<div class="cal-header">
+				<span class="cal-title1">{{timeTitle}}</span>
+				<span class="cal-title2">{{nowYear}}年 &nbsp;打卡日历</span>
+				<div class="cal-btn">
+					<div class="cal-left left" @click="changeMonth(--nowMonth)">
+						<img src="~assets/img/common/go_left.png" />
+					</div>
+					<span class="cal-today" @click="toToday()">今日</span>
+					<div class="cal-right right" @click="changeMonth(++nowMonth)" ref='calRight'>
+						<img src="~assets/img/common/go_right.png" />
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="calendar">
-			<div class="cal-table">
-				<div class="cal-week">
-					<span class="week" v-for="(i,index) in weeks" :key="'week'+index">周{{i}}</span>
-				</div>
-				<div class="cal-day">
-					<div class="day" v-for="dayId in 42" :key="'day'+dayId">
-						<span v-if="dayId<=beginDay" :data-str="getStr(1,nowMonth-1,lastMaxDay-(beginDay-dayId))" class="gray">{{lastMaxDay+(dayId-beginDay)}}</span>
+			<div class="calendar">
+				<div class="cal-table">
+					<div class="cal-week">
+						<span class="week" v-for="(i,index) in weeks" :key="'week'+index">周{{i}}</span>
+					</div>
+					<div class="cal-day">
+						<div class="day" v-for="dayId in 42" :key="'day'+dayId">
+							<span v-if="dayId<=beginDay" :data-str="getStr(1,nowMonth-1,lastMaxDay-(beginDay-dayId))" class="gray">{{lastMaxDay+(dayId-beginDay)}}</span>
 
-						<span v-else-if="dayId>beginDay&&(dayId-beginDay)<=nowMaxDays" ref='midSpan' class="green" :data-str="getStr(2,nowMonth, dayId - beginDay)"
-						 @click="clickActive" :id="dayId-beginDay" :class="[(getStr(2,nowMonth, dayId - beginDay)==todayStr&&'today'),(dayId-beginDay==activeDay&&'active')]">{{dayId-beginDay}}</span>
+							<span v-else-if="dayId>beginDay&&(dayId-beginDay)<=nowMaxDays" class="green" :data-str="getStr(2,nowMonth, dayId - beginDay)"
+							 @click="clickActive" :id="dayId-beginDay" :class="[(getStr(2,nowMonth, dayId - beginDay)==todayStr&&'today'),(dayId-beginDay==activeDay&&'active')]">
+								{{dayId-beginDay}}</span>
 
-						<span v-else class="gray" :data-str="getStr(3,nowMonth, dayId-beginDay-nowMaxDays)">{{dayId-beginDay-nowMaxDays}}</span>
+							<span v-else class="gray" :data-str="getStr(3,nowMonth, dayId-beginDay-nowMaxDays)">{{dayId-beginDay-nowMaxDays}}</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -38,16 +42,9 @@
 		log
 	} = console; //==>直接简化console。log
 
-	import Vue from 'vue';
-	import {
-		Toast
-	} from 'vant';
-	
 	import {
 		mapState
 	} from 'vuex'
-	
-	Vue.use(Toast);
 
 	export default {
 		data() {
@@ -60,16 +57,16 @@
 				todayStr: new Date().toLocaleDateString(),
 				timeTitle: null,
 				activeDay: null,
-				passDay: []//打卡日
+				passDay: [] //打卡日
 			}
 		},
 		created() {
-			this.init(this.todayStr)  //當下的時間传入
+			this.init(this.todayStr) //當下的時間传入
 		},
 		mounted() {
-			this.activeDay = this.nowDay  //目前点击时间==今日
+			this.activeDay = this.nowDay //目前点击时间==今日
 			log(this.todayStr)
-			this.passDay = this.User.calendar  //把用户的打卡信息存起来
+			this.passDay = this.User.calendar //把用户的打卡信息存起来
 			log(this.passDay)
 		},
 		computed: {
@@ -92,35 +89,49 @@
 		},
 		watch: {
 			nowMonth(newVal, oldVal) {
-				if(this.User.Calendar!=[]){
-					console.log('这个月->'+newVal+'旧月'+oldVal)
+				if (this.User.Calendar != []) {
+					// console.log('这个月->'+newVal+'旧月'+oldVal)
 					let d = this.passDay
 					let Pyear = []
 					let Pmonth = []
 					let Pday = []
 					for (let i = 0; i < d.length; i++) {
-						let e = d[i].split('/')
+						let e = d[i].split('-')
 						Pyear.push(e[0])
 						Pmonth.push(e[1])
 						Pday.push(e[2])
 					}
-					setTimeout(() =>{
+					let pp = document.getElementsByClassName('day')
+
+					for (let o = 0; o < pp.length; o++) {
+						pp[o].style.backgroundColor = '#F1F4F8'
+					}
+					for (let g = 0; g < Pyear.length; g++) {
+						let aa = document.getElementById(Pday[g])
+						aa.style.color = 'black'
+					}
+					setTimeout(() => {
+
 						for (let g = 0; g < Pyear.length; g++) {
 							if (Pyear[g] == this.nowYear && Pmonth[g] == oldVal) {
 								log('当月打卡日期' + Pday[g])
 								let atd2 = document.getElementById(Pday[g])
-								atd2.style.background = '#F1F4F8'
+								atd2.parentNode.style.background = '#F1F4F8'
+								atd2.style.color = 'black'
+
 							}
 						}
 						for (let w = 0; w < Pyear.length; w++) {
 							if (Pyear[w] == this.nowYear && Pmonth[w] == newVal) {
-								log('当月打卡日期' + Pday[w])
+								// log('当月打卡日期' + Pday[w])
 								let atd = document.getElementById(Pday[w])
-								atd.style.background = 'red'
+								atd.style.background = '#008e5f'
+								atd.parentNode.style.background = '#008e5f'
+								atd.style.color = 'white'
 							}
 						}
 						log('当月' + newVal)
-						
+
 					}, 100);
 				}
 			}
@@ -158,8 +169,8 @@
 					this.$refs.calRight.style.background = 'gray'
 					this.init(`${a}/${b}/${this.activeDay}`)
 					for (let o = 1; o < 28; o++) {
-					document.getElementById(o).style.background = '#F1F4F8'
-						
+						document.getElementById(o).style.background = '#F1F4F8'
+
 					}
 					return this.$toast('未来继续加油！')
 				} else {
@@ -178,8 +189,8 @@
 					this.$refs.calRight.style.background = 'white'
 					log()
 					for (let o = 1; o < 28; o++) {
-					document.getElementById(o).style.background = '#F1F4F8'
-						
+						document.getElementById(o).style.background = '#F1F4F8'
+
 					}
 					// log(def)
 					return this.init(`${this.nowYear--}/${this.nowMonth}/${this.activeDay}`)
@@ -210,10 +221,16 @@
 </script>
 
 <style scoped>
+	.calendar-box {
+		height: 20rem;
+	}
+
 	.cal-bgc {
-		background: #00B176;
+		/* background: #00B176; */
+		background: url(~assets/img/profile/bg2.jpg) left no-repeat  ;
+		background-size: 110%;
 		padding: 20px;
-		height: 25vh;
+		height: 8.8rem;
 	}
 
 	.cal-header {
@@ -270,7 +287,8 @@
 		width: 100%;
 		padding: 16px 14px;
 		border-radius: 5px;
-		height: 50vh;
+		height: 15.5rem;
+		color: black;
 	}
 
 	.cal-week {
@@ -292,41 +310,37 @@
 		grid-template-columns: repeat(7, 14.3%);
 		grid-template-rows: repeat(6, 4.5vh);
 		/* grid-template-rows:   18.2% 14.3% 14.3% 14.3% 14.3% 14.3% 14.2% ; */
-		font-size: 13px;
-		height: 60px;
-		margin: 8px 0 0 13px;
-		line-height: 14.5px;
+		font-size: 0.812rem;
+		height: 3.75rem;
+		margin: 0.5rem 0 0 0.812rem;
+		line-height: 0.906rem;
 
 	}
 
 	.day {
 		display: flex;
 		justify-content: center;
-		border-radius: 80px;
-		width: 27px;
-		height: 27px;
+		border-radius: 5rem;
+		width: 1.687rem;
+		height: 1.68rem;
 		background-color: #F1F4F8;
 	}
 
 	.day span {
-		padding-top: 6.5px;
-	}
-
-	.green {
-		/* background-color: #07C160; */
-
+		padding-top: 0.406rem;
+		border-radius: 5rem;
 	}
 
 	.active {
 		text-align: center;
-		border: 0.8px solid #00B176;
-		border-radius: 80px;
-		width: 27px;
-		padding: 3px;
+		border: 0.05rem solid #00B176;
+		border-radius: 5rem;
+		width: 1.687rem;
+		padding: 0.187rem;
 	}
 
 	.today {
-		background-color: #FF4500;
+		background-color: #008e5f;
 	}
 
 	.gray {

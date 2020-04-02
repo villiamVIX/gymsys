@@ -1,7 +1,7 @@
 <template>
 	<div class="entrance-code">
 		<h1>健身房入场码</h1>
-		<img src="http://192.168.1.104:3008/users/entrance" />
+		<img :src="baseUrl+'/users/entrance'" />
 		<div class="code-flash">
 			<img src="~assets/img/common/refresh.png" />
 			<span>入场码自动 <span class="refreshCode" @click="refreshCode">刷新</span></span>
@@ -13,16 +13,20 @@
 export default{
 	methods:{
 		refreshCode(){
-			
+			location.reload()
 		}
-	}
+	},
+	data() {
+		return {
+			baseUrl: this.GLOBAL.baseUrl
+		}
+	},
 }
 </script>
 
 <style scoped>
 	.entrance-code {
-		margin: 25px auto;
-		width: 82vw;
+		margin: 1.562rem 0.937rem;
 		background-color: white;
 		border-radius: 5px;
 		display: flex;

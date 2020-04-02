@@ -1,12 +1,9 @@
 <template>
 	<div id="app">
-		<keep-alive exclude="confirm,Admin">
-			<!-- <transition name="fade-transform"> -->
+		<keep-alive exclude="confirm,Admin,News">
 				<router-view class="router-view" v-if="isRouterAlive"></router-view>
-			<!-- </transition> -->
 		</keep-alive>
-
-
+		
 		<div class="bottom-bar" :style="{width:wid+'%'}">
 			<i class="gymIcon-Lmore" :class="Min==wid?'moreRotate':''" @click="clickBar"></i>
 			<div>
@@ -16,7 +13,7 @@
 			</div>
 			<div>
 				<router-link to='/newslist'>
-					<i :class="Rname=='news'?'gymIcon-news2':'gymIcon-news1'"></i>
+					<i :class="Rname=='newslist'?'gymIcon-news2':'gymIcon-news1'"></i>
 				</router-link>
 			</div>
 			<div>
@@ -29,7 +26,7 @@
 				</router-link>
 			</div>
 			<div>
-				<router-link to='/train'>
+				<router-link to='/train/coach'>
 					<i :class="Rname=='train'?'gymIcon-train2':'gymIcon-train1'"></i>
 				</router-link>
 			</div>
@@ -63,7 +60,8 @@
 			}
 		},
 		updated() {
-			this.Rname = this.$route.name
+			this.Rname = this.$route.path.split('/')[1]
+			console.log(this.Rname)
 		},
 		methods: {
 			reload() {
@@ -107,17 +105,17 @@
 
 
 	.bottom-bar {
-		height: 49px;
+		height: 3.062rem;
 		position: fixed;
 		display: flex;
 		flex-wrap: nowrap;
-		right: -55px;
-		bottom: 16px;
+		right: -3rem;
+		bottom: 1rem;
 		text-align: center;
 		border: 0px solid transparent;
-		border-radius: 53px;
-		box-shadow: 0px 2px 8px 0px #98969675;
-		width: 50px;
+		border-radius: 3.312rem;
+		box-shadow: 0 0.125rem 0.5rem 0 #98969675;
+		width: 3.125rem;
 		background-color: #F2F2F2;
 		transition: width 0.7s;
 		transition-timing-function: cubic-bezier(0.17, 0.45, 0.69, 1.09);
@@ -130,7 +128,7 @@
 
 	.bottom-bar>div {
 		flex: 1;
-		border-radius: 38px;
+		border-radius: 2.375rem;
 	}
 
 	i {
@@ -152,7 +150,7 @@
 	.gymIcon-news2,
 	.gymIcon-train1,
 	.gymIcon-train2 {
-		margin: 4px auto 0px;
+		margin: 0.383rem auto 0px;
 		font-size: 2.375rem;
 	}
 </style>

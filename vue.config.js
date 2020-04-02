@@ -12,6 +12,10 @@ module.exports = {
 			}
 		},
 		externals: {
+			  vue:'Vue',
+			  vant:'vant',
+			'element-ui': 'ELEMENT',
+			'better-scroll':"BScroll",
 			'echarts': 'echarts', // 配置使用CDN
 		}
 	},

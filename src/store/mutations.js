@@ -1,6 +1,7 @@
 import {
 	REWRITE,
 	HOMECOMMON,
+
 	NEWSLIST,
 	COACHLIST,
 	LESSON,
@@ -8,6 +9,8 @@ import {
 	ENTRANCE,
 	LOGOUT,
 	CHANGEAVATAR,
+	MYCLASS,
+	
 	NEWS,
 	COMMENT,
 	COACHDETAIL,
@@ -20,6 +23,7 @@ import {
 	ADMINLESSONTABLE,
 	ADMINCOACHPIE,
 } from './mutations-type'
+
 
 export default {
 	[REWRITE](state, info) {
@@ -57,6 +61,10 @@ export default {
 	[CHANGEAVATAR](state,data){
 		state.User.avatar=data
 	},
+	[MYCLASS](state,data){
+		state.User.myClass=data
+	},
+	
 	[NEWS](state,data){
 		// console.log(data)
 		state.news=data

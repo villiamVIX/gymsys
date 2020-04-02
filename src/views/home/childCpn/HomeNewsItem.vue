@@ -1,11 +1,11 @@
 <template>
 	<div ref="wrapper" class="wrapper">
 		<ul class="cont" ref="cont">
-			<li class="cont-item" v-for="(item,index) in newsDetail" :key="index">
+			<li class="cont-item" v-for="(item,index) in newsList" :key="index">
 				<div @click="ToNews(item._id)">
 					<div class="cont-img">
 						<van-image class="van-image" width="6.8rem" height="4.6rem"
-						 :src="baseUrl+item.img[0]"
+						 :src="item.imgs[0]"
 						 fit='cover' Lazyload @load="itemImgLoad">
 						</van-image>
 					</div>
@@ -44,7 +44,7 @@
 			},
 			verScroll() {
 				// console.log('长度5：'+this.newsDetail.length)
-				let width = this.newsDetail.length * 130 // 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
+				let width = this.newsList.length * 130 // 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
 				this.$refs.cont.style.width = width + 'px' // 修改滚动区域的宽度
 				this.$nextTick(() => {
 					if (!this.scroll) {
@@ -65,7 +65,7 @@
 			BScroll
 		},
 		computed:{
-				...mapState(["newsDetail"])
+				...mapState(["newsList"])
 			}
 	}
 </script>

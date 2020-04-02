@@ -1,10 +1,10 @@
 <template>
 	<div id="ConfirmCohInfo">
 		<div class="coach-img">
-			<img :src="coachInfo.cohPic" />
+			<img :src="baseUrl+coachInfo.cohPic" />
 		</div>
 		<div class="coach-info">
-			<h3 class="coach-name">{{coachInfo.name}}</h3>
+			<h3 class="coach-name">{{coachInfo.coachName}}</h3>
 			<span class="coach-price">¥{{coachInfo.price}}</span>
 		</div>
 		<BtnConfirm class='btn-change' :btnTitle="'更换教练'"  @clickBtn='goBack'></BtnConfirm> 
@@ -22,6 +22,11 @@
 		},
 		components: {
 			BtnConfirm
+		},
+		data() {
+			return {
+				baseUrl: this.GLOBAL.baseUrl
+			}
 		},
 		methods:{
 			goBack(){

@@ -1,5 +1,5 @@
 <template>
-	<div id="newComment">
+	<div id="newComment" v-loading='loading'>
 		<div class="comment-box" v-for='(item,index) in reply.comment' :key="index">
 			<van-swipe-cell>
 				<div class="comment-inBox">
@@ -48,6 +48,7 @@
 		mixins: [checkLoginMixin],
 		data() {
 			return {
+				loading:true,
 				baseUrl: this.GLOBAL.baseUrl,
 				isInput: false,
 				content: '',
@@ -58,7 +59,10 @@
 			}
 		},
 		created() {
-			this.$store.dispatch('reqNews', this.newsId) //重新获取数据，数据驱动dom重新弄加载
+			this.$store.dispatch('reqNews', this.newsId).then(res=>{
+				this.loading=false
+			})
+			 //重新获取数据，数据驱动dom重新弄加载
 			// console.log(this.floor)
 		},
 		filters: {

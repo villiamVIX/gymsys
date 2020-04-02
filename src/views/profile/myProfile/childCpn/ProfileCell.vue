@@ -35,12 +35,11 @@
 	.ProfileCell{
 		padding: 5px 0rem;
 		display: flex;
-		font-size: 1.185rem;
-		font-weight: 553;
+		font-size: 1rem;
+		font-weight: 545;
 	}
 	.cell-left{
 		flex: 1;
-		/* float: left; */
 	}
 	.cell-right{
 		float: right;

@@ -9,6 +9,16 @@ export function getAdminNewsChart(data){ //贴吧流量监控
 	})
 }
 
+
+export function getNewsTop(data){ //贴吧流量监控
+	return VIX({
+		url:'/admin/news/top',
+		params:{
+			data
+		}
+	})
+}
+
 export function deleteSwiper(data){ //删除轮播图
 	return VIX({
 		url:'/admin/swiper/delete',
@@ -107,5 +117,14 @@ export function addSwiper(data){//新增教练
 export function getAdminLessonTable(){ //课程管理
 	return VIX({
 		url:'/admin/lesson'
+	})
+}
+
+
+export function postAdminLessonUpdate(data){ //课程管理
+	return VIX({
+		url:'/admin/lesson/update',
+		method:'post',
+		data:data
 	})
 }

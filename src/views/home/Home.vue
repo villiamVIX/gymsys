@@ -26,14 +26,18 @@
 			this.$store.dispatch('reqHomeCommon').then(res=>{
 				this.loading=false
 			})
-			this.$store.dispatch('reqNewsList')
+			this.$store.dispatch('reqNewsList',this.reqData)
 		},
 		data() {
 			return {
 				reKey: 1,
 				username: "",
 				recommend: Object,
-				loading:true
+				loading:true,
+				reqData: {
+					pageSize: 5,
+					page: 1,
+				}
 			}
 		},
 		methods: {

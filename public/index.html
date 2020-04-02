@@ -4,19 +4,57 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
-		<link rel="icon" href="<%= BASE_URL %>favicon.ico">
+		<link rel="icon" href="<%= BASE_URL %>gymlogo.png">
 		<title>gymsys</title>
-		<script src="https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js"></script>
 		
- 
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+
+		<script src="https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js"></script>
+
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.5/lib/index.css">
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
+		<script src="https://cdn.jsdelivr.net/npm/vant@2.5.7/lib/vant.min.js"></script>
+		<!-- 引入组件库 -->
+		<!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+		<script src="https://cdn.bootcss.com/element-ui/2.13.0/index.js"></script>
+		<!-- <script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"> </script> -->
+		<script src="https://cdn.jsdelivr.net/npm/better-scroll@1.15.2/dist/bscroll.min.js"></script>
 	</head>
 	<body>
 		<div id="app"></div>
-		
+		<script type="text/javascript">
+			// var Vue = window.Vue;
+			// var vant = window.vant;
+			// // 注册组件
+			// Vue.use(vant);
+		</script>
 		<!-- built files will be auto injected -->
 		<style>
-			html,body{
+			@media only screen and (min-width: 319px) {
+				:root {
+					font-size: 13.6px;
+				}
+			}
+
+			@media only screen and (min-width: 375px) {
+				:root {
+					font-size: 16px;
+				}
+			}
+
+			@media only screen and (min-width: 414px) {
+				:root {
+					font-size: 18px;
+				}
+			}
+
+			html,
+			body {
 				overflow:hidden;overflow-y:auto;
+
 			}
 		</style>
 	</body>

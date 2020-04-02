@@ -1,13 +1,15 @@
 <template>
 	<div id="Lesson">
-		<LessonCohInfo :teacherInfo='teacherInfo'></LessonCohInfo>
-		<LessonSchedule  @clickTeacher='clickTeacher'></LessonSchedule>
+		<LessonPro></LessonPro>
+		<!-- <LessonCohInfo :teacherInfo='teacherInfo'></LessonCohInfo> -->
+		<!-- <LessonSchedule  @clickTeacher='clickTeacher'></LessonSchedule> -->
 	</div>
 </template>
 
 <script>
 	import LessonCohInfo from './childCpn/LessonCohInfo.vue'
 	import LessonSchedule from './childCpn/LessonSchedule.vue'
+	import LessonPro from './childCpn/LessonPro.vue'
 	
 	import {getLsTeacher} from 'network/NetTrain.js'
 	export default{
@@ -29,7 +31,8 @@
 		},
 		components:{
 			LessonCohInfo,
-			LessonSchedule
+			LessonSchedule,
+			LessonPro
 		}
 	}
 </script>

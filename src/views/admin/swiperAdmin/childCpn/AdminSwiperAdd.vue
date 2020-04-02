@@ -1,11 +1,15 @@
 <template>
-	<div>
-
-		<van-field name="uploader">
+	<div id="SwiperAdd">
+		<el-tag effect="dark" class='swiperTag'>
+		   点击↑图片即可移出轮播
+		  </el-tag>
+		<van-field name="uploader" class='upload'>
 			<template #input>
-				<van-uploader v-model="banner" :before-read="beforeRead" multiple :max-count="5" accept="image/png, image/jpeg" />
+				<van-uploader v-model="banner" :before-read="beforeRead" 
+				multiple :max-count="5" accept="image/png, image/jpeg" />
 			</template>
 		</van-field>
+		
 		<el-button type="primary" @click="clickCreate">新增</el-button>
 	</div>
 
@@ -36,12 +40,13 @@
 					Form.append('imgs'+p,files[p].file)
 				}
 
-					console.log( Form.getAll("imgs"))
+					// console.log( Form.getAll("imgs"))
 					this.$store.dispatch('app/AddSwiper', Form).then(res => {
-						return this.$notify({
+						this.$notify({
 							type: 'success',
 							message: '新增成功，可在教练中心查看'
 						})
+						return this.$store.dispatch('reqHomeCommon')
 					})
 			},
 			beforeRead(file) {
@@ -56,5 +61,10 @@
 	}
 </script>
 
-<style>
+
+<style scoped>
+	.swiperTag{
+		margin-top: 0.9375rem;
+		font-size: 1rem;
+	}
 </style>

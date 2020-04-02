@@ -5,7 +5,7 @@ const Home = () => import('views/home/Home.vue')
 const News = () => import('views/news/News.vue')
 const NewsList =()=> import('views/news/NewsList.vue')
 const NewsPublish =()=> import('views/news/NewsPublish.vue')
-const testPull =()=> import('views/news/testPull.vue')
+// const testPull = () => import('views/news/test.vue')
 
 const LoginShade =()=> import('components/common/ShadeLogin/Shade.vue')
 
@@ -14,7 +14,15 @@ const Lesson = () => import('views/train/Cpn/lesson/Lesson.vue')
 const Coach = () => import('views/train/Cpn/coach/Coach.vue')
 const Confirm = () => import('views/train/Cpn/confirm/Confirm.vue')
 
+
+
+const LoginState = () => import('views/profile/LoginState.vue')
 const Login = () => import('views/profile/Login.vue')
+const MyClass = () => import('views/profile/Cpn/myClass/MyClass.vue')
+
+
+
+
 const Entrance = () => import('views/entrance/Entrance.vue')
 
 const Admin = () => import('views/admin/Admin.vue')
@@ -27,6 +35,8 @@ const AdminCoach = () => import('views/admin/coachAdmin/CoachAdmin.vue')
 const CoachCreate = () => import('views/admin/coachAdmin/CoachCreate.vue')
 
 const AdminSwiper = () => import('views/admin/swiperAdmin/SwiperAdmin.vue')
+const AdminLesson = () => import('views/admin/lessonAdmin/LessonAdmin.vue')
+
 
 const Analysis = () => import('views/admin/analysis/Analysis.vue')
 
@@ -47,6 +57,11 @@ const routes = [{
 		path:'/newslist',
 		component:NewsList,
 	},
+	// {
+	// 	name:'ss1',
+	// 	path:'/testpull',
+	// 	component:testPull,
+	// },
 	{
 		path:"/publish",
 		component:NewsPublish
@@ -61,11 +76,6 @@ const routes = [{
 		component: News
 	},
 	{
-		name:'pull',
-		path: '/pull',
-		component: testPull
-	},
-	{
 		name:'confirm',
 		path:'/confirm/:coachId',
 		component:Confirm,
@@ -73,32 +83,36 @@ const routes = [{
 	{	
 		path: '/train',
 		component: Train,
-		children: [{
-			    name:'train',
-				path: '/train',
-				redirect: '/train/coach'
-			},
+		children: [
 			{
-				name:'train',
-				path: '/train/lesson',
+				name:'lesson',
+				path: 'lesson',
 				component: Lesson
 			},
 			{
-				name:'train',
-				path: '/train/coach',
-				component: Coach
-			},
-			{
-				name:'train',
-				path: '/train/bodydata',
+				name:'coach',
+				path: 'coach',
 				component: Coach
 			},
 		]
 	},
 	{
 		name:'profile',
-		path: '/profile/login',
-		component: Login,
+		path: '/profile',
+		redirect: '/profile/login',
+		component: LoginState,
+		children:[
+			{
+				name:'myClass',
+				path: 'class',
+				component: MyClass
+			},
+			{
+				name:'loginProfile',
+				path: 'login',
+				component: Login
+			},
+		]
 	},
 	{
 		name:'profileAdmin',
@@ -150,6 +164,13 @@ const routes = [{
 				meta:{title:'轮播图'},
 				component: AdminSwiper,
 			},
+			{
+				name:'adminLesson',
+				path: 'lesson',
+				meta:{title:'排课区'},
+				component: AdminLesson,
+			},
+			
 		]
 	},
 	{

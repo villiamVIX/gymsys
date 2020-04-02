@@ -50,12 +50,13 @@ export default {
 			let data = this.$store.state.coachDetail
 			this.coachInfo = {
 				cohPic: data.cohPic,
-				name: data.name,
+				coachName: data.name,
 				price: data.price
 			}
 		},
 		bookCoach(info) {  //接收教练信息
-			this.bookInfo = {...info}
+			// this.bookInfo = {...info}
+			this.bookInfo=Object.assign(info,this.coachInfo)
 		},
 		clickBook() {
 			if(!this.isLogin){
