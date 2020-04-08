@@ -1,7 +1,6 @@
 <template>
 	<div id="profile-box">
 		<ProfileInfo></ProfileInfo>
-		<!-- <Calendar></Calendar> -->
 		<div id="profile">
 			<CardVIX>
 				<ProfileCell v-for='item in titleInfo' :CellInfo='item' :key='item.route' @clickCell='DealClickCell'></ProfileCell>
@@ -12,7 +11,6 @@
 </template>
 
 <script>
-	import Calendar from 'components/content/Calendar/Calendar.vue';
 	import ProfileCell from './childCpn/ProfileCell.vue'
 	import ProfileInfo from './childCpn/ProfileInfo.vue'
 	import CardVIX from 'components/common/CardVIX/CardVIX.vue'
@@ -21,24 +19,32 @@
 		data() {
 			return {
 				titleInfo: [{
-						LeftTitle: '我的数据',
-						route: '/profile/data'
+						LeftTitle: '打卡墙',
+						route: '/profile/calendar'
 					},
 					{
-						LeftTitle: '场馆管理',
+						LeftTitle: '我的私教课',
+						route: '/profile/class'
+					},
+					{
+						LeftTitle: '我的资料',
+						route: '/profile/edit'
+					},
+					{
+						LeftTitle: '场馆管理   (pc端使用)',
 						route: '/admin/user'
 					},
 					{
-						LeftTitle: '我的课程',
-						route: '/profile/class'
-					}
+						LeftTitle: '会员续费',
+						route: '/profile/recharge'
+					},
 				]
 			}
 		},
 		methods: {
 			logout() {
 				this.$store.dispatch('reqLogout')
-				this.refresh()
+				// this.refresh()
 			},
 			refresh() {
 				location.reload()
@@ -47,8 +53,8 @@
 				this.$router.replace(route)
 			}
 		},
+		
 		components: {
-			Calendar,
 			ProfileInfo,
 			ProfileCell,
 			CardVIX

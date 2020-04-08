@@ -1,43 +1,47 @@
 <template>
 	<van-grid :border="false" :column-num="4">
-	  <van-grid-item class='grids' v-for="item in gridInfo" @click='gridTo(item.route)'>
-	    <van-image :src="item.image" width="38" height="38">
-			
-		</van-image>
-		<span>{{item.title}}</span>
-	  </van-grid-item>
+		<van-grid-item class='grids'
+		 @click='gridTo(item.route)' v-for='(item,index) in gridInfo' :key='index'>
+			<i :class="['gymIcon-home-'+item.image,item.color]" >
+				<span v-for="i in 2" :class="'path'+i"></span>
+			</i>
+			<span>{{item.title}}</span>
+		</van-grid-item>
 	</van-grid>
 </template>
 
 <script>
-	export default{
-		methods:{
-			gridTo(route){
+	export default {
+		methods: {
+			gridTo(route) {
 				this.$router.replace(route)
 			}
 		},
-		data(){
-			return{
-				'gridInfo':[
-					{
-						'image':require('assets/img/home/coach.png'),
-						'title':'私教',
-						'route':'/train/coach'
+		data() {
+			return {
+				'gridInfo': [{
+						'image': 'coach',
+						'title': '私教',
+						'route': '/train/coach',
+						'color':'color1'
 					},
 					{
-						'image':require('assets/img/home/team_class.png'),
-						'title':'团课',
-						'route':'/train/lesson'
+						'image': 'lesson',
+						'title': '团课',
+						'route': '/train/lesson',
+						'color' :'color2'
 					},
 					{
-						'image':require('assets/img/home/body_info.png'),
-						'title':'身体数据',
-						'route':'/train/data'
+						'image': 'data',
+						'title': '身体数据',
+						'route': '/train/data',
+						'color' :'color3'
 					},
 					{
-						'image':require('assets/img/home/home_news.png'),
-						'title':'健康资讯',
-						'route':'/newslist'
+						'image': 'news',
+						'title': '健康资讯',
+						'route': '/newslist',
+						'color':'color4'
 					}
 				]
 			}
@@ -46,12 +50,28 @@
 </script>
 
 <style scoped>
-	.grids{
+	.grids {
 		margin-top: 5px;
 		font-size: 13px;
 	}
-	.grids van-image{
-		height: 1.125rem;
-		width: 1.155rem;
+	.grids i{
+		/* background-color: #00d0ff69; */
+		border-radius: 2rem;
+		font-size: 1.8rem;
+		padding: .488rem;
+		margin-bottom: .65rem;
 	}
+	.color1{
+		background-color: #00d0ff69;
+	}
+	.color2{
+		background-color: #979aef;
+	}
+	.color3{
+		background-color: #fa7e7d;
+	}
+	.color4{
+		background-color: #1dcab4;
+	}
+	
 </style>

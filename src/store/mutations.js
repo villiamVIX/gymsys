@@ -3,6 +3,7 @@ import {
 	HOMECOMMON,
 
 	NEWSLIST,
+	REFRESH_NEWSLIST,
 	COACHLIST,
 	LESSON,
 	AUTOLOGIN,
@@ -33,6 +34,9 @@ export default {
 	[NEWSLIST](state,data){
 		state.newsList.push(...data)
 		// state.recommend=data[0].recommend
+	},
+	[REFRESH_NEWSLIST](state){
+		state.newsList=[]
 	},
 	
 	[HOMECOMMON](state,data){

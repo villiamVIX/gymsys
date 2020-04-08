@@ -1,5 +1,7 @@
 export const REWRITE= 'rewriteUserInfo'
 export const NEWSLIST='getNewsList'
+export const REFRESH_NEWSLIST='reFreshNewsList'
+
 export const COACHLIST='getCoachList'
 export const LESSON='getLesson'
 export const AUTOLOGIN='getIsLogin'

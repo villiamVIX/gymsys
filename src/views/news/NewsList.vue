@@ -9,7 +9,8 @@
 		<PullFreshVIX ref='fresh' @onFresh='onRefresh'>
 
 			<PullLoadVIX ref='pull' @loadMore='loadMore'>
-				<div id="newslist">
+				<div id="newslist" v-loading='loading'>
+					<div class="newsSlot"></div>
 					<div class="news-box" v-for="(item,index) in newsList" :key="item._id" @click.stop="ToNews(item._id)">
 						<div class="news-avatar">
 							<van-image width="2rem" height=" 2rem" :src="item.avatar" round v-lazy='item.avatar' />
@@ -56,6 +57,7 @@
 							</div>
 						</div>
 					</div>
+					<div class="newsSlot"></div>
 				</div>
 			</PullLoadVIX>
 		</PullFreshVIX>
@@ -74,8 +76,10 @@
 
 	export default {
 		mixins: [checkLoginMixin],
+		name:"NewsList",
 		created() {
-			this.$store.dispatch('reqNewsList', this.reqData)
+			loading: true,
+			this.init()
 		},
 		data() {
 			return {
@@ -84,18 +88,24 @@
 				popImg: "",
 				deleteId: undefined,
 				reqData: {
-					pageSize: 3,
+					pageSize: 8,
 					page: 1,
 				},
-				loading: false,
+				loading: Boolean,
 			}
 		},
 		methods: {
+			init(){
+				this.$store.dispatch('reqNewsList', this.reqData).then(res=>{
+					this.loading=false
+				})
+			},
 			onRefresh() { // 上拉刷新
 				this.reqData.page = 1
-				this.$store.state.newsList = [] //清空 不然乱插
+				// this.$store.state.newsList = [] //清空 不然乱插
 				this.$store.dispatch('reqNewsList', this.reqData).then(res => {
 					this.$refs.fresh.$emit('freshEnd') //刷新完毕
+					this.$refs.pull.$emit('reLoad')
 				})
 			},
 			deleteNews(id, title) {
@@ -156,11 +166,15 @@
 </script>
 
 <style scoped>
+	.element::-webkit-scrollbar { width: 0 !important }
 	.news-box {
 		display: flex;
 		padding: 0.65rem 0.9375rem;
 		border-bottom: #E7EAED 0.1px solid;
 		color: #2A313B;
+	}
+	.newsSlot{
+		height: .8rem;
 	}
 
 	.gymIcon-delete {

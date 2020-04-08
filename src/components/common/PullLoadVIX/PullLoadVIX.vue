@@ -3,11 +3,12 @@
 		<!--上拉加载组件-->
 		<slot class="pull-content"></slot>
 		<div class="status-box">
-			<div class="is-moving" v-show="isMoving">
-				<img class="Moving" :style="{opacity:opCT/3+'%'}" src='./img/pullUp.png'></img>
+			<div class="is-moving"  v-show="isMoving">
+				<!-- <img class="Moving" :style="{opacity:opCT/3+'%'}" src='./img/pullUp.png'></img> -->
+				<van-loading />
 			</div>
 			<div class="is-loading" v-show="isLoading">
-				<img class="loading" src="./img/loading2.gif">
+				<van-loading  type="spinner" color="#09CD8A" size='28' />
 			</div>
 			<div class="is-done" v-if="isDone">没有数据了</div>
 		</div>
@@ -50,10 +51,11 @@
 			end() {
 				if (this.isLoading || this.isDone) return;
 				// console.log('touchend', this.moveY);
-				if (this.moveY > -20) { //没超过20px就不触发
+				if (this.moveY > -2) { //没超过20px就不触发
 					this.isMoving = false;
 				} else { //超出就触发加载
 					let flag = this.scrollToTheEnd();
+					console.log(flag+'是到底？')
 					if (!flag) return;
 					this.isMoving = false; //关上拉动画
 					this.isLoading = true; //开加载动画
@@ -65,7 +67,7 @@
 
 			//判断滚动条是否到底
 			scrollToTheEnd() {
-				let scrollTop = document.documentElement.scrollTop || window.pageYOffset // 滚动的距离
+				let scrollTop = document.documentElement.scrollTop || window.pageYOffset ||document.body.scrollTop // 滚动的距离
 				let viewHeight = document.documentElement.clientHeight; // 可视区域高度
 				let offsetHeight = document.body.scrollHeight; // 内容高度
 				// console.log(scrollTop, viewHeight, offsetHeight, '----------------');
@@ -106,11 +108,11 @@
 		align-items: center;
 	}
 
-	.Moving {
-		height: 2.125rem;
+	.is-moving {
+		height: 2.125rem !important;
 	}
 
-	.loading {
+	.is-loading {
 		height: 2.55rem;
 	}
 </style>

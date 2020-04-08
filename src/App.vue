@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<keep-alive exclude="confirm,Admin,News">
+		<keep-alive exclude="confirm,Admin,News,NewsList">
 				<router-view class="router-view" v-if="isRouterAlive"></router-view>
 		</keep-alive>
 		
@@ -110,7 +110,7 @@
 		display: flex;
 		flex-wrap: nowrap;
 		right: -3rem;
-		bottom: 1rem;
+		top:35.8rem;
 		text-align: center;
 		border: 0px solid transparent;
 		border-radius: 3.312rem;

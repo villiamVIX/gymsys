@@ -10,14 +10,6 @@ export function getCoachList() {
 	})
 }
 
-export function getCoachBooked(data) {
-	return VIX({
-		url: '/gymdata/coach/booked',
-		method: "get",
-		data: data,
-	})
-}
-
 export function bookCoach(bookInfo) {
 	return VIX({
 		url: '/gymdata/coach/booking',
@@ -43,14 +35,6 @@ export function rateCoach(data) { //给教练打分
 }
 
 
-export function getLsTeacher(_id) {
-	return VIX({
-		url: '/gymdata/lesson/teacher',
-		params: {
-			_id
-		}
-	})
-}
 
 export function getCoachDetail(id) {
 	return VIX({

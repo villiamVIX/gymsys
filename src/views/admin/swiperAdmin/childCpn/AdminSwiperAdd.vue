@@ -44,7 +44,7 @@
 					this.$store.dispatch('app/AddSwiper', Form).then(res => {
 						this.$notify({
 							type: 'success',
-							message: '新增成功，可在教练中心查看'
+							message: '新增成功，可在首页查看'
 						})
 						return this.$store.dispatch('reqHomeCommon')
 					})

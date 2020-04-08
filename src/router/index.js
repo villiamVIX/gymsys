@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Router from 'vue-router'
 
 const Home = () => import('views/home/Home.vue')
 const News = () => import('views/news/News.vue')
@@ -15,15 +15,17 @@ const Coach = () => import('views/train/Cpn/coach/Coach.vue')
 const Confirm = () => import('views/train/Cpn/confirm/Confirm.vue')
 
 
-
 const LoginState = () => import('views/profile/LoginState.vue')
 const Login = () => import('views/profile/Login.vue')
 const MyClass = () => import('views/profile/Cpn/myClass/MyClass.vue')
-
+const MyCalendar = () => import('views/profile/Cpn/myCalendar/MyCalendar.vue')
+const MyEdit = () => import('views/profile/Cpn/myEdit/MyEdit.vue')
+const MyRecharge = () => import('views/profile/Cpn/myRecharge/MyRecharge.vue')
 
 
 
 const Entrance = () => import('views/entrance/Entrance.vue')
+
 
 const Admin = () => import('views/admin/Admin.vue')
 const AdminNews = () => import('views/admin/newsAdmin/NewsAdmin.vue')
@@ -40,7 +42,7 @@ const AdminLesson = () => import('views/admin/lessonAdmin/LessonAdmin.vue')
 
 const Analysis = () => import('views/admin/analysis/Analysis.vue')
 
-Vue.use(VueRouter)
+Vue.use(Router)
 
 const routes = [{
 	name:'home',
@@ -112,6 +114,21 @@ const routes = [{
 				path: 'login',
 				component: Login
 			},
+			{
+				name:'myCalendar',
+				path: 'calendar',
+				component: MyCalendar
+			},
+			{
+				name:'myEdit',
+				path: 'edit',
+				component: MyEdit
+			},
+			{
+				name:'myRecharge',
+				path: 'recharge',
+				component: MyRecharge
+			},	
 		]
 	},
 	{
@@ -180,7 +197,7 @@ const routes = [{
 	}
 ]
 
-const router = new VueRouter({
+const router = new Router({
 	mode: 'history',
 	// base: process.env.BASE_URL,
 	routes

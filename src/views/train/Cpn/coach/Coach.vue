@@ -11,7 +11,7 @@
 				<div slot='slot-content'>
 					<CoachType :coachTypes='coachTypes' @clickType='clickType'></CoachType>
 					<van-action-sheet v-model="isShowList" :title="currentType+'教练'">
-						<CoachList :coachDetail='coachDetail' :isShowList='isShowList' ></CoachList>
+						<CoachList :coachDetail='coachDetail' :isShowList='isShowList'></CoachList>
 					</van-action-sheet>
 				</div>
 			</SlotHome>
@@ -20,34 +20,46 @@
 </template>
 
 <script>
-
 	import CoachType from './childCpn/CoachType.vue'
 	import CoachList from './childCpn/CoachList.vue'
 	import SlotHome from 'components/common/Slot/SlotHome.vue'
-	
+
 	import {
 		mapState
 	} from 'vuex';
-	
+
 	export default {
 		data() {
 			return {
-				baseUrl:this.GLOBAL.baseUrl,
+				baseUrl: this.GLOBAL.baseUrl,
 				isShowList: false,
-				coachTypes: [{	'imgUrl': require('assets/img/train/coach/defat.png'),},
-					{'imgUrl': require('assets/img/train/coach/muscle.png'),},
-					{
-						'imgUrl': require('assets/img/train/coach/yoga.png'),
-					},
-				],
+				imgBaseUrl:this.GLOBAL.imgBaseUrl,
+				// coachTypes: [{	'imgUrl': require('assets/img/train/coach/defat.png'),},
+				// 	{'imgUrl': require('assets/img/train/coach/muscle.png'),},
+				// 	{
+				// 		'imgUrl': require('assets/img/train/coach/yoga.png'),
+				// 	},
+				// ],
+				coachTypes: [],
 				currentType: '',
 				coachDetail: []
 			}
 		},
 		created() {
-			this.$store.dispatch('reqCoachList').then(res=>{
+			this.$store.dispatch('reqCoachList').then(res => {
 				console.log(this.$store.state.coachList)
 			})
+			this.coachTypes=[
+				{
+					'imgUrl': `${this.imgBaseUrl}/defat.png`,
+				},
+				{
+					'imgUrl': `${this.imgBaseUrl}/muscle.png`,
+				},
+				{
+					'imgUrl':`${this.imgBaseUrl}/yoga.png`,
+				},
+			]
 		},
 		methods: {
 			filterCoach() {
@@ -89,15 +101,16 @@
 </script>
 
 <style scoped>
-	.van-popup{
+	.van-popup {
 		max-height: 80%;
 	}
+
 	.ad-box {
 		background-color: #d1d1d11c;
 	}
 
 	.ad-cont {
-		 height: 18vh; 
+		height: 18vh;
 	}
 
 	.ad-cont img {

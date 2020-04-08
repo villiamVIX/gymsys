@@ -29,11 +29,9 @@
 			<el-table-column prop="gender" label="操作" >
 				<template v-slot:default="slotProps">
 					<el-button class='btn' type="primary" icon="el-icon-edit" size="mini" @click="updateUser(slotProps.row)"></el-button>
-					<el-button class='btn' type="danger" icon="el-icon-delete" size="mini" @click="delUser(slotProps.row._id)"></el-button>
+					<el-button class='btn' type="danger" icon="el-icon-delete" size="mini" @click="delUser(slotProps.row._id,slotProps.row.username)"></el-button>
 				</template>
 			</el-table-column>
-			
-
 		</el-table>
 	</div>
 
@@ -65,14 +63,16 @@
 					
 				}
 				this.tableData = data
-				console.log(this.tableData)
 			},
 			updateUser(a) {
 				console.log(a)
 			},
-			delUser(id) {
+			delUser(id,name) {
 				this.$store.dispatch('reqDeleteUser', id).then(data => {
-					this.$notify('删除成功')
+					this.$notify({
+						type: 'success',
+						message: `${name} 已被删除`
+					})
 					this.init()
 				})
 			},

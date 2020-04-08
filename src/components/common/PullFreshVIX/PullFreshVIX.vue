@@ -2,11 +2,12 @@
 	<div class="pull-wrap" @touchstart="start" @touchmove="move" @touchend="end">
 		<!--上拉加载组件-->
 		<div class="status-box">
-			<div class="is-moving" v-show="isMoving">
-				<img class="Moving" :style="{opacity:opCT/3+'%'}" src='./img/pullUp.png'></img>
+			<div class="is-moving" :style="{height:opCT/3+'px'}" v-show="isMoving" >
+				<!-- <img class="Moving" :style="{opacity:opCT/3+'%'}" src='./img/pullUp.png'></img> -->
+					<van-loading  />
 			</div>
 			<div class="is-loading" v-show="isLoading">
-				<img class="loading" src="./img/loading2.gif">
+				<van-loading  color="#09CD8A" />
 			</div>
 		</div>
 		<slot class="pull-content"></slot>
@@ -31,9 +32,9 @@
 				// console.log('放上去的'+this.startY);
 			},
 			move(e) {
-				if (this.isDone) return
+				
 				// 滑动时需要检测是否到底了，如果还没到底，就不要loading
-				if (this.isLoading || this.isDone) return;
+				if (this.isLoading ) return;
 				
 				let flag = this.scrollToTheEnd(); //监视是否是最上面
 				
@@ -46,10 +47,10 @@
 				// console.log('滑到的'+e.touches[0].clientY );
 			},
 			end() {
-				if (this.isLoading || this.isDone) return;
+				if (this.isLoading) return;
 				// console.log('touchend', this.moveY);
 				console.log(this.moveY)
-				if (this.moveY < 88) { //没超过88px就不触发
+				if (this.moveY < 20) { //没超过88px就不触发
 					this.isMoving = false;
 				} else { //超出就触发加载
 					let flag = this.scrollToTheEnd();
@@ -66,7 +67,7 @@
 			scrollToTheEnd() {
 				let scrollTop = document.documentElement.scrollTop || window.pageYOffset // 滚动的距离
 				// 滚动条到底部的条件
-				return scrollTop==0//等于即可
+				return scrollTop<=0//一定要小于
 			},
 			//  发送加载请求
 			onFresh() {
@@ -93,7 +94,7 @@
 	}
 
 	.Moving {
-		height: 2.125rem;
+		height: 2.125rem !important;
 	}
 
 	.loading {

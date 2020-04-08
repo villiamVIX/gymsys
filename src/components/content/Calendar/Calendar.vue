@@ -1,6 +1,5 @@
 <template>
 	<div class="calendar-box">
-
 		<div class="cal-bgc">
 			<div class="cal-header">
 				<span class="cal-title1">{{timeTitle}}</span>
@@ -151,11 +150,9 @@
 				month = (this.nowMonth = date.getMonth() + 1)
 				day = (this.nowDay = add0(date.getDate()))
 				week = (this.nowWeek = this.weeks[date.getDay()]) //星期索引已对应了全局data的数组
-
 				let a = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
 				let b = a[this.nowMonth - 1]
 				return b + '月'
-				// return year + "年" + add0(month) + "月" + day + "日  星期" + week;
 				// 给各位数加0X
 				function add0(n) {
 					return (n = n < 10 ? "0" + n : n);
@@ -170,7 +167,6 @@
 					this.init(`${a}/${b}/${this.activeDay}`)
 					for (let o = 1; o < 28; o++) {
 						document.getElementById(o).style.background = '#F1F4F8'
-
 					}
 					return this.$toast('未来继续加油！')
 				} else {
@@ -227,9 +223,9 @@
 
 	.cal-bgc {
 		/* background: #00B176; */
-		background: url(~assets/img/profile/bg2.jpg) left no-repeat  ;
+		background: url(~assets/img/profile/bg5.jpg) left no-repeat  ;
 		background-size: 110%;
-		padding: 20px;
+		padding: 4.8rem 1rem;
 		height: 8.8rem;
 	}
 

@@ -78,8 +78,21 @@
 			TopPlacement(data){
 				getNewsTop(data)
 			},
-			delNews(){
-				
+			delNews(id){
+				vant.Dialog.confirm({
+					title: '删除',
+					message: `确定删除？`
+				}).then(() => {
+					this.$store.dispatch('reqDeleteNews', id).then(res => {
+						this.$notify({
+							type: 'success',
+							message: '删除帖子成功'
+						})
+						this.$store.dispatch('reqAdminNews', this.reqData).then(res => {
+							this.pageInfo = res
+						})
+					})
+				}).catch(() => {});
 			},
 		},
 		filters: {

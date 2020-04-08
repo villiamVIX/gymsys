@@ -27,13 +27,15 @@ export const checkLoginMixin = {
 		checkIsUser() {
 			if (this.User._id) {
 				this.isLogin = true
+			}else{
+				this.isLogin=false
 			}
 		},
 		checkRole() {
 			if (this.User.role == 'admin') {
 				this.isAdmin = true
 			}
-		}
+		},
 	},
 }
 

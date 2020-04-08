@@ -1,5 +1,5 @@
 <template>
-	 <el-carousel :interval="4000" type="card" height="8rem">
+	 <el-carousel :interval="4000" type="card" height="12rem">
 	    <el-carousel-item v-for="(item,index) in swipers" :key="index">
 			<el-popconfirm
 			  title="删除这个轮播图？"
@@ -10,8 +10,8 @@
 				@onConfirm='deletePic(item)'>
 			<el-button slot="reference" style='width: 0;border: 0;  padding: 0;'>
 				<van-image
-				  width= "500px"
-				  height='100px'
+				  width= "800px"
+				  height='240px'
 				  fit="contain"
 				  :src="item" 
 				/>

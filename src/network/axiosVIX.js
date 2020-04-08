@@ -8,9 +8,9 @@ const url2 = 'http://106.53.7.24:3008'
 
 
 // import Vue from 'vue';
-import { Notify,Toast } from 'vant';
+// import { vant.Notify,Toast } from 'vant';
 
-Vue.use(Notify).use(Toast);
+// Vue.use(vant.Notify).use(Toast);
 export function VIX(config) {
 	const VIX1 = axios.create({
 		baseURL: url1,
@@ -33,25 +33,25 @@ export function VIX(config) {
 		res =>res.data,
 		error => {
 			if(error.message.includes('timeout')){   // 判断请求异常信息中是否含有超时timeout字符串
-				  Notify('请求超时')
+				  vant.Notify('请求超时')
 			      return Promise.reject(error);          // reject这个错误信息
 			    }
 			console.log(error)
 			switch (error.response.status) {
 				case 404:
-					Notify('提示')
+					vant.Notify('提示')
 					break;
 				case 500:
-					Notify('服务器裂开了')
+					vant.Notify('服务器裂开了')
 					break;
 				case 401:
-					Notify('未登录')
+					vant.Notify('未登录')
 					break;	
 				case 403:
-					Notify('权限不足')
+					vant.Notify('权限不足')
 					break;
 				case 406:
-					Toast('做不到哦')
+					vant.Toast('做不到哦')
 					break;	
 			}
 			 return new Promise(() => { }) // 返回一个pedding状态的promise

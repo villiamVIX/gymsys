@@ -18,14 +18,11 @@ export function phoneCode(phone){
 }
 
 //电话登录
-export function phoneLogin(phone,randomCode){
+export function phoneLogin(data){
 	return VIX({
 		url:'/users/login/phone',
 		method:'post',
-		data:{
-			phone,randomCode
-		},
-		timeout:3000
+		data:data,
 	})
 }
 
@@ -76,8 +73,25 @@ export function ChangeAvatar(img){
 	})
 }
 
-export function getMyClass(){
+export function getMyClass(){ //获取我的课表
 	return VIX({
 		url:'/users/myclass',
 	})
 }
+
+export function recharge(data){ //续费充值
+	return VIX({
+		url:'/users/recharge',
+		params:{
+			data
+		}
+	})
+}
+
+export function getLastUserInfo(){ //资料更新
+	return VIX({
+		url:'/users/lastuserinfo',
+		
+	})
+}
+

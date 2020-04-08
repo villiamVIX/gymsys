@@ -3,6 +3,7 @@ import {
 	HOMECOMMON,
 
 	NEWSLIST,
+	REFRESH_NEWSLIST,
 	COACHLIST,
 	COACHBOOKED,
 	LESSON,
@@ -35,7 +36,6 @@ import {
 	getLesson,
 	getCoachDetail,
 	bookCoach,
-	getCoachBooked
 }from 'network/NetTrain.js'
 
 import {
@@ -43,7 +43,8 @@ import {
 	getEntrance,
 	getLogout,
 	ChangeAvatar,
-	getMyClass
+	getMyClass,
+	getLastUserInfo
 }from 'network/NetLogin.js'
 
 
@@ -70,6 +71,10 @@ export default{
 	rewriteUserInfo({commit},info){  //注册时用户信息插入
 			commit(REWRITE,info)
 	},
+	async reqLastUserInfo({commit}){  //更新用户信息
+	        let res= getLastUserInfo()
+			commit(REWRITE,res)
+	},
 	
 	
 	async reqHomeCommon({commit}){ //首页轮播+推荐
@@ -84,8 +89,11 @@ export default{
 	async reqNewsList({commit},data){ //新闻列表
 		const res= await getNewsList(data)
 		let {newslist,pageInfo}=res;
+		if(pageInfo.page==1){
+			commit(REFRESH_NEWSLIST)
+		}
 		commit(NEWSLIST,newslist)
-		  return Promise.resolve(pageInfo);
+	    return Promise.resolve(pageInfo);
 	},
 	
 	

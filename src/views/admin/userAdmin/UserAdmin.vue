@@ -1,20 +1,28 @@
 <template>
 	<div>
 		<el-card class="box-card">
-		<AdminUserTable></AdminUserTable>
+			<EntranceAdmin></EntranceAdmin>
+		</el-card>
+		<el-card class="box-card">
+			<AdminUserTable></AdminUserTable>
 		</el-card>
 	</div>
 </template>
 
 <script>
 	import AdminUserTable from './childCpn/AdminUserTable'
-	export default{
-		components:{
-			AdminUserTable
+	import EntranceAdmin from '../entranceAdmin/EntranceAdmin.vue'
+	export default {
+		components: {
+			AdminUserTable,
+			EntranceAdmin
 		},
-		
+
 	}
 </script>
 
-<style>
+<style scoped>
+	.box-card:last-of-type{
+		margin-top: 1.8rem;
+	}
 </style>

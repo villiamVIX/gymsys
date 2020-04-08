@@ -4,7 +4,8 @@
 			<div class="week" v-for="(i,index) in 7">周{{weekList[index]}}</div>
 		</div>
 		<div class="Lesson-father">
-			<el-tooltip class="item" effect="dark"  v-for="item in Lessons" :content="'课程简介'+item.desc" placement="right-end">
+			<el-tooltip class="item" effect="dark" v-for="(item,index) in Lessons" :key='index'
+			:content="'课程简介:'+item.desc" placement="right-end">
 				<div class="lesson-box">
 					<span class="lesson-time">{{item.time}}-{{item.during}}mins</span>
 					<h3>{{item.lessonName}}</h3>
@@ -26,107 +27,6 @@
 		},
 		data() {
 			return {
-				lesson: [{
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					},
-					{
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					}, {
-						class: "有氧瑜伽",
-						teacher: "Kevin",
-						time: "08:00",
-						during: 60,
-						type: "有氧",
-						week: "周一"
-					},
-				],
 				weekList: ["一", "二", "三", "四", "五", "六", "天"]
 			}
 		},

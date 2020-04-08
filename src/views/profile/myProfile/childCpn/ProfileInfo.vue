@@ -1,23 +1,22 @@
 <template>
-	<div id="ProfileInfo">
-		<!-- <div class="changeAva">
-			<label for="my_file">修改头像</label>
-			<input type="file" name="avatar" style="display:none;"
-			 id='my_file' accept="image/x-png, image/jpeg" @change="changeAvatar">
-		</div> -->
+	<div id="ProfileInfo" :style="{background: 'url(' + BgUrl + ') -5px -1rem / 105% no-repeat',}">
 		<div class="profile-left">
 			<span class="Info-name">{{User.username}}
-
 			</span>
-
 			<div class="profile-freq">
-				<h2 class="Info-freq">{{User.calendar.length}}</h2>
-				<div class="lable">坚持天数</div>
+				<div>
+					<h2 class="Info-freq">{{User.calendar.length}}</h2>
+					<div class="lable">坚持天数</div>
+				</div>
+				<div>
+					<h2 class="Info-freq">{{User.remain | remainDay}}</h2>
+					<div class="lable">剩余天数</div>
+				</div>
 			</div>
 		</div>
 
 		<div class="Info-avantar cell-right">
-			<van-image round :src="baseUrl+User.avatar" fit="contain" />
+			<van-image class="avatar-img" round :src="baseUrl+User.avatar" fit="scale-down" />
 		</div>
 	</div>
 </template>
@@ -29,7 +28,9 @@
 
 	export default {
 		computed: {
-			...mapState(['User'])
+			...mapState({
+				User: state => state.User
+			})
 		},
 		methods: {
 			changeAvatar(event) {
@@ -49,43 +50,59 @@
 				})
 			}
 		},
+		created() {
+			this.BgUrl=`${this.imgBaseUrl}/bg5.jpg`
+		},
 		data() {
 			return {
 				baseUrl: this.GLOBAL.baseUrl,
+				imgBaseUrl:this.GLOBAL.imgBaseUrl,
+				BgUrl:''
+			}
+		},
+		filters: {
+			remainDay(date) {
+				let formatDate = date
+				console.log(date)
+				date <= 0 ? formatDate = '过期' : null
+				return formatDate
 			}
 		}
 	}
 </script>
 
-<style>
+<style scoped>
 	#ProfileInfo {
 		padding: 1.22rem 15px 0;
 		display: flex;
 		/* background-color: #00B176; */
-		background: url(~assets/img/profile/bg5.jpg) bottom  no-repeat  ;
+		/* background: url(https://www.z4a.net/images/2020/04/08/bg5.6cb12b85.jpg) bottom no-repeat; */
+		/* background: url(~assets/img/profile/bg5.jpg) bottom no-repeat; */
 		background-size: 105%;
 		background-position: -4px 0;
 		height: 9rem;
 		font-size: 1.28rem;
 		align-items: center;
 		color: white;
-		margin:0 ;
+		margin: 0;
 	}
-	.profile-left{
+
+	.profile-left {
 		flex: 1;
-		
+
 	}
-	.Info-avantar{
+
+	.Info-avantar {
 		height: 3.99rem;
-		width:  3.99rem;
+		width: 3.99rem;
 		background-color: white;
 		border-radius: 15rem;
+		padding: .1rem;
 	}
-	.Info-avantar img {
-		margin: 0 auto;
-		height: 3.99rem;
-		width:  3.99rem;
-		border: .188rem solid white;
+
+	.avatar-img {
+		height: 3.8rem;
+		width: 3.8rem;
 	}
 
 	.Info-name {
@@ -103,18 +120,25 @@
 		color: white;
 		margin-top: 0.937rem;
 	}
-	.profile-freq{
+
+	.profile-freq {
 		margin-top: 1rem;
 		font-size: .9rem;
-		font-family:"comic sans ms";
+		font-family: "comic sans ms";
+		display: flex;
+		justify-content: space-between;
+		width: 7.5rem;
 	}
+
 	.Info-freq {
 		font-style: italic;
 	}
-	.lable{
+
+	.lable {
 		font-size: .65rem;
 		color: gainsboro;
 	}
+
 	.cell-right {
 		float: right;
 		align-self: center;

@@ -25,7 +25,7 @@
 			<el-table-column prop="gender" label="操作" min-width="95">
 				<template v-slot:default="slotProps">
 					<el-button class='btn' type="primary" icon="el-icon-edit" size="mini" @click="showForm(slotProps.row)"></el-button>
-					<el-button class='btn' type="danger" icon="el-icon-delete" size="mini" @click="delCoach(slotProps.row._id)"></el-button>
+					<el-button class='btn' type="danger" icon="el-icon-delete" size="mini" @click="delCoach(slotProps.row._id,slotProps.row.name)"></el-button>
 				</template>
 			</el-table-column>
 			</el-table-column>
@@ -50,9 +50,12 @@
 			showForm(info){
 				this.$store.dispatch('coach/toggleForm',info)
 			},
-			delCoach(info){
-				this.$store.dispatch('coach/deleteCoach',info).then(res=>{
-					this.$notify('删除成功')
+			delCoach(id,name){
+				this.$store.dispatch('coach/deleteCoach',id).then(res=>{
+					this.$notify({
+						type: 'success',
+						message: `教练 ${name} 已被删除`
+					})
 					this.$store.dispatch('reqAdminCoachPie', '2020-03')
 				})
 			},

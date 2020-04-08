@@ -1,13 +1,10 @@
 <template>
 	<div class="loginForm" :model='loginForm'>
 		<div class="Login-icon">
-			<img src="~assets/img/logo.png" />
+			<img :src="logoUrl" />
 		</div>
 		<section class="switch-type">
-			<!-- <transition > -->
-				
 			<span :class="{activeType:loginMode}" @click="changeMode(true)">验证码登录</span>
-			<!-- </transition> -->
 			<span :class="{activeType:!loginMode}" @click="changeMode(false)">密码登录</span>
 		</section>
 		<div v-show="loginMode" class="mod">
@@ -40,7 +37,8 @@
 		</div>
 		<el-button type="success" class='btn' size="large" @click='Login'>登录</el-button>
 		<el-button type="primary" class='btn' size="large" @click='back' plain>返回</el-button>
-
+		<span @click="autoPhone">管理员靓号:14444444444</span>
+		
 	</div>
 </template>
 
@@ -61,6 +59,7 @@
 		data() {
 			return {
 				baseUrl:this.GLOBAL.baseUrl,
+				logoUrl:this.GLOBAL.logoUrl,
 				countDown: 0,
 				loginMode: true,
 				pswShow: true,
@@ -113,7 +112,7 @@
 				phoneCode(this.phoneForm.phone).then(res => {
 					console.log(res)
 					// alert('验证码：' + res.randomCode || "")
-					this.phoneForm.randomCode = res.randomCode
+					this.phoneForm.randomCode = res
 				})
 				this.countDown = 5
 				let timer = setInterval(() => {
@@ -139,38 +138,19 @@
 						vant.Toast('输入完整验证码')
 						return;
 					} else if (!this.randomCodeRight) {
-						console.log(this.phoneForm.randomCode)
 						vant.Toast('输入正确验证码')
 						return;
 					}
-
-					let {
-						phone,
-						randomCode
-					} = this.phoneForm //按需拨取出
-
-					phoneLogin(phone, randomCode).then(res => { // 网络请求
+					
+					phoneLogin(this.phoneForm).then(res => { // 网络请求
 						console.log(res.data)
-						// vant.Toast(res.data.message)
-						let {
-							phone,
-							username,
-							_id,
-							deadLine,
-							avatar,
-							role
-						} = res.data
-						this.$store.dispatch('rewriteUserInfo', {
-							phone: phone || '',
-							_id: _id,
-							username: username,
-							deadline: deadLine,
-							avatar: avatar,
-							role: role
-						})
-						this.refresh()
+						if(res.data==undefined){
+						   return vant.Toast(res)
+						}
+						vant.Toast(res.message)
+						this.$store.dispatch('rewriteUserInfo', res.data)
+						// this.refresh()
 					})
-					console.log(phone, randomCode)
 				} else {
 					// 账号登陆
 					if (!this.loginForm.username || !this.loginForm.password || !this.loginForm.checkCode) {
@@ -184,29 +164,21 @@
 					} = this.loginForm //按需拨取出
 
 					pwdLogin(username, password, checkCode).then(res => {
-						console.log(res)
-						// vant.Toast(res.data.message)
-						let {
-							phone,
-							username,
-							_id,
-							deadLine,
-							avatar
-						} = res.data
-						this.$store.dispatch('rewriteUserInfo', {
-							phone: phone || '',
-							_id: _id,
-							username: username,
-							deadline: deadLine,
-							avatar: avatar
-						})
-						this.refresh()
+						if(res.data==undefined){
+						   return vant.Toast(res)
+						}
+						vant.Toast(res.message)
+						this.$store.dispatch('rewriteUserInfo', res.data)
+						// this.refresh()
 					})
 				}
 			},
 			refresh() {
 				this.$router.replace('/')
 				location.reload()
+			},
+			autoPhone(){
+				this.phoneForm.phone=14444444444
 			}
 		},
 
@@ -283,7 +255,6 @@
 	.login-form input {
 		height: 2.8rem;
 		width: 77vw;
-		border-color: #41b88361;
 		border: none;
 		border-bottom: #41b88361 solid;
 		outline: none;

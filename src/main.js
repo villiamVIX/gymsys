@@ -5,23 +5,26 @@ import store from './store'
 import Global_ from './network/Global' //全局变量
 //引入字体图标 ICON svg
 import 'assets/icon/style.css'
-// import FastClick from 'fastclick'
+import FastClick from 'fastclick'
 import '@vant/touch-emulator'; //给桌面端加上mouse监听
 Vue.config.productionTip = false
 
 Vue.prototype.$bus = new Vue()
 Vue.prototype.GLOBAL = Global_ //挂载到Vue实例上面
 
-// FastClick.attach(document.body);
+FastClick.prototype.focus = function(targetElement) {
+			 targetElement.focus();
+	};
+FastClick.attach(document.body);
 
-
-import { Lazyload } from 'vant';
+Vue.use(vant.Lazyload);
+Vue.use(vant.Notify);
 
 
 // 注册时可以配置额外的选项
-Vue.use(Lazyload, {
-  lazyComponent: true
-});
+// Vue.use(Lazyload, {
+//   lazyComponent: true
+// });
 
 // import {
 // 	Lazyload,

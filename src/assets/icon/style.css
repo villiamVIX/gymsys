@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'gymIcon-';
-  src:  url('fonts/gymIcon-.eot?2xts2c');
-  src:  url('fonts/gymIcon-.eot?2xts2c#iefix') format('embedded-opentype'),
-    url('fonts/gymIcon-.ttf?2xts2c') format('truetype'),
-    url('fonts/gymIcon-.woff?2xts2c') format('woff'),
-    url('fonts/gymIcon-.svg?2xts2c#gymIcon-') format('svg');
+  src:  url('fonts/gymIcon-.eot?3c1pdu');
+  src:  url('fonts/gymIcon-.eot?3c1pdu#iefix') format('embedded-opentype'),
+    url('fonts/gymIcon-.ttf?3c1pdu') format('truetype'),
+    url('fonts/gymIcon-.woff?3c1pdu') format('woff'),
+    url('fonts/gymIcon-.svg?3c1pdu#gymIcon-') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,32 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.gymIcon-home-lesson:before {
+  content: "\e91d";
+  color: #fff;
+}
+.gymIcon-home-news .path1:before {
+  content: "\e91e";
+  color: rgb(255, 255, 255);
+}
+.gymIcon-home-news .path2:before {
+  content: "\e91f";
+  margin-left: -1em;
+  color: rgb(73, 73, 73);
+}
+.gymIcon-home-data:before {
+  content: "\e920";
+  color: #fff;
+}
+.gymIcon-home-coach .path1:before {
+  content: "\e921";
+  color: rgb(255, 255, 255);
+}
+.gymIcon-home-coach .path2:before {
+  content: "\e922";
+  margin-left: -1em;
+  color: rgb(230, 230, 230);
+}
 .gymIcon-mine:before {
   content: "\e91c";
   color: #fff;

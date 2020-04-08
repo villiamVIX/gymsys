@@ -1,3 +1,8 @@
+// 导入compression-webpack-plugin
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+// 定义压缩文件类型
+const productionGzipExtensions = ['js', 'css']
+
 module.exports = {
 	configureWebpack: {
 		resolve: {
@@ -12,14 +17,28 @@ module.exports = {
 			}
 		},
 		externals: {
-			  vue:'Vue',
-			  vant:'vant',
+			vue: 'Vue',
+			vant: 'vant',
 			'element-ui': 'ELEMENT',
-			'better-scroll':"BScroll",
+			'better-scroll': "BScroll",
 			'echarts': 'echarts', // 配置使用CDN
-		}
+			'axios':'axios',
+			'vuex':'Vuex',
+			'vue-router': 'VueRouter',
+			'FastClick':'fastclick'
+		},
+		plugins: [
+			new CompressionWebpackPlugin({
+				filename: '[path].gz[query]',
+				algorithm: 'gzip',
+				test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+				threshold: 10240,
+				minRatio: 0.8
+			})
+		]
 	},
-
+	productionSourceMap: false,
+	
 	// devServer: {
 	//     proxy: {
 	//       // proxy all requests starting with /api to jsonplaceholder

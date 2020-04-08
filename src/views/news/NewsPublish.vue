@@ -67,7 +67,10 @@
 				Form.append('article',publish.article)
 				
 				// console.log(Form.get("imgs"))
-				this.$store.dispatch('reqPublishNews', Form)
+				this.$store.dispatch('reqPublishNews', Form).then(res=>{
+					vant.Notify({type:'success','message':'发送成功'})
+					this.$router.replace('newslist')
+				})
 				this.publish.img=[]
 			},
 		

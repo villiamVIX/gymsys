@@ -18,7 +18,8 @@
 			</el-menu-item-group>
 		</el-submenu>
 		
-		<el-menu-item :index="item.name"  v-for='(item,index) in navList'>
+		<el-menu-item :index="item.name"  v-for='(item,index) in navList'
+		:key='index'>
 			<i :class="item.class">
 			</i>
 			<span slot="title">{{item.navItem}}</span>
