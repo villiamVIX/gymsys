@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<el-backtop :right='15' :bottom="140">
-			<i class="gymIcon-Lmore"></i>
+		<el-backtop class='backTop' :right='18.5'>
+			<i class="el-icon-arrow-up"></i>
 		</el-backtop>
 		<div class="news-publish" @click="publish">
 			<i class="gymIcon-write"></i>
@@ -28,7 +28,7 @@
 
 							<div class="news-img">
 								<div>
-									<van-image class="van-image" width="8.9rem" height="8.9rem" v-for="(i,k) in item.imgs" :key='k' :src="i" fit='cover'
+									<van-image class="van-image" width="7.9rem" height="7.9rem" v-for="(i,k) in item.imgs" :key='k' :src="i" fit='cover'
 									 v-lazy="i" @click.stop='showImg(i)'>
 									</van-image>
 								</div>
@@ -110,7 +110,7 @@
 			},
 			deleteNews(id, title) {
 				this.deleteId = id
-				Dialog.confirm({
+				vant.Dialog.confirm({
 					title: '删除',
 					message: `确定删除${title}？`
 				}).then(() => {
@@ -210,7 +210,10 @@
 	.news-bottom {
 		color: #C0C7D1;
 	}
-
+	.backTop{
+		position: fixed;
+		top: 59.7vh;
+	}
 	.news-publish {
 		background: #09CD8A;
 		border-radius: 88px;
@@ -221,7 +224,7 @@
 		padding: 0.51rem;
 		border: 2px whitesmoke solid;
 		right: 0.85rem;
-		bottom: 4.8rem;
+		top: 66vh;
 		box-shadow: 0 0 7px 0px #7b7b7bcc;
 	}
 

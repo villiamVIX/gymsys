@@ -1,7 +1,7 @@
 <template>
 	<div class="loginForm" :model='loginForm'>
 		<div class="Login-icon">
-			<img :src="logoUrl" />
+			<img :src="imgBaseUrl+'/logo.png'" />
 		</div>
 		<section class="switch-type">
 			<span :class="{activeType:loginMode}" @click="changeMode(true)">验证码登录</span>
@@ -59,7 +59,7 @@
 		data() {
 			return {
 				baseUrl:this.GLOBAL.baseUrl,
-				logoUrl:this.GLOBAL.logoUrl,
+				imgBaseUrl:this.GLOBAL.imgBaseUrl,
 				countDown: 0,
 				loginMode: true,
 				pswShow: true,

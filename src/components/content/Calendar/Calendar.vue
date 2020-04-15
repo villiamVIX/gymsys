@@ -1,6 +1,6 @@
 <template>
 	<div class="calendar-box">
-		<div class="cal-bgc">
+		<div class="cal-bgc" :style="{background: 'url(' + BgUrl + ') -5px -1rem / 105% no-repeat',}">
 			<div class="cal-header">
 				<span class="cal-title1">{{timeTitle}}</span>
 				<span class="cal-title2">{{nowYear}}年 &nbsp;打卡日历</span>
@@ -56,17 +56,21 @@
 				todayStr: new Date().toLocaleDateString(),
 				timeTitle: null,
 				activeDay: null,
-				passDay: [] //打卡日
+				passDay: [] ,//打卡日
+				imgBaseUrl:this.GLOBAL.imgBaseUrl,
+				BgUrl:''
 			}
 		},
 		created() {
 			this.init(this.todayStr) //當下的時間传入
+			this.BgUrl=`${this.imgBaseUrl}/bg5.jpg`
 		},
 		mounted() {
 			this.activeDay = this.nowDay //目前点击时间==今日
 			log(this.todayStr)
 			this.passDay = this.User.calendar //把用户的打卡信息存起来
 			log(this.passDay)
+			this.todaySfather()
 		},
 		computed: {
 			...mapState(['User']),
@@ -136,6 +140,12 @@
 			}
 		},
 		methods: {
+			todaySfather(){
+				// 今日的爹框加背景色
+				let todayFather=document.getElementsByClassName('today')
+				console.log()
+				todayFather[0].parentElement.style.backgroundColor='#008e5f'
+			},
 			init(str) {
 				this.timeTitle = this.formatDate(str)
 			},
@@ -223,7 +233,7 @@
 
 	.cal-bgc {
 		/* background: #00B176; */
-		background: url(~assets/img/profile/bg5.jpg) left no-repeat  ;
+		/* background: url(~assets/img/profile/bg5.jpg) left no-repeat  ; */
 		background-size: 110%;
 		padding: 4.8rem 1rem;
 		height: 8.8rem;

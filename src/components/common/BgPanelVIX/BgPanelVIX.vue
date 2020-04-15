@@ -1,6 +1,7 @@
 <template>
 	<div id="bg">
 		<div class="panel" :style="{background: 'url(' + BgUrl + ') -5px -1rem / 105% no-repeat',}">
+			<i class="el-icon-arrow-left" @click="back"></i>
 			<slot></slot>
 		</div>
 	</div>
@@ -16,6 +17,11 @@
 		},
 		created() {
 			this.BgUrl=`${this.imgBaseUrl}/bg5.jpg`
+		},
+		methods:{
+			back(){
+				this.$router.replace('/profile/login')
+			}
 		}
 	}
 </script>
@@ -34,5 +40,12 @@
 		background-size: 155%;
 		background-position: -5px -15rem;
 		height: 45rem;
+	}
+	.el-icon-arrow-left{
+		font-size: 1.5rem;
+		color: white;
+		position: absolute;
+		left: .6rem;
+		top: .7rem;
 	}
 </style>

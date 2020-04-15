@@ -3,7 +3,7 @@
 		<h2 class="info-title">我的会员卡</h2>
 		<div id="vipCard-father" :style="{background: 'url(' + cardBgUrl + ') -5px -1rem / 105% no-repeat',
 		}">
-			<img :src="logoUrl" style="margin: .95rem; width: 8rem;height: 1rem;" />
+			<img :src="imgBaseUrl+'/logo.png'" style="margin: .95rem; width: 8rem;height: 1rem;" />
 			<div class="vipCard-box" v-if="User._id">
 				<strong>到期:{{User.deadLine | formatDate}}</strong>
 				<strong class="vipCard-id">{{User._id}}</strong>

@@ -1,5 +1,5 @@
 <template>
-	<div id="ProfileInfo" :style="{background: 'url(' + BgUrl + ') -5px -1rem / 105% no-repeat',}">
+	<div id="ProfileInfo" :style="{background: 'url(' + BgUrl + ') -5px -1rem / 105% no-repeat'}">
 		<div class="profile-left">
 			<span class="Info-name">{{User.username}}
 			</span>

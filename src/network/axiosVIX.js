@@ -5,6 +5,7 @@ axios.defaults.timeout = 800;
 
 const url1 = 'http://192.168.1.104:3008'
 const url2 = 'http://106.53.7.24:3008'
+const url3 = 'http://120.79.171.194:3008'
 
 
 // import Vue from 'vue';
@@ -13,7 +14,7 @@ const url2 = 'http://106.53.7.24:3008'
 // Vue.use(vant.Notify).use(Toast);
 export function VIX(config) {
 	const VIX1 = axios.create({
-		baseURL: url1,
+		baseURL: url3,
 		timeout: 5000
 	})
 

@@ -1,7 +1,7 @@
 <template>
 	<BgPanelVIX>
-		<ScrollCard>
-			<CardVIX>
+		<ScrollCard >
+			<CardVIX class='Scroll'>
 				<MyRechargeInfo></MyRechargeInfo>
 			</CardVIX>
 			<CardVIX>
@@ -33,5 +33,7 @@
 </script>
 
 <style scoped>
-
+.Scroll{
+	margin-top: 5rem;
+}
 </style>

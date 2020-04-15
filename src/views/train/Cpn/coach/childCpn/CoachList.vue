@@ -8,11 +8,12 @@
 			<div class="coach-info">
 				<span class="coach-name">{{item.name}}-教练</span>
 				<div class="coach-level">教练评级{{item.level}}</div>
-				<span class="coach-price right">¥{{item.price}}</span>
 				<p class="coach-freq">累计上课{{item.totalCount}}节</p>
 				主攻:<span class="coach-major" v-for='major in item.major'>{{major}}.</span>
 			</div>
+			<span class="coach-price right">¥{{item.price}}</span>
 		</div>
+		<div class="list-bottom-slot"></div>
 		<BtnConfirm class='btn-bottom' @clickBtn='clickBtn' :btnTitle="'确认选择'"></BtnConfirm>
 	</div>
 </template>
@@ -64,6 +65,9 @@
 </script>
 
 <style scoped>
+	.list-bottom-slot{
+		height: 2.8rem;
+	}
 	.CoachItems:hover {
 		border: 1px solid #7bec75a1;
 		background-color: #e0f5de69;
@@ -73,14 +77,14 @@
 		display: flex;
 		border: 1px solid #E5F0F7;
 		border-radius: 5px;
-		margin: 20px 20px;
+		margin: 1.25rem;
 		padding: 10px 10px;
 		align-items: center;
 	}
-
+	
 	.coach-img {
 		flex: 1;
-		padding-top: 3px;
+		padding-top: 0.187rem;
 	}
 
 	.coach-img img {
@@ -107,17 +111,18 @@
 		width: 65px;
 		color: #645D2E;
 		float: right;
-		margin: 2px 35% 0 0;
+		margin: 0.125rem 1.8rem 0 0;
 	}
 
 	.coach-freq {
-		padding: 8px 0;
+		padding: 0.5rem 0;
 		color: #A3A2A3;
 	}
 
 	.coach-price {
 		color: #E57464;
-		font-size: 18px;
+		font-size: 1.125rem;
+		width: 3.125rem;
 	}
 	.btn-bottom{
 		position: fixed;

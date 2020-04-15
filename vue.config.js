@@ -25,7 +25,7 @@ module.exports = {
 			'axios':'axios',
 			'vuex':'Vuex',
 			'vue-router': 'VueRouter',
-			'FastClick':'fastclick'
+			"fastclick":'FastClick'
 		},
 		plugins: [
 			new CompressionWebpackPlugin({

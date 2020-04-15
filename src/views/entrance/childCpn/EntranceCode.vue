@@ -3,19 +3,15 @@
 		<h1>健身房入场码</h1>
 		<img :src="baseUrl+'/users/entrance'" />
 		<div class="code-flash">
-			<img src="~assets/img/common/refresh.png" />
-			<span>入场码自动 <span class="refreshCode" @click="refreshCode">刷新</span></span>
+			<!-- <img src="~assets/img/common/refresh.png" /> -->
+			<p>· 当日只可打卡一次哦</p>
+			<p>· 入场即可记入当日打卡</p>
 		</div>
 	</div>
 </template>
 
 <script>
 export default{
-	methods:{
-		refreshCode(){
-			location.reload()
-		}
-	},
 	data() {
 		return {
 			baseUrl: this.GLOBAL.baseUrl
@@ -50,8 +46,6 @@ export default{
 		flex: 1;
 		margin: auto;
 		color: #9B9BA0;
-		display: flex;
-
 	}
 	
 	.refreshCode{

@@ -3,9 +3,8 @@
 		<keep-alive exclude="confirm,Admin,News,NewsList">
 				<router-view class="router-view" v-if="isRouterAlive"></router-view>
 		</keep-alive>
-		
 		<div class="bottom-bar" :style="{width:wid+'%'}">
-			<i class="gymIcon-Lmore" :class="Min==wid?'moreRotate':''" @click="clickBar"></i>
+			<i class="el-icon-caret-right" style="color: #1fd094;flex: 1;" :class="Min==wid?'moreRotate':''" @click="clickBar"></i>
 			<div>
 				<router-link to="/home">
 					<i :class="Rname=='home'?'icon gymIcon-home2':'icon gymIcon-home1'"></i>
@@ -83,26 +82,6 @@
 
 <style scoped>
 	@import "assets/css/base.css";
-	/* .isShow {
-		height: 50px;
-		width: 50px;
-		position: fixed;
-		display: flex;
-		right: 10px;
-		bottom: 10px;
-		background-color: white;
-		border-radius: 58px;
-		box-shadow: -1px 1px 7px 0px #7d6969cf;
-		border: 1px solid white;
-	}
-
-	.isShow img {
-		height: 40px;
-		width: 40px;
-		margin: auto;
-	} */
-
-
 
 	.bottom-bar {
 		height: 3.062rem;
@@ -110,14 +89,14 @@
 		display: flex;
 		flex-wrap: nowrap;
 		right: -3rem;
-		top:35.8rem;
+		top:75vh;
 		text-align: center;
 		border: 0px solid transparent;
 		border-radius: 3.312rem;
 		box-shadow: 0 0.125rem 0.5rem 0 #98969675;
 		width: 3.125rem;
 		background-color: #F2F2F2;
-		transition: width 0.7s;
+		transition: width 0.5s;
 		transition-timing-function: cubic-bezier(0.17, 0.45, 0.69, 1.09);
 	}
 
@@ -140,10 +119,6 @@
 	.moreRotate {
 		transition: rotateY 7s;
 		transform: rotateY(180deg)
-	}
-
-	.gymIcon-Lmore {
-		flex: 1;
 	}
 
 	.gymIcon-news1,
