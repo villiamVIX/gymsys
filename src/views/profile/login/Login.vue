@@ -37,8 +37,9 @@
 		</div>
 		<el-button type="success" class='btn' size="large" @click='Login'>登录</el-button>
 		<el-button type="primary" class='btn' size="large" @click='back' plain>返回</el-button>
-		<span @click="autoPhone">管理员靓号:14444444444</span>
-		
+		<span class="cadetblue" @click="autoPhone">管理员:14444444444</span>
+		<span  class="cadetblue" @click="autoCoach">教练:13333333333</span>
+		<span>首登即注册</span>
 	</div>
 </template>
 
@@ -92,7 +93,7 @@
 		},
 		computed: {
 			phoneRight() {
-				return /^[1][3,4,5,6,7,8][0-9]{9}$/.test(this.phoneForm.phone)
+				return /^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(this.phoneForm.phone)
 			},
 			randomCodeRight() {
 				return /^\d{5}$/.test(this.phoneForm.randomCode)
@@ -179,7 +180,10 @@
 			},
 			autoPhone(){
 				this.phoneForm.phone=14444444444
-			}
+			},
+			autoCoach(){
+				this.phoneForm.phone=13333333333
+			},
 		},
 
 	}
@@ -311,6 +315,9 @@
 	.btn:first-of-type {
 		
 		background-color: #07c160;
+	}
+	.cadetblue{
+		color: cadetblue;
 	}
 	
 </style>

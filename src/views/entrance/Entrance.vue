@@ -9,11 +9,13 @@
 	import EntranceCode from './childCpn/EntranceCode.vue'
 	import Shade from 'components/common/ShadeLogin/Shade.vue'
 	import {checkLoginMixin} from 'common/mixin.js'
+	
 	export default {
 		components: {
 			EntranceCode,
-			Shade
+			Shade,
 		},
+		
 		mixins:[checkLoginMixin],
 	}
 </script>
@@ -27,5 +29,8 @@
 		background-color: #09cd8a;
 		position: relative;
 	}
-	
+	.ImgCropper{
+		height: 6.125rem;
+		width: 6.25rem;
+	}
 </style>

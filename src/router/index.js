@@ -22,6 +22,9 @@ const MyCalendar = () => import('views/profile/Cpn/myCalendar/MyCalendar.vue')
 const MyEdit = () => import('views/profile/Cpn/myEdit/MyEdit.vue')
 const MyRecharge = () => import('views/profile/Cpn/myRecharge/MyRecharge.vue')
 
+// 教练被预约课程
+const MyCoachBooked = () => import('views/profile/Cpn/myCoachBooked/MyCoachBooked.vue')
+
 
 
 const Entrance = () => import('views/entrance/Entrance.vue')
@@ -128,7 +131,12 @@ const routes = [{
 				name:'myRecharge',
 				path: 'recharge',
 				component: MyRecharge
-			},	
+			},
+			{
+				name:'myCoachBooked',
+				path:'book',
+				component:MyCoachBooked  
+			}
 		]
 	},
 	{

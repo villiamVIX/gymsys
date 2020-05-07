@@ -44,3 +44,20 @@ export function getCoachDetail(id) {
 		}
 	})
 }
+
+export function deleteCoachClass(data) {
+	return VIX({
+		url: '/gymdata/cancel/coach',
+		params: {
+			data
+		}
+	})
+}
+
+// 看所有被定过的课
+export function reqBookedClass(data) {
+	return VIX({
+		url: '/gymdata/booked/class',
+		params:{coach_id:data}
+	})
+}

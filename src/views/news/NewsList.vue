@@ -13,7 +13,7 @@
 					<div class="newsSlot"></div>
 					<div class="news-box" v-for="(item,index) in newsList" :key="item._id" @click.stop="ToNews(item._id)">
 						<div class="news-avatar">
-							<van-image width="2rem" height=" 2rem" :src="item.avatar" round v-lazy='item.avatar' />
+							<van-image width="2rem" height=" 2rem" fit="scale-down" :src="item.avatar" round v-lazy='item.avatar' />
 						</div>
 						<div class="news-content">
 							<span class="gymIcon-delete" v-if="isAdmin" @click.stop="deleteNews(item._id,item.title)"></span>
@@ -172,6 +172,9 @@
 		padding: 0.65rem 0.9375rem;
 		border-bottom: #E7EAED 0.1px solid;
 		color: #2A313B;
+	}
+	.news-box:active{
+		background-color: #ebebeb6b;
 	}
 	.newsSlot{
 		height: .8rem;

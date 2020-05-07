@@ -11,18 +11,18 @@
 		</div>
 		<van-field name="uploader">
 			<template #input>
-				<van-uploader  v-model="publish.img" :before-read="beforeRead" 
-				multiple :max-count="2"
-				 accept="image/png, image/jpeg" />
+				<van-uploader v-model="publish.img" :before-read="beforeRead" multiple :max-count="2" accept="image/png, image/jpeg" />
 			</template>
 		</van-field>
 		<van-button class='btn' type="primary" size="large" @click='ClickPublish'>发布</van-button>
-
+		<div class="pulish_tip">
+			<p>· 若发送图片较大，请耐心等候加载^_^</p>
+			<p>· 因为云服务器带宽比较小^_^</p>
+		</div>
 	</div>
 </template>
 
 <script>
-
 	import NewsNav from './childCpn/NewsNav.vue'
 	import {
 		checkLoginMixin
@@ -34,11 +34,11 @@
 			return {
 				publish: {
 					img: [],
-					title: undefined,
-					article: undefined,
+					title: '无标题',
+					article: '',
 				},
-					files:[],
-					
+				files: [],
+
 			};
 		},
 		components: {
@@ -46,36 +46,39 @@
 		},
 		methods: {
 			ClickPublish() {
-				if(!this.isLogin){
+				if (!this.isLogin) {
 					return this.$toast('请先登录');
 				}
-				let files=this.publish.img
-				var Form =new FormData()
-				for(let p=0;p<files.length;p++){ //循环放入Form中 不然数组塞不进FORM  
-					Form.append('imgs'+p,files[p].file)
+				let files = this.publish.img
+				var Form = new FormData()
+				for (let p = 0; p < files.length; p++) { //循环放入Form中 不然数组塞不进FORM  
+					Form.append('imgs' + p, files[p].file)
 				}
 
 				let {
 					avatar,
 					username
 				} = this.$store.state.User
-				
-				let publish=this.publish
-				Form.append('avatar',avatar)
-				Form.append('username',username)
-				Form.append('title',publish.title)
-				Form.append('article',publish.article)
-				
+
+				let publish = this.publish
+				Form.append('avatar', avatar)
+				Form.append('username', username)
+				Form.append('title', publish.title)
+				Form.append('article', publish.article)
+
 				// console.log(Form.get("imgs"))
-				this.$store.dispatch('reqPublishNews', Form).then(res=>{
-					vant.Notify({type:'success','message':'发送成功'})
+				this.$store.dispatch('reqPublishNews', Form).then(res => {
+					vant.Notify({
+						type: 'success',
+						'message': '发送成功'
+					})
 					this.$router.replace('newslist')
 				})
-				this.publish.img=[]
+				this.publish.img = []
 			},
-		
+
 			beforeRead(file) {
-				if (file.type !== 'image/jpeg'&'image/png' ) {
+				if (file.type !== 'image/jpeg' & 'image/png') {
 					this.$toast('请上传 jpg/png 格式图片');
 					return false;
 				}
@@ -119,5 +122,10 @@
 		border: #41b88361 solid;
 		outline: none;
 		border-radius: 0.1875rem;
+	}
+
+	.pulish_tip {
+		margin-left: 1rem;
+		color: gray;
 	}
 </style>

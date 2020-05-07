@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<keep-alive exclude="confirm,Admin,News,NewsList">
+		<keep-alive exclude="confirm,Admin,News,NewsList,Train,HomeSwiper">
 				<router-view class="router-view" v-if="isRouterAlive"></router-view>
 		</keep-alive>
 		<div class="bottom-bar" :style="{width:wid+'%'}">
@@ -45,22 +45,20 @@
 
 <script>
 	export default {
-		created() {
+		mounted() {
 			this.$store.dispatch('reqIsLogin')
 		},
 		data() {
 			return {
-				isShow: false,
 				isRouterAlive: true,
 				Rname: undefined,
-				wid: 20,
+				wid: 95,
 				Min: 20,
 				Max: 95
 			}
 		},
 		updated() {
 			this.Rname = this.$route.path.split('/')[1]
-			console.log(this.Rname)
 		},
 		methods: {
 			reload() {

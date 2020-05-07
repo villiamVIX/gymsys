@@ -12,7 +12,7 @@
 	.card-vix {
 		margin-top: 15px;
 		border-radius: .5rem;
-		box-shadow: 0 0.125rem 0.5rem 0 #9896960d;
+		box-shadow: 0 0.125rem 0.5rem 0 #4241410d;
 		padding: 1rem;
 		background-color: white;
 	}

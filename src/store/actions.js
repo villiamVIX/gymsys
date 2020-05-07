@@ -24,6 +24,8 @@ import {
 	ADMINCOACHTABLE,
 	ADMINLESSONTABLE,
 	ADMINCOACHPIE,
+	
+	Change_Entrance_Avatar
 } from './mutations-type'
 
 	import {
@@ -56,6 +58,11 @@ import {
 	publishNews,
 	deleteNews,
 }from 'network/NetNews.js'
+
+
+import {
+setEntranceAvatar
+}from 'network/NetEntrance.js'
 
 import {
 	getAdminNewsChart,
@@ -123,12 +130,8 @@ export default{
 	},
 	
 	reqIsLogin({commit}){ //自动登录
-		getIsLogin().then(res=>{
-			console.log(res)
-			if(res.status==200){
-				let data=res.data
-				commit(AUTOLOGIN,data)
-			}
+		getIsLogin().then(res=>{		
+			commit(AUTOLOGIN,res)
 		})
 	},
 	
@@ -144,11 +147,9 @@ export default{
 	reqEntrance({commit}){ //扫码入场 -->tag 后期改为进场状态
 		getEntrance().then(res=>{
 			if(res){
-				// let data=res.data
 				console.log(res)
 				commit(ENTRANCE,res)
 			}
-			
 		})
 	},
 	
@@ -162,6 +163,16 @@ export default{
 			})
 		})
 	  },
+	 
+	async reqChangeEntranceAvatar({commit},img){//换入场头像
+	   return new Promise( (resolve,reject)=>{
+				setEntranceAvatar(img).then(res=>{
+					resolve(res.data.message)
+					let data=res.data.avatar
+					commit(Change_Entrance_Avatar,data)
+				})
+			})
+	 },  
 	  
 	async reqMyClass({commit}){ //获取我的课程
 		const res= await getMyClass()

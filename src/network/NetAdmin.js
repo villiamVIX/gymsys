@@ -128,3 +128,12 @@ export function postAdminLessonUpdate(data){ //课程管理
 		data:data
 	})
 }
+
+
+export function bindCoachPhone(data){ //绑定教练电话
+	return VIX({
+		url:'/admin/coach/bind',
+		params:data
+	})
+}
+

@@ -4,8 +4,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.defaults.timeout = 800;
 
 const url1 = 'http://192.168.1.104:3008'
-const url2 = 'http://106.53.7.24:3008'
-const url3 = 'http://120.79.171.194:3008'
+const url2 = 'http://120.79.171.194:3008'
+const url3 = 'http://gym.coderv.cn:3008'
 
 
 // import Vue from 'vue';
@@ -14,7 +14,7 @@ const url3 = 'http://120.79.171.194:3008'
 // Vue.use(vant.Notify).use(Toast);
 export function VIX(config) {
 	const VIX1 = axios.create({
-		baseURL: url3,
+		baseURL: url1,
 		timeout: 5000
 	})
 
@@ -37,7 +37,7 @@ export function VIX(config) {
 				  vant.Notify('请求超时')
 			      return Promise.reject(error);          // reject这个错误信息
 			    }
-			console.log(error)
+			console.log(error.response)
 			switch (error.response.status) {
 				case 404:
 					vant.Notify('提示')
@@ -54,6 +54,12 @@ export function VIX(config) {
 				case 406:
 					vant.Toast('做不到哦')
 					break;	
+				case 408:
+					vant.Toast('识别失败，请重试')
+					break;		
+					case 413:
+						vant.Toast('文件过大，4M以下')
+						break;	
 			}
 			 return new Promise(() => { }) // 返回一个pedding状态的promise
 		})

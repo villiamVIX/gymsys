@@ -3,7 +3,6 @@
 		<!--上拉加载组件-->
 		<div class="status-box">
 			<div class="is-moving" :style="{height:opCT/3+'px'}" v-show="isMoving" >
-				<!-- <img class="Moving" :style="{opacity:opCT/3+'%'}" src='./img/pullUp.png'></img> -->
 					<van-loading  />
 			</div>
 			<div class="is-loading" v-show="isLoading">
@@ -49,7 +48,7 @@
 			end() {
 				if (this.isLoading) return;
 				// console.log('touchend', this.moveY);
-				console.log(this.moveY)
+				// console.log(this.moveY)
 				if (this.moveY < 20) { //没超过88px就不触发
 					this.isMoving = false;
 				} else { //超出就触发加载

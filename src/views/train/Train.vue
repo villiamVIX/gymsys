@@ -18,22 +18,32 @@
 
 <script>
 	import NavBarVIX from 'components/common/NavBarVIX/NavBarVIX.vue'
+	 
 	export default {
 		name: "Train",
 		components: {
 			NavBarVIX
 		},
+		mounted() {
+			this.checkCurrentIndex()
+		},
 		methods: {
+			checkCurrentIndex(){
+				let route=this.$route.name
+				if(route=='coach'){
+					this.currentIndex=0
+				}else{
+					this.currentIndex=1
+				}
+			},
 			clickTitle(index, route) {
 				this.currentIndex = index
-				console.log(route)
 				this.$router.replace(route)
-				// console.log(this.currentIndex)
 			}
 		},
 		data() {
 			return {
-				currentIndex: 0,
+				currentIndex: undefined,
 				routeData: [{
 						route: '/train/coach',
 						title: "私教"
@@ -50,10 +60,10 @@
 </script>
 
 <style scoped>
+	
 	.nav-title {
 		display: flex;
 	}
-
 	.nav-title>div {
 		flex: 1;
 	}

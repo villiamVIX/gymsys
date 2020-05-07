@@ -23,6 +23,8 @@ import {
 	ADMINCOACHTABLE,
 	ADMINLESSONTABLE,
 	ADMINCOACHPIE,
+	
+	Change_Entrance_Avatar
 } from './mutations-type'
 
 
@@ -43,6 +45,11 @@ export default {
 		state.common=data
 		// state.recommend=data[0].recommend
 	},
+	// 入场部分
+	[Change_Entrance_Avatar](state,data){
+		state.User.entrance_avatar=data
+	},
+	
 //教练部分
 	[COACHLIST](state,data){
 		state.coachList=data

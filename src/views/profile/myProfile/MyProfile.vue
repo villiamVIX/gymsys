@@ -3,7 +3,8 @@
 		<ProfileInfo></ProfileInfo>
 		<div id="profile">
 			<CardVIX>
-				<ProfileCell v-for='item in titleInfo' :CellInfo='item' :key='item.route' @clickCell='DealClickCell'></ProfileCell>
+				<ProfileCell v-for='item in titleInfo' :CellInfo='item' :key='item.route'
+				 @clickCell='DealClickCell'></ProfileCell>
 				<el-button type="danger" @click="logout">登出</el-button>
 			</CardVIX>
 		</div>
@@ -14,30 +15,42 @@
 	import ProfileCell from './childCpn/ProfileCell.vue'
 	import ProfileInfo from './childCpn/ProfileInfo.vue'
 	import CardVIX from 'components/common/CardVIX/CardVIX.vue'
-
 	export default {
+		created() {
+			const role=this.$store.state.User.role
+			if(role=='admin'){
+				this.titleInfo.push({
+						LeftTitle: '场馆管理   (pc端使用)',
+						route: '/admin/user',
+					})
+			}
+			if(role=='coach'){
+				this.titleInfo.push({
+						LeftTitle: '预约详情   (教练查看)',
+						route: '/profile/book',
+					})
+			}
+		},
 		data() {
 			return {
 				titleInfo: [{
 						LeftTitle: '打卡墙',
-						route: '/profile/calendar'
+						route: '/profile/calendar',
 					},
 					{
 						LeftTitle: '我的私教课',
-						route: '/profile/class'
+						route: '/profile/class',
 					},
 					{
 						LeftTitle: '我的资料',
-						route: '/profile/edit'
+						route: '/profile/edit',
 					},
-					{
-						LeftTitle: '场馆管理   (pc端使用)',
-						route: '/admin/user'
-					},
+					
 					{
 						LeftTitle: '会员续费',
-						route: '/profile/recharge'
+						route: '/profile/recharge',
 					},
+					
 				]
 			}
 		},

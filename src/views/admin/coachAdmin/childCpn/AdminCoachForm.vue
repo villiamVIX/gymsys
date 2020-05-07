@@ -1,5 +1,5 @@
 <template>
-	<el-dialog title="收货地址" :visible.sync="showForm">
+	<el-dialog title="编辑教练信息" :visible.sync="showForm">
 		<el-form :model="coachInfo">
 			<el-form-item label="姓名" :label-width="formLabelWidth">
 				<span>{{coachInfo.name}}</span>
@@ -24,6 +24,12 @@
 					<el-checkbox label="体能" name="体能"></el-checkbox>
 				</el-checkbox-group>
 			</el-form-item>
+			<el-form-item label="绑定手机号" :label-width="formLabelWidth" prop='phone'>
+				<el-input style='width: 9rem; margin-right:.6rem;'
+				 maxlength='11' 
+				 v-model="coachInfo.phone" />
+				<el-button type="primary" size='mini' @click="bindPhone">绑定</el-button>
+			</el-form-item>
 		</el-form>
 		<div slot="footer" class="dialog-footer">
 			<el-button @click="closeForm">取 消</el-button>
@@ -36,6 +42,7 @@
 	import {
 		mapGetters
 	} from 'vuex'
+	
 	export default {
 		computed: {
 			...mapGetters(['showForm', 'coachInfo'])
@@ -44,6 +51,18 @@
 			closeForm() {
 				this.$store.dispatch('coach/closeForm').then(res => {
 					this.$store.dispatch('reqAdminCoachPie', '2020-03')
+				})
+			},
+			bindPhone(){
+				const {_id,phone}=this.coachInfo
+				const data={
+					coachId:_id,
+					phone
+				}
+				this.$store.dispatch('coach/bindCoachPhone', data).then(res => {
+					this.$notify({
+						message: res
+					})
 				})
 			},
 			upDateCoach() {

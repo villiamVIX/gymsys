@@ -14,7 +14,7 @@
 		mapState
 	} from 'vuex'
 	export default {
-		
+		name:"HomeSwiper",
 		computed:{
 		...mapState({
 			swipers: state => state.common.swipers

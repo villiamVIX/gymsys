@@ -1,8 +1,5 @@
 <template>
 	<BgPanelVIX>
-		<van-popup v-model="showRate" position="right" round :style="{ height: '11rem' }">
-			<MyClassRate @clickRate='clickRate' :coachName='currentCoach.coachName'></MyClassRate>
-		</van-popup>
 		<ScrollCard :scrollHeight='scrollHeight'>
 			<CardVIX>
 				<div class="class-pass" v-loading='loading' v-if="!loading">
@@ -11,14 +8,11 @@
 					<div class="class-box" v-for="(item,index) in passClass">
 						<van-image class='cohPic' round :src="item.cohPic" />
 						<div class="cohInfo">
-							<h3>{{item.coachName}}</h3>
+							<h3>{{item.username}}</h3>
 							<span>{{item.date | dataFormat}}</span>
 							<h3>{{item.date | Time}}点-60mins</h3>
 						</div>
-						<div>
-						<h3 class='readyRate'>待课后即可评价</h3>
 						<van-button type="warning" size='mini' @click='cancelClass(item._id)'>取消</van-button>
-						</div>
 						<h3>
 							¥{{item.price}}
 						</h3>
@@ -33,7 +27,7 @@
 					<div class="class-box" v-for="(item,index) in futureClass" @click="toRate(item)">
 						<van-image class='cohPic' round :src="item.cohPic" />
 						<div class="cohInfo">
-							<h3>{{item.coachName}}</h3>
+							<h3>{{item.username}}</h3>
 							<span>{{item.date | dataFormat}}</span>
 							<h3>{{item.date | Time}}点-60mins</h3>
 						</div>
@@ -49,8 +43,6 @@
 </template>
 
 <script>
-	import MyClassRate from './childCpn/MyClassRate.vue'
-
 	import ScrollCard from 'components/common/ScrollCard/ScrollCard.vue'
 	import CardVIX from 'components/common/CardVIX/CardVIX.vue'
 	import BgPanelVIX from 'components/common/BgPanelVIX/BgPanelVIX.vue'
@@ -58,7 +50,7 @@
 		mapState
 	} from 'vuex'
 	import {
-		rateCoach,
+		reqBookedClass,
 		deleteCoachClass
 	} from 'network/NetTrain.js'
 
@@ -71,8 +63,16 @@
 				futureClass: [],
 				showRate: false,
 				currentCoach: Object,
-				scrollHeight: undefined
+				scrollHeight: undefined,
+				coach_id: undefined
 			}
+		},
+		created() {
+			this.coach_id = this.$store.state.User.coach_id
+			if (!this.coach_id) {
+				return vant.Notify('您不是教练，无权查看')
+			}
+			this.init()
 		},
 		methods: {
 			toRate(info) {
@@ -81,9 +81,14 @@
 					console.log(this.showRate)
 			},
 			init() {
-				this.passClass = this.$store.state.User.myClass.passClass
-				this.futureClass = this.$store.state.User.myClass.futureClass
-				console.log(this.passClass.length + this.futureClass.length)
+
+				reqBookedClass(this.coach_id).then(res => {
+					this.passClass = res.passClass
+					this.futureClass = res.futureClass
+					this.loading = false
+				})
+				console.log(this.passClass)
+
 				let height = this.passClass.length + this.futureClass.length
 				if (height > 7) {
 					this.scrollHeight = ((height * 82) / 1.31) / 16
@@ -101,45 +106,27 @@
 				const reqRateCoach = async () => {
 					let res = await rateCoach(data)
 				}
-				reqRateCoach().then(res => {
-					this.$store.dispatch('reqMyClass').then(res => {
-						this.$notify({
-							type: 'success',
-							message: '评价成功'
-						})
-						this.init()
-						this.showRate = false
-					})
-				})
+
 			},
-			cancelClass(classId){
-				deleteCoachClass(classId).then(res=>{
-					if(res.data){
+			cancelClass(classId) {
+				deleteCoachClass(classId).then(res => {
+					if (res.data) {
 						this.$store.dispatch('reqMyClass').then(res => {
-						this.$notify({
-							type: 'success',
-							message: '取消成功'
+							this.$notify({
+								type: 'success',
+								message: '取消成功'
+							})
+							this.init()
 						})
-						this.init()
-					})
-					}else{
+					} else {
 						this.$notify.info({
-						          title: '消息',
-						          message: `${res}`
-						        });
-					console.log(res)
+							title: '消息',
+							message: `${res}`
+						});
+						console.log(res)
 					}
 				})
 			}
-		},
-		created() {
-			this.$store.dispatch('reqMyClass').then(res => {
-				this.init()
-				this.loading = false
-			})
-		},
-		mounted() {
-			console.log(this.$store.state.User.myClass)
 		},
 		filters: {
 			dataFormat(date) {
@@ -153,7 +140,6 @@
 			CardVIX,
 			ScrollCard,
 			BgPanelVIX,
-			MyClassRate
 		}
 	}
 </script>

@@ -9,7 +9,8 @@ import {
 	upDateCoach,
 	deleteCoach,
 	createCoach,
-	addSwiper
+	addSwiper,
+	bindCoachPhone
 }from 'network/NetAdmin.js'
 
 const state = {
@@ -45,6 +46,10 @@ const actions = {
   },
   async createCoach({ commit },data) {
   	  let res = await createCoach(data)
+  },
+  async bindCoachPhone({ commit },data) {
+  	  let res = await bindCoachPhone(data)
+	  return Promise.resolve(res)
   },
   
 }

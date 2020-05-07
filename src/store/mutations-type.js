@@ -17,6 +17,9 @@ export const COACHDETAIL='getCoachDetail'
 export const HOMECOMMON='getHomeCommon'
 
 
+// 换入场头像
+export const Change_Entrance_Avatar='changeEntranceAvatar'
+
 
 
 //管理员

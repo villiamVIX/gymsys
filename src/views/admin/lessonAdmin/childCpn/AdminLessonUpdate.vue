@@ -1,6 +1,6 @@
 <template>
 	<transition name="fade-transform">
-		<el-form v-show="show" ref="form" :model="lessonInfo" label-width="120px" :rules="rule">
+		<el-form v-show="show" ref="form" :model="lessonInfo" label-width="120px">
 			<el-form-item label="开课时间" prop='time'>
 				<h3>{{lessonInfo.time}}</h3>
 			</el-form-item>
@@ -121,6 +121,10 @@
 				console.log(this.lessonInfo)
 				this.$store.dispatch('lesson/updateLesson', this.lessonInfo).then(res=>{
 					this.$store.dispatch('reqLesson')
+					this.$notify({
+						type: 'success',
+						message: '修改成功'
+					})
 				})
 			},
 			onCancel() {

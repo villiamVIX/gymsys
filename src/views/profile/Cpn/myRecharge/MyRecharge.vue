@@ -6,7 +6,6 @@
 			</CardVIX>
 			<CardVIX>
 				<MyRechargePay></MyRechargePay>
-				<wxpay></wxpay>
 			</CardVIX>
 		</ScrollCard>
 	</BgPanelVIX>
@@ -16,7 +15,6 @@
 	import BgPanelVIX from 'components/common/BgPanelVIX/BgPanelVIX.vue'
 	import CardVIX from 'components/common/CardVIX/CardVIX.vue'
 	import ScrollCard from 'components/common/ScrollCard/ScrollCard.vue'
-	import wxpay from './childCpn/wxpay.vue'
 	import MyRechargePay from './childCpn/MyRechargePay.vue'
 	import MyRechargeInfo from './childCpn/MyRechargeInfo.vue'
 	
@@ -27,7 +25,6 @@
 			ScrollCard,
 			MyRechargePay,
 			MyRechargeInfo,
-			wxpay,
 		},
 	}
 </script>

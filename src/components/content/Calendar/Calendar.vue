@@ -143,8 +143,8 @@
 			todaySfather(){
 				// 今日的爹框加背景色
 				let todayFather=document.getElementsByClassName('today')
-				console.log()
-				todayFather[0].parentElement.style.backgroundColor='#008e5f'
+			
+				todayFather[0].parentNode.style.backgroundColor='#008e5f'
 			},
 			init(str) {
 				this.timeTitle = this.formatDate(str)
@@ -347,6 +347,8 @@
 
 	.today {
 		background-color: #008e5f;
+		/* height: 50%;
+		border-radius: .8rem; */
 	}
 
 	.gray {

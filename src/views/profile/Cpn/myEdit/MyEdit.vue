@@ -3,12 +3,27 @@
 		<ScrollCard>
 			<CardVIX>
 				<van-form>
-					<div class="changeAva">
-						<div class="Info-avantar cell-right">
-							<van-image round class="avatar-img" :src="baseUrl+User.avatar" fit="fill" />
+					<div class="user_avatar">
+
+						<div class="changeAva">
+							<h3>贴吧头像</h3>
+							<div class="Info-avantar cell-right">
+								<van-image round class="avatar-img" :src="baseUrl+User.avatar" fit="scale-down" />
+							</div>
+							<label class="avatar-label" for="my_file">更改头像</label>
+							<input type="file" name="avatar" style="display:none;" id='my_file' accept="image/x-png, image/jpeg" @change="changeAvatar">
 						</div>
-						<label class="avatar-label" for="my_file">更改头像</label>
-						<input type="file" name="avatar" style="display:none;" id='my_file' accept="image/x-png, image/jpeg" @change="changeAvatar">
+						<div class="setEntranceAva">
+							<h3>入场识别头像</h3>
+							<div class="Info-avantar">
+								<van-image round class="avatar-img" :src="baseUrl+User.entrance_avatar" fit="scale-down" />
+							</div>
+							<div v-if="!User.entrance_avatar">
+								
+							<label class="avatar-label" for="my_avatar">上传头像</label>
+							<input type="file" name="avatar" style="display:none;" id='my_avatar' accept="image/x-png, image/jpeg" @change="setEntranceAva">
+							</div>
+						</div>
 					</div>
 					<van-field label="到期时间" :value="User.deadLine | formatDeadLine" readonly />
 					<van-field class="input" v-model="User.username" name="用户名" label="用户名" />
@@ -18,6 +33,11 @@
 						<van-button round block type="primary" @click="onSubmit">
 							修改
 						</van-button>
+					</div>
+					<div class="ent_tip">
+						<p style="margin-left: 3rem;">· 入场头像请上传真实照片</p>
+						<p style="margin-left: 3rem;">· 以便进场识别</p>
+						<p style="margin-left: 3rem;">· 入场头像仅能上传一次！</p>
 					</div>
 				</van-form>
 			</CardVIX>
@@ -29,6 +49,7 @@
 	import BgPanelVIX from 'components/common/BgPanelVIX/BgPanelVIX.vue'
 	import CardVIX from 'components/common/CardVIX/CardVIX.vue'
 	import ScrollCard from 'components/common/ScrollCard/ScrollCard.vue'
+
 	export default {
 		data() {
 			return {
@@ -44,8 +65,8 @@
 				let img = event.target.files[0]
 				console.log(event.target.files)
 				let size = img.size
-				if (size > 3145728) {
-					vant.Toast('3m以内图片被允许')
+				if (size > 2145728) {
+					vant.Toast('2m以内图片被允许')
 					return false
 				}
 				let Form = new FormData() //star!!!!!!!!!!!!!!!!
@@ -53,6 +74,21 @@
 				// 可加上D3参数-文件名 --haiweidingyi
 				// console.log(Form.get('avatar'))
 				this.$store.dispatch('reqChangeAvatar', Form).then(res => {
+					this.$toast(res)
+				})
+			},
+			setEntranceAva() {
+				let img = event.target.files[0]
+				console.log(event.target.files)
+				let size = img.size
+				if (size > 10485760) {
+					vant.Toast('10m以内图片被允许')
+					return false
+				}
+				let Form = new FormData() //star!!!!!!!!!!!!!!!!
+				Form.append('avatar', img)
+
+				this.$store.dispatch('reqChangeEntranceAvatar', Form).then(res => {
 					this.$toast(res)
 				})
 			}
@@ -83,6 +119,11 @@
 		font-weight: bold;
 	}
 
+	.user_avatar {
+		display: flex;
+		justify-content: space-around;
+	}
+
 	.Info-avantar {
 		height: 3.99rem;
 		width: 3.99rem;
@@ -103,5 +144,11 @@
 		color: white;
 		background: #07c160;
 		padding: .05rem .185rem;
+	}
+
+	.ent_tip {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 </style>

@@ -4,7 +4,6 @@
 		<slot class="pull-content"></slot>
 		<div class="status-box">
 			<div class="is-moving"  v-show="isMoving">
-				<!-- <img class="Moving" :style="{opacity:opCT/3+'%'}" src='./img/pullUp.png'></img> -->
 				<van-loading />
 			</div>
 			<div class="is-loading" v-show="isLoading">
@@ -55,7 +54,7 @@
 					this.isMoving = false;
 				} else { //超出就触发加载
 					let flag = this.scrollToTheEnd();
-					console.log(flag+'是到底？')
+					// console.log(flag+'是到底？')
 					if (!flag) return;
 					this.isMoving = false; //关上拉动画
 					this.isLoading = true; //开加载动画

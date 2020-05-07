@@ -20,7 +20,8 @@ export const checkLoginMixin = {
 	data() {
 		return {
 			isLogin: false,
-			isAdmin: false
+			isAdmin: false,
+			isCoach:false
 		}
 	},
 	methods: {
@@ -34,6 +35,9 @@ export const checkLoginMixin = {
 		checkRole() {
 			if (this.User.role == 'admin') {
 				this.isAdmin = true
+			}
+			if(this.User.role=='coach'){
+				this.isCoach=true
 			}
 		},
 	},

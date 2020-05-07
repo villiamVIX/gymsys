@@ -7,6 +7,8 @@ import Global_ from './network/Global' //全局变量
 import 'assets/icon/style.css'
 import FastClick from 'fastclick'
 import '@vant/touch-emulator'; //给桌面端加上mouse监听
+
+
 Vue.config.productionTip = false
 
 Vue.prototype.$bus = new Vue()
@@ -19,7 +21,6 @@ FastClick.attach(document.body);
 
 Vue.use(vant.Lazyload);
 Vue.use(vant.Notify);
-
 
 // 注册时可以配置额外的选项
 // Vue.use(Lazyload, {

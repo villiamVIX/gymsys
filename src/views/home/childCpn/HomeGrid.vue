@@ -33,8 +33,8 @@
 					},
 					{
 						'image': 'data',
-						'title': '身体数据',
-						'route': '/train/data',
+						'title': '个人中心',
+						'route': '/profile/login',
 						'color' :'color3'
 					},
 					{
