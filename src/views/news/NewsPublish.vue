@@ -34,7 +34,7 @@
 			return {
 				publish: {
 					img: [],
-					title: '无标题',
+					title: ' ',
 					article: '',
 				},
 				files: [],
@@ -57,11 +57,15 @@
 
 				let {
 					avatar,
-					username
+					username,
+					_id,
+					role
 				} = this.$store.state.User
 
 				let publish = this.publish
 				Form.append('avatar', avatar)
+				Form.append('userId', _id)
+				Form.append('role', role)
 				Form.append('username', username)
 				Form.append('title', publish.title)
 				Form.append('article', publish.article)

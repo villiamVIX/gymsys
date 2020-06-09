@@ -6,7 +6,7 @@ import {
 export function setEntranceAvatar(img) {
 	return VIX({
 		url: '/entrance/set/avatar',
-		timeout:8000,
+		timeout:10000,
 		method:'post',
 		contentType:false,
 		processData:false,
@@ -18,7 +18,7 @@ export function setEntranceAvatar(img) {
 export function checkEntranceAvatar(img) {
 	return VIX({
 		url: '/entrance/check/avatar',
-		timeout:50000,
+		timeout:10000,
 		method:'post',
 		contentType:false,
 		processData:false,

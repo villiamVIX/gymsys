@@ -2,8 +2,6 @@
 	<div id="AdminCoachTable">
 		<div slot="header" class="clearfix">
 			<span class="slot-title">人员列表</span>
-			<el-button style="float: right; padding: 3px 0"
-			  type="primary" plain>查询人员</el-button>
 		</div>
 		<el-table :data="tableData" style="width: 100%"
 		 v-loading="loading">
@@ -28,7 +26,7 @@
 			</el-table-column>
 			<el-table-column prop="gender" label="操作" >
 				<template v-slot:default="slotProps">
-					<el-button class='btn' type="primary" icon="el-icon-edit" size="mini" @click="updateUser(slotProps.row)"></el-button>
+					<!-- <el-button class='btn' type="primary" icon="el-icon-edit" size="mini" @click="updateUser(slotProps.row)"></el-button> -->
 					<el-button class='btn' type="danger" icon="el-icon-delete" size="mini" @click="delUser(slotProps.row._id,slotProps.row.username)"></el-button>
 				</template>
 			</el-table-column>

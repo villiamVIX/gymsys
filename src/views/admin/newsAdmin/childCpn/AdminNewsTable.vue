@@ -76,7 +76,13 @@
 				})
 			},
 			TopPlacement(data){
-				getNewsTop(data)
+				getNewsTop(data).then(res=>{
+					this.$notify({
+						type: 'success',
+						message: '操作成功'
+					})
+					this.reload()
+				})
 			},
 			delNews(id){
 				vant.Dialog.confirm({
@@ -88,12 +94,16 @@
 							type: 'success',
 							message: '删除帖子成功'
 						})
-						this.$store.dispatch('reqAdminNews', this.reqData).then(res => {
-							this.pageInfo = res
-						})
+						this.reload()
 					})
 				}).catch(() => {});
 			},
+			reload(){
+				
+				this.$store.dispatch('reqAdminNews', this.reqData).then(res => {
+					this.pageInfo = res
+				})
+			}
 		},
 		filters: {
 			// idFormat(id) {

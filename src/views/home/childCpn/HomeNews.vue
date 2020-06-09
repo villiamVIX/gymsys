@@ -3,7 +3,7 @@
 		<SlotHome>
 			<img slot='title-img' src="~assets/img/home/scence.png" />
 			<span slot='title-left'>最新讯息</span>
-			<span slot='title-right'>更多></span>
+			<!-- <span slot='title-right' >更多></span> -->
 			<div slot='slot-content'>
 				<HomeNewsItem></HomeNewsItem>
 			</div>

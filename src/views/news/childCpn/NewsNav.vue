@@ -15,13 +15,15 @@
 		</NavBarVIX>
 	</div>
 </template>
-
+ 
 <script>
 	import NavBarVIX from 'components/common/NavBarVIX/NavBarVIX.vue'
 	export default {
 		name: "NewsNav",
 		methods: {
 			backClick() {
+				console.log(this.$router)
+				console.log(this.$route)
 				this.$router.replace('/newslist')
 			}
 		},

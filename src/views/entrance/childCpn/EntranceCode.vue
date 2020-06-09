@@ -38,26 +38,35 @@
 					forbidClick: true,
 					message: '识别中...'
 				});
+				const closeToast=setTimeout(()=>{
+					console.log(toast)
+					vant.Toast.clear();
+				},5000)
+				clearTimeout(closeToast)
+				let dom=document.getElementsByClassName('setEntranceAva')[0].childNodes[0].childNodes[1]
+				dom.style.marginLeft='1.8rem'
 				let img = imgb64.split(',')[1]
-				// checkEntranceAvatar(img).then(res => {
-
-				// 	let second = 5;
-				// 	const timer = setInterval(() => {
-				// 		second--;
-				// 		if (second) {
-				// 			toast.message = `${res}
-				// 		 ${second}秒后自动打卡`;
-				// 		} else {
-				// 			this.reqEntranceClock()
-				// 			clearInterval(timer);
-				// 			// 手动清除 Toast
-				// 			vant.Toast.clear();
-				// 		}
-				// 	}, 1000);
-				// })
+				checkEntranceAvatar(img).then(res => {
+					console.log(res.data.result.user_list[0])
+					console.log(res)
+					let second = 3;
+					const timer = setInterval(() => {
+						second--;
+						if (second) {
+							toast.message = `${res.message}
+						 ${second}秒后自动打卡`;
+						} else {
+							this.reqEntranceClock()
+							clearInterval(timer);
+							// 手动清除 Toast
+							vant.Toast.clear();
+						}
+					}, 1000);
+				})
 			},
 			reqEntranceClock() {
 				EntranceClock().then(res => {
+					console.log(res)
 					vant.Toast(res.message)
 				})
 			}
@@ -90,6 +99,7 @@
 		justify-content: center;
 		align-items: center;
 		width: 20vw;
+		
 	}
 	.avatar-label {
 		font-size: 1rem;

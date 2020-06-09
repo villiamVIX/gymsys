@@ -42,7 +42,11 @@
 		methods:{
 			deletePic(img){
 				deleteSwiper(img).then(res=>{
-					this.$notify('删除成功')
+					
+					this.$notify({
+						type: 'warning',
+						message: '删除成功'
+					})
 					this.$store.dispatch('reqHomeCommon')
 				})
 			},

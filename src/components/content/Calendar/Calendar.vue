@@ -1,6 +1,8 @@
 <template>
 	<div class="calendar-box">
+		
 		<div class="cal-bgc" :style="{background: 'url(' + BgUrl + ') -5px -1rem / 105% no-repeat',}">
+		
 			<div class="cal-header">
 				<span class="cal-title1">{{timeTitle}}</span>
 				<span class="cal-title2">{{nowYear}}年 &nbsp;打卡日历</span>
@@ -24,7 +26,9 @@
 							<span v-if="dayId<=beginDay" :data-str="getStr(1,nowMonth-1,lastMaxDay-(beginDay-dayId))" class="gray">{{lastMaxDay+(dayId-beginDay)}}</span>
 
 							<span v-else-if="dayId>beginDay&&(dayId-beginDay)<=nowMaxDays" class="green" :data-str="getStr(2,nowMonth, dayId - beginDay)"
-							 @click="clickActive" :id="dayId-beginDay" :class="[(getStr(2,nowMonth, dayId - beginDay)==todayStr&&'today'),(dayId-beginDay==activeDay&&'active')]">
+							 @click="clickActive" :id="dayId-beginDay" 
+							 :class="[(dayId-beginDay==activeDay&&'active')]">
+							 <!-- (getStr(2,nowMonth, dayId - beginDay)==todayStr&&'today') -->
 								{{dayId-beginDay}}</span>
 
 							<span v-else class="gray" :data-str="getStr(3,nowMonth, dayId-beginDay-nowMaxDays)">{{dayId-beginDay-nowMaxDays}}</span>
@@ -70,7 +74,7 @@
 			log(this.todayStr)
 			this.passDay = this.User.calendar //把用户的打卡信息存起来
 			log(this.passDay)
-			this.todaySfather()
+			// this.todaySfather()
 		},
 		computed: {
 			...mapState(['User']),
@@ -110,6 +114,10 @@
 						pp[o].style.backgroundColor = '#F1F4F8'
 					}
 					for (let g = 0; g < Pyear.length; g++) {
+						let pday=Pday[g].split('')
+						if(pday[0]==0){
+							Pday[g]=Pday[g].split('')[1]
+						}
 						let aa = document.getElementById(Pday[g])
 						aa.style.color = 'black'
 					}
@@ -121,12 +129,11 @@
 								let atd2 = document.getElementById(Pday[g])
 								atd2.parentNode.style.background = '#F1F4F8'
 								atd2.style.color = 'black'
-
 							}
 						}
 						for (let w = 0; w < Pyear.length; w++) {
 							if (Pyear[w] == this.nowYear && Pmonth[w] == newVal) {
-								// log('当月打卡日期' + Pday[w])
+								log('当月打卡日期' + Pday[w])
 								let atd = document.getElementById(Pday[w])
 								atd.style.background = '#008e5f'
 								atd.parentNode.style.background = '#008e5f'
@@ -142,9 +149,9 @@
 		methods: {
 			todaySfather(){
 				// 今日的爹框加背景色
-				let todayFather=document.getElementsByClassName('today')
-			
-				todayFather[0].parentNode.style.backgroundColor='#008e5f'
+				// let todayFather=document.getElementsByClassName('today')
+			// 
+				// todayFather[0].parentNode.style.backgroundColor='#008e5f'
 			},
 			init(str) {
 				this.timeTitle = this.formatDate(str)
@@ -175,10 +182,8 @@
 				if (a == this.nowYear && m >= b) {
 					this.$refs.calRight.style.background = 'gray'
 					this.init(`${a}/${b}/${this.activeDay}`)
-					for (let o = 1; o < 28; o++) {
-						document.getElementById(o).style.background = '#F1F4F8'
-					}
 					return this.$toast('未来继续加油！')
+					
 				} else {
 					// 做极值判断 若大于12 年++月=1 ；若小于1 年-- 月=12
 					if (m < 1) { //去年
@@ -232,8 +237,6 @@
 	}
 
 	.cal-bgc {
-		/* background: #00B176; */
-		/* background: url(~assets/img/profile/bg5.jpg) left no-repeat  ; */
 		background-size: 110%;
 		padding: 4.8rem 1rem;
 		height: 8.8rem;
@@ -352,6 +355,6 @@
 	}
 
 	.gray {
-		color: #bebebe;
+		color: #bebebe !important;
 	}
 </style>

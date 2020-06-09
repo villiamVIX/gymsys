@@ -2,10 +2,13 @@
 	<div id="profile-box">
 		<ProfileInfo></ProfileInfo>
 		<div id="profile">
-			<CardVIX>
+			<CardVIX >
 				<ProfileCell v-for='item in titleInfo' :CellInfo='item' :key='item.route'
 				 @clickCell='DealClickCell'></ProfileCell>
+				 <div class="logout-box">
+					 
 				<el-button type="danger" @click="logout">登出</el-button>
+				 </div>
 			</CardVIX>
 		</div>
 	</div>
@@ -84,7 +87,11 @@
 	#profile {
 		padding: 5px 15px;
 	}
-
+	.logout-box{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 	button {
 		margin-top: 188px;
 		height: 38px;

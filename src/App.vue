@@ -3,21 +3,21 @@
 		<keep-alive exclude="confirm,Admin,News,NewsList,Train,HomeSwiper">
 				<router-view class="router-view" v-if="isRouterAlive"></router-view>
 		</keep-alive>
-		<div class="bottom-bar" :style="{width:wid+'%'}">
+		<div class="bottom-bar" :style="{width:wid+'%'}" v-if="!(Rname=='admin')">
 			<i class="el-icon-caret-right" style="color: #1fd094;flex: 1;" :class="Min==wid?'moreRotate':''" @click="clickBar"></i>
 			<div>
 				<router-link to="/home">
-					<i :class="Rname=='home'?'icon gymIcon-home2':'icon gymIcon-home1'"></i>
+					<i :class="Rname=='home'?'icon gymIcon-home2':'icon gymIcon-home1'" @click="clickBar"></i>
 				</router-link>
 			</div>
 			<div>
 				<router-link to='/newslist'>
-					<i :class="Rname=='newslist'?'gymIcon-news2':'gymIcon-news1'"></i>
+					<i :class="Rname=='newslist'?'gymIcon-news2':'gymIcon-news1'" @click="clickBar"></i>
 				</router-link>
 			</div>
 			<div>
 				<router-link to='/entrance'>
-					<i :class="Rname=='entrance'?'icon gymIcon-scan2':'icon gymIcon-scan1'">
+					<i :class="Rname=='entrance'?'icon gymIcon-scan2':'icon gymIcon-scan1'" @click="clickBar">
 						<span class="path1"></span>
 						<span class="path2"></span>
 						<span class="path3"></span>
@@ -26,12 +26,12 @@
 			</div>
 			<div>
 				<router-link to='/train/coach'>
-					<i :class="Rname=='train'?'gymIcon-train2':'gymIcon-train1'"></i>
+					<i :class="Rname=='train'?'gymIcon-train2':'gymIcon-train1'" @click="clickBar"></i>
 				</router-link>
 			</div>
 			<div>
 				<router-link to='/profile/login'>
-					<i :class="Rname=='profile'?'icon gymIcon-my2':'icon gymIcon-my1'">
+					<i :class="Rname=='profile'?'icon gymIcon-my2':'icon gymIcon-my1'" @click="clickBar">
 						<span class="path1"></span>
 						<span class="path2"></span>
 						<span class="path3"></span>
@@ -59,6 +59,8 @@
 		},
 		updated() {
 			this.Rname = this.$route.path.split('/')[1]
+			console.log(this.Rname)
+			
 		},
 		methods: {
 			reload() {

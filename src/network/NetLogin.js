@@ -95,3 +95,11 @@ export function getLastUserInfo(){ //资料更新
 	})
 }
 
+export function EditProfile(data){ //资料更新
+	return VIX({
+		url:'/users/edit/profile',
+		method:'post',
+		data:data
+	})
+}
+

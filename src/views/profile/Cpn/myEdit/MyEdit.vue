@@ -5,7 +5,7 @@
 				<van-form>
 					<div class="user_avatar">
 
-						<div class="changeAva">
+						<div class="changeAva avaBox">
 							<h3>贴吧头像</h3>
 							<div class="Info-avantar cell-right">
 								<van-image round class="avatar-img" :src="baseUrl+User.avatar" fit="scale-down" />
@@ -13,7 +13,7 @@
 							<label class="avatar-label" for="my_file">更改头像</label>
 							<input type="file" name="avatar" style="display:none;" id='my_file' accept="image/x-png, image/jpeg" @change="changeAvatar">
 						</div>
-						<div class="setEntranceAva">
+						<div class="setEntranceAva avaBox">
 							<h3>入场识别头像</h3>
 							<div class="Info-avantar">
 								<van-image round class="avatar-img" :src="baseUrl+User.entrance_avatar" fit="scale-down" />
@@ -25,10 +25,10 @@
 							</div>
 						</div>
 					</div>
-					<van-field label="到期时间" :value="User.deadLine | formatDeadLine" readonly />
-					<van-field class="input" v-model="User.username" name="用户名" label="用户名" />
+					<van-field class="input" label="到期时间" disabled :value="User.deadLine | formatDeadLine" readonly />
 					<van-field class="input" v-model="User.phone" disabled name="电话" label="电话" />
-					<van-field class="input" v-model="User.passWord" disabled name="密码" label="密码" />
+					<van-field class="input" v-model="User.username" name="用户名" label="用户名" />
+					<van-field class="input" v-model="User.password" name="密码" label="密码" />
 					<div style="margin: 16px;">
 						<van-button round block type="primary" @click="onSubmit">
 							修改
@@ -58,8 +58,15 @@
 			}
 		},
 		methods: {
-			onSubmit(values) {
-				console.log(this.User)
+			onSubmit() {
+				const {username,password}=this.$store.state.User
+				const data={
+					username,
+					password
+				}
+				this.$store.dispatch('reqEditProfile',data).then(res=>{
+					this.$toast('修改成功')
+				})
 			},
 			changeAvatar(event) {
 				let img = event.target.files[0]
@@ -139,8 +146,7 @@
 
 	.avatar-label {
 		border-radius: .21rem;
-		margin-left: .2rem;
-		line-height: 1rem;
+		line-height:.78rem;
 		color: white;
 		background: #07c160;
 		padding: .05rem .185rem;
@@ -150,5 +156,10 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+	}
+	.avaBox{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 </style>

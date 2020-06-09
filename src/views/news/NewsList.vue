@@ -16,9 +16,10 @@
 							<van-image width="2rem" height=" 2rem" fit="scale-down" :src="item.avatar" round v-lazy='item.avatar' />
 						</div>
 						<div class="news-content">
-							<span class="gymIcon-delete" v-if="isAdmin" @click.stop="deleteNews(item._id,item.title)"></span>
+							<span class="gymIcon-delete" v-if="isAdmin||isMine(item.userId)" @click.stop="deleteNews(item._id,item.title)"></span>
 							<el-tag type="warning" class='Top' v-if='item.lastUpdate'>置顶</el-tag>
-							<el-tag v-if='item.lastUpdate' class='Top'>店内资讯</el-tag>
+							<el-tag v-if='item.Author_Role=="admin"' class='Top'>店内资讯</el-tag>
+							<el-tag type='success' v-if='item.Author_Role=="coach"' class='Top'>教练</el-tag>
 							<div class="news-auther">
 								<span>{{item.author}}</span>
 							</div>
@@ -108,6 +109,11 @@
 					this.$refs.pull.$emit('reLoad')
 				})
 			},
+			isMine(userId){
+				if(userId==this.$store.state.User._id){
+					return true
+				}
+			},
 			deleteNews(id, title) {
 				this.deleteId = id
 				vant.Dialog.confirm({
@@ -191,8 +197,8 @@
 
 	.Top {
 		float: right;
-		height: .8rem;
-		line-height: .9rem;
+		height: .9rem;
+		line-height: .8rem;
 		font-size: .5rem;
 		margin-right: .5rem;
 	}

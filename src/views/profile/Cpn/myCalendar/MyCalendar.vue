@@ -1,7 +1,7 @@
 <template>
 	<div id='mycalendar'>
 		<Calendar></Calendar>
-		<p style="margin: 3rem;">· 打卡入场后即可在打卡日历中显示</p>
+		<p style="margin: 5rem 3rem;">· 识别入场后即可在打卡墙查看</p>
 	</div>
 </template>
 

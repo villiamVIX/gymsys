@@ -12,6 +12,7 @@ import {
 	LOGOUT,
 	CHANGEAVATAR,
 	MYCLASS,
+	Edit_Profile,
 	
 	NEWS,
 	COMMENT,
@@ -46,7 +47,8 @@ import {
 	getLogout,
 	ChangeAvatar,
 	getMyClass,
-	getLastUserInfo
+	getLastUserInfo,
+	EditProfile
 }from 'network/NetLogin.js'
 
 
@@ -178,6 +180,12 @@ export default{
 		const res= await getMyClass()
 				console.log(res)
 				commit(MYCLASS,res)
+	}, 
+	
+	async reqEditProfile({commit},data){ //获取我的课程
+		const res= await EditProfile(data)
+				console.log(res)
+				// commit(MYCLASS,res)
 	}, 
 		
 	

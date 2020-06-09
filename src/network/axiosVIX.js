@@ -57,9 +57,12 @@ export function VIX(config) {
 				case 408:
 					vant.Toast('识别失败，请重试')
 					break;		
-					case 413:
-						vant.Toast('文件过大，4M以下')
-						break;	
+				case 409:
+					vant.Toast('会员过期，请充值！')
+					break;
+				case 413:
+					vant.Toast('文件过大，4M以下')
+					break;	
 			}
 			 return new Promise(() => { }) // 返回一个pedding状态的promise
 		})
