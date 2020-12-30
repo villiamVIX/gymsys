@@ -14,7 +14,7 @@ const url3 = 'http://gym.coderv.cn:3008'
 // Vue.use(vant.Notify).use(Toast);
 export function VIX(config) {
 	const VIX1 = axios.create({
-		baseURL: url1,
+		baseURL: url3,
 		timeout: 5000
 	})
 

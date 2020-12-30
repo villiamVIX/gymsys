@@ -1,0 +1,57 @@
+{
+  "_from": "vue-imgcut",
+  "_id": "vue-imgcut@1.0.5",
+  "_inBundle": false,
+  "_integrity": "sha1-1Rz2vfb/dCRx2KN2EBO4AoBIWYM=",
+  "_location": "/vue-imgcut",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "vue-imgcut",
+    "name": "vue-imgcut",
+    "escapedName": "vue-imgcut",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npm.taobao.org/vue-imgcut/download/vue-imgcut-1.0.5.tgz",
+  "_shasum": "d51cf6bdf6ff742471d8a3761013b80280485983",
+  "_spec": "vue-imgcut",
+  "_where": "C:\\Users\\Administrator\\Desktop\\毕设产品\\gymsys",
+  "author": {
+    "name": "746655242@qq.com"
+  },
+  "bugs": {
+    "url": "https://github.com/746655242/vue-imgcut/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "hammerjs": "^2.0.8"
+  },
+  "deprecated": false,
+  "description": "vue mobile image clippings",
+  "devDependencies": {
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5"
+  },
+  "homepage": "https://github.com/746655242/vue-imgcut#readme",
+  "keywords": [
+    "vue-imgcut"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "vue-imgcut",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/746655242/vue-imgcut.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.5"
+}
